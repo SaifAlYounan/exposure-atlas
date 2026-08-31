@@ -1,0 +1,98 @@
+{
+ "source_id": "courtlistener_recap",
+ "max_docs": 10,
+ "leads_discovered": 10,
+ "documents": [
+  {
+   "lead_id": "cl-None",
+   "url": "https://www.courtlistener.com/opinion/4757780/electronic-privacy-information-center-v-national-security-commission-on/",
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "bytes": 0,
+   "http_status": 202,
+   "kind": "unknown",
+   "note": "unknown kind; quarantined, not canonicalized"
+  },
+  {
+   "lead_id": "cl-None",
+   "url": "https://www.courtlistener.com/opinion/10601317/in-re-creation-of-arkansas-supreme-court-administrative-order-no-25/",
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "bytes": 0,
+   "http_status": 202,
+   "kind": "unknown",
+   "note": "unknown kind; quarantined, not canonicalized"
+  },
+  {
+   "lead_id": "cl-None",
+   "url": "https://www.courtlistener.com/opinion/4683687/electronic-privacy-information-center-v-national-security-commission-on/",
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "bytes": 0,
+   "http_status": 202,
+   "kind": "unknown",
+   "note": "unknown kind; quarantined, not canonicalized"
+  },
+  {
+   "lead_id": "cl-None",
+   "url": "https://www.courtlistener.com/opinion/10753381/in-re-adoption-of-arkansas-supreme-court-administrative-order-no-25/",
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "bytes": 0,
+   "http_status": 202,
+   "kind": "unknown",
+   "note": "unknown kind; quarantined, not canonicalized"
+  },
+  {
+   "lead_id": "cl-None",
+   "url": "https://www.courtlistener.com/opinion/1933074/artificial-intelligence-corp-v-casey-in-re-casey/",
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "bytes": 0,
+   "http_status": 202,
+   "kind": "unknown",
+   "note": "unknown kind; quarantined, not canonicalized"
+  },
+  {
+   "lead_id": "cl-None",
+   "url": "https://www.courtlistener.com/opinion/1925615/artificial-intelligence-corp-v-casey-in-re-casey/",
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "bytes": 0,
+   "http_status": 202,
+   "kind": "unknown",
+   "note": "unknown kind; quarantined, not canonicalized"
+  },
+  {
+   "lead_id": "cl-None",
+   "url": "https://www.courtlistener.com/opinion/10795792/in-re-addition-of-a-new-rule-to-the-rules-of-the-court-of-criminal-appeals/",
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "bytes": 0,
+   "http_status": 202,
+   "kind": "unknown",
+   "note": "unknown kind; quarantined, not canonicalized"
+  },
+  {
+   "lead_id": "cl-None",
+   "url": "https://www.courtlistener.com/opinion/2000137/audre-recognition-systems-inc-v-casey-in-re-audre-inc/",
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "bytes": 0,
+   "http_status": 202,
+   "kind": "unknown",
+   "note": "unknown kind; quarantined, not canonicalized"
+  },
+  {
+   "lead_id": "cl-None",
+   "url": "https://www.courtlistener.com/opinion/2661729/marino-v-central-intelligence-agency/",
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "bytes": 0,
+   "http_status": 202,
+   "kind": "unknown",
+   "note": "unknown kind; quarantined, not canonicalized"
+  },
+  {
+   "lead_id": "cl-None",
+   "url": "https://www.courtlistener.com/opinion/4528285/national-security-counselors-v-central-intelligence-agency/",
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "bytes": 0,
+   "http_status": 202,
+   "kind": "unknown",
+   "note": "unknown kind; quarantined, not canonicalized"
+  }
+ ],
+ "errors": []
+}
