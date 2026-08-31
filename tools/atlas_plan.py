@@ -18,7 +18,6 @@ Fail-closed rules implemented here:
 """
 import argparse
 import datetime
-import hashlib
 import json
 import pathlib
 import subprocess
@@ -116,7 +115,6 @@ def validate(argv=None, quiet=False):
         if tid in ids:
             errors.append(f"duplicate id {tid}")
         ids.add(tid)
-    by_id = {t["id"]: t for t in tasks}
     for t in tasks:
         for d in t.get("depends_on", []):
             if d not in ids:

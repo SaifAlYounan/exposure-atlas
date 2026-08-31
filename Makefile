@@ -25,3 +25,16 @@ build-status:
 
 test:
 	$(PY) -m pytest tests/ -q
+
+.PHONY: lint schemas-check release-determinism e2e
+lint:
+	$(PY) -m ruff check packages tools tests
+
+schemas-check:
+	$(PY) -m pytest tests/test_schemas.py -q
+
+release-determinism:
+	$(PY) -m pytest tests/test_release.py -q -k determinism
+
+e2e:
+	$(PY) -m pytest tests/test_end_to_end.py -q

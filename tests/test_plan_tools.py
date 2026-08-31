@@ -6,14 +6,11 @@ schema fixtures fail, null cost ceilings block plan-next.
 """
 import json
 import pathlib
-import subprocess
-import sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 PY = ROOT / ".venv" / "bin" / "python"
 FIX = ROOT / "tests" / "fixtures" / "plan"
 
-sys.path.insert(0, str(ROOT / "tools"))
 import atlas_plan  # noqa: E402
 from jsonschema import Draft202012Validator  # noqa: E402
 

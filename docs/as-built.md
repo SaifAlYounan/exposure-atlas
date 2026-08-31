@@ -35,3 +35,19 @@
 Not yet read/pinned in this turn; the adapter contract marks exact SDK
 package/version pinning as its first implementation step (network
 read-only access to official SDK docs is A0-permitted).
+
+## G1 session 1 (2026-08-31, under D-017)
+- CI: GitHub Actions (`.github/workflows/ci.yml`) — clean checkout,
+  uv-pinned bootstrap, plan-validate, ruff, pytest (39 tests),
+  two-build release determinism. The builder cannot read the Actions
+  identity; receipts referencing a green run ID are non-self-asserted.
+- Package: `atlas` (packages/python/atlas), hatchling build, deps pinned
+  in pyproject: jsonschema 4.23.0, pyyaml 6.0.2, pymupdf 1.24.10;
+  dev: pytest 8.3.3, ruff 0.6.9. Layout mapping vs SPEC 5.3 recorded in
+  ADR-0001 (single distribution, module boundaries preserved).
+- Interim persistence: in-memory kernel + content-addressed filesystem
+  evidence store + hash-chained audit JSONL. PostgreSQL persistence
+  (DOM-002/DOM-003 full) is the next G1 session.
+- Versions: canonicalizer 1.0.0, verifier 1.0.0, publication policy
+  1.0.0. Test-key signing only (scheme test_key_sha256), real signing
+  is SEC-002 (G3+).

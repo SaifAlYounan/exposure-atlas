@@ -783,7 +783,8 @@ tasks:
   evidence_paths:
   - plan/evidence.jsonl
   rollback: discard_task_worktree
-  status: pending
+  status: in_progress
+  notes: 'G1-S1: pyproject/uv layout, root make targets (subset); full command set grows with tasks'
 - schema_version: atlas-task/v2.2
   id: PLT-002
   epic: PLT-002
@@ -1125,7 +1126,8 @@ tasks:
   evidence_paths:
   - plan/evidence.jsonl
   rollback: discard_task_worktree
-  status: pending
+  status: in_progress
+  notes: 'G1-S1: GitHub Actions clean-checkout CI: plan-validate, lint, tests, two-build determinism'
 - schema_version: atlas-task/v2.2
   id: DOM-001
   epic: DOM-001
@@ -1160,7 +1162,8 @@ tasks:
   evidence_paths:
   - plan/evidence.jsonl
   rollback: discard_task_worktree
-  status: pending
+  status: in_progress
+  notes: 'G1-S1: 19 kernel schemas + registry validation; remaining 5.4 catalogue in later sessions'
 - schema_version: atlas-task/v2.2
   id: DOM-002
   epic: DOM-002
@@ -1361,7 +1364,8 @@ tasks:
   evidence_paths:
   - plan/evidence.jsonl
   rollback: discard_task_worktree
-  status: pending
+  status: in_progress
+  notes: 'G1-S1: pure evaluator allow|deny|human_review, fail-closed; single evaluator for all callers'
 - schema_version: atlas-task/v2.2
   id: MON-000
   epic: MON-000
@@ -1430,7 +1434,8 @@ tasks:
   evidence_paths:
   - plan/evidence.jsonl
   rollback: discard_task_worktree
-  status: pending
+  status: in_progress
+  notes: 'G1-S1: deny-only overlay primitive, test-key marked; outranks release at read path'
 - schema_version: atlas-task/v2.2
   id: SRC-001
   epic: SRC-001
@@ -1500,7 +1505,9 @@ tasks:
   evidence_paths:
   - plan/evidence.jsonl
   rollback: discard_task_worktree
-  status: pending
+  status: in_progress
+  notes: 'G1-S1: content-addressed store, URL/IP/size/MIME guards, fixture adapter mode; live fetch is
+    A1'
 - schema_version: atlas-task/v2.2
   id: SRC-003
   epic: SRC-003
@@ -1569,7 +1576,8 @@ tasks:
   evidence_paths:
   - plan/evidence.jsonl
   rollback: discard_task_worktree
-  status: pending
+  status: in_progress
+  notes: 'G1-S1: HTML + native-PDF canonicalizer v1 with page map; OCR fallback later atom'
 - schema_version: atlas-task/v2.2
   id: DOC-002
   epic: DOC-002
@@ -1603,7 +1611,8 @@ tasks:
   evidence_paths:
   - plan/evidence.jsonl
   rollback: discard_task_worktree
-  status: pending
+  status: in_progress
+  notes: 'G1-S1: byte anchors: exact equality, disambiguation, no empty spans'
 - schema_version: atlas-task/v2.2
   id: DOC-003
   epic: DOC-003
@@ -1674,7 +1683,8 @@ tasks:
   evidence_paths:
   - plan/evidence.jsonl
   rollback: discard_task_worktree
-  status: pending
+  status: in_progress
+  notes: 'G1-S1: pure verifier v1: schema/anchor/role-modality/provenance/money; semantic never auto'
 - schema_version: atlas-task/v2.2
   id: VER-002
   epic: VER-002
@@ -1710,7 +1720,8 @@ tasks:
   evidence_paths:
   - plan/evidence.jsonl
   rollback: discard_task_worktree
-  status: pending
+  status: in_progress
+  notes: 'G1-S1: manual slice passes end-to-end for one PDF + one HTML fixture (no AI)'
 - schema_version: atlas-task/v2.2
   id: REL-000
   epic: REL-000
@@ -1745,7 +1756,8 @@ tasks:
   evidence_paths:
   - plan/evidence.jsonl
   rollback: discard_task_worktree
-  status: pending
+  status: in_progress
+  notes: 'G1-S1: two-build byte-identical release; tamper + canary fixtures fail builds'
 - schema_version: atlas-task/v2.2
   id: API-000
   epic: API-000
@@ -1778,7 +1790,8 @@ tasks:
   evidence_paths:
   - plan/evidence.jsonl
   rollback: discard_task_worktree
-  status: pending
+  status: in_progress
+  notes: 'G1-S1: read path serves signed artifact bytes; suppression first; no_match_is_not_absence'
 - schema_version: atlas-task/v2.2
   id: SEC-001-01
   epic: SEC-001
@@ -1815,8 +1828,9 @@ tasks:
   evidence_paths:
   - plan/evidence.jsonl
   rollback: discard_task_worktree
-  status: pending
-  notes: 'A-001.2 rewrite: HAR-006-04 dep -> HAR-005 + REL-000 determinism'
+  status: in_progress
+  notes: 'A-001.2 rewrite: HAR-006-04 dep -> HAR-005 + REL-000 determinism | G1-S1: SSRF/private-IP, oversize,
+    MIME-mismatch, canary-leak, tamper fixtures passing'
 - schema_version: atlas-task/v2.2
   id: EVAL-000
   epic: EVAL-000

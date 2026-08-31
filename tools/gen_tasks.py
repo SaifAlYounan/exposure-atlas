@@ -316,6 +316,27 @@ add("HAR-900", "BACKLOG: OpenAI Agents SDK adapter, conformance and parity "
             "window, operator-named pricing/terms change, or second builder")
 
 
+# ---- G1 session-1 progress (managed env per D-017) ------------------
+G1_S1 = {
+    "PLT-001": "pyproject/uv layout, root make targets (subset); full command set grows with tasks",
+    "PLT-004": "GitHub Actions clean-checkout CI: plan-validate, lint, tests, two-build determinism",
+    "DOM-001": "19 kernel schemas + registry validation; remaining 5.4 catalogue in later sessions",
+    "SRC-002": "content-addressed store, URL/IP/size/MIME guards, fixture adapter mode; live fetch is A1",
+    "DOC-001": "HTML + native-PDF canonicalizer v1 with page map; OCR fallback later atom",
+    "DOC-002": "byte anchors: exact equality, disambiguation, no empty spans",
+    "VER-001": "pure verifier v1: schema/anchor/role-modality/provenance/money; semantic never auto",
+    "VER-002": "manual slice passes end-to-end for one PDF + one HTML fixture (no AI)",
+    "POL-001": "pure evaluator allow|deny|human_review, fail-closed; single evaluator for all callers",
+    "COR-000": "deny-only overlay primitive, test-key marked; outranks release at read path",
+    "REL-000": "two-build byte-identical release; tamper + canary fixtures fail builds",
+    "API-000": "read path serves signed artifact bytes; suppression first; no_match_is_not_absence",
+    "SEC-001-01": "SSRF/private-IP, oversize, MIME-mismatch, canary-leak, tamper fixtures passing",
+}
+for _tid, _note in G1_S1.items():
+    T[_tid]["status"] = "in_progress"
+    T[_tid]["notes"] = (T[_tid]["notes"] + " | " if T[_tid]["notes"] else "") + "G1-S1: " + _note
+
+
 def main():
     tasks = []
     for tid, m in T.items():

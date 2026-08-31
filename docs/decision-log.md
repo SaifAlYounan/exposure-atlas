@@ -190,3 +190,12 @@ decision pack; the kickoff message granted A0 for this first turn but
   Repository remains private; sources are never committed to git
   (SPEC 2.3, line-600 rule).
 - **Status:** recorded
+
+## Coordinator note under D-017 (not a decision)
+
+G1 executes in the managed environment per D-017. Clean-checkout CI =
+GitHub Actions on this repository; receipts derived from an actual CI
+run (run ID + conclusion recorded) are treated as non-self-asserted.
+The builder cannot read the Actions identity/token. G1 is planned as
+multiple builder sessions (SPEC 14.1 estimates 8–15); each session
+commits per task and updates build-status.
