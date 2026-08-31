@@ -124,9 +124,20 @@ def test_g0_policy_is_disclosed_and_decisions_read(capsys):
     assert "self-asserted" in manifest.get("notes", "")
 
 
-def test_null_ceilings_block_plan_next(capsys):
+def test_null_ceilings_block_plan_next(tmp_path, monkeypatch, capsys):
+    # rule proof independent of current config: null ceilings fail closed
+    b = tmp_path / "budgets.yaml"
+    b.write_text("schema_version: atlas-budgets/v1\ncurrency: USD\n"
+                 "session_ceiling: null\nday_ceiling: null\n")
+    monkeypatch.setattr(atlas_plan, "BUDGETS", b)
     assert atlas_plan.plan_next() == 0
     assert "cost ceilings unset" in capsys.readouterr().out
+
+
+def test_set_ceilings_allow_plan_next(capsys):
+    # with D-009 ceilings set, plan-next proceeds to readiness evaluation
+    atlas_plan.plan_next()
+    assert "READY:" in capsys.readouterr().out
 
 
 def test_done_without_verified_evidence_is_validation_error(monkeypatch,
