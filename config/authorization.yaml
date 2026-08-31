@@ -2,15 +2,21 @@
 # Only an operator decision recorded in docs/decision-log.md may change
 # this file. SPEC.md section 0.6 is the ladder definition.
 schema_version: atlas-authorization/v1
-current_level: A0
-granted_by_decisions: [D-002]
+current_level: A1
+granted_by_decisions: [D-002, D-021, D-024, D-025, D-026]
 grants:
   - level: A0
     decision_id: D-002
     scope: "Local edits, schemas, safe fixtures, tests, docs, local stack, baseline capture, official builder-SDK documentation"
     expiry: null
+  - level: A1
+    decision_id: D-021
+    scope: "Narrow read-only probes of CourtListener API and ftc.gov listing/document pages only; <=50 docs/source; conservative rate caps; recorded receipts; no runtime model calls on fetched documents"
+    effective_precondition: "D-024 (design accepted) + D-025 (R1 controls set) + confinement self-test green — ALL MET"
+    live_execution_gate: "D-027: operator 'activate' confirmation + protected live-fetch environment review required before any live fetch"
+    expiry: "30 days from first live probe (D-021)"
 forbidden_reminders:
-  - atlas_live_source_access
-  - runtime_model_calls
+  - runtime_model_calls_on_real_documents   # A2, ungranted
   - deployment
   - publication
+  - external_archive_submission             # disabled (D-005)

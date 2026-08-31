@@ -233,3 +233,42 @@ commits per task and updates build-status.
   - **D-023 (G1-Q6):** CI evidence accepted as presented.
 - **Status:** recorded. A1 is NOT yet effective; authorization remains
   A0 until the D-019 qualification passes and its pack is approved.
+
+## D-024 … D-027 — G1b decision pack 2026-W38 answered; A1 preconditions met
+
+- **Decision IDs:** D-024, D-025, D-026, D-027
+- **Recorded:** 2026-09-01
+- **Decider:** Alexios (operator), one written pack
+- **Bound to:** `docs/decision-packs/2026-W38-G1b-answers.yaml`
+  SHA-256 `1e08058b4c09e23ca109a8e173c6fbb3fea56378d7cf4d84bc62ea46e74b7b1a`
+- **Summary (answers file authoritative):**
+  - **D-024 (G1b-Q1):** ADR-0002 design + verdict + residuals R1–R3
+    approved as the HAR-001/HAR-003 qualification approach.
+  - **D-025 (G1b-Q2):** the four R1 controls are SET (not promised). To
+    enable enforcement on the plan tier the operator made the
+    repository **public** (secret scan first; no credentials/personal
+    data tracked; sources never committed). Controls: (1) branch
+    protection on main — 1 required review, force-push+deletion
+    disabled; (2) require_code_owner_reviews on the committed CODEOWNERS
+    paths; (3) protected `live-fetch` environment with the operator as
+    required reviewer holding any source credential; (4) environment
+    deployment_branch_policy = protected branches only.
+  - **D-026 (G1b-Q3):** CourtListener/RECAP REST API terms permit
+    read-only programmatic evaluation at ≤50 docs/source with
+    conservative caps; FTC pages are US-gov works. Public repo must
+    NEVER contain fetched documents (SPEC 2.3) — now a hard constraint.
+  - **D-027 (G1b-Q4):** implement SRC-004-80 behind the inert template;
+    return for a final explicit operator "activate" confirmation before
+    ANY live fetch; the protected environment review is the enforcement
+    point.
+- **Authorization effect:** the D-021 contingent A1 grant is now
+  effective (qualification design accepted, R1 controls set, confinement
+  self-test green in CI). Session authorization moves A0 → **A1**.
+  **Live fetch execution remains gated** by D-027 (operator "activate"
+  confirmation + protected-environment review). No live fetch this turn.
+- **New residual (recorded, not silently accepted):** the product repo
+  is now public. Acceptable for code, but per SPEC 5.2/5.3.1 published
+  record JSON and any controlled/excerpt material must go to a separate
+  access-controlled release-control store, NEVER this repo; and a public
+  clone cannot be recalled by a later suppression. Tracked as R-17.
+- **Status:** recorded
