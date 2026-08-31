@@ -1,0 +1,35 @@
+# Rights policy v1 — DRAFT pending G0-Q3 (per-source defaults) and
+# G0-Q4 (personal-data rule). Everything fails closed.
+schema_version: atlas-rights-policy/v1
+policy_version: 1.0.0-draft
+status: proposed
+axes:
+  - lawful_acquisition
+  - lawful_retention
+  - reuse_copyright_database_contract
+  - confidentiality_sealing
+  - personal_data_publication
+  - excerpt_scope
+  - external_archive_submission
+  - third_party_model_processing
+  - downstream_audience_tier_territory_use
+effective_distribution_decision_values:
+  [pending, cleared_public, cleared_metadata_only, cleared_licensee,
+   internal_only, prohibited, withdrawn]
+defaults:
+  all_sources: internal_only
+  unknown_or_expired_axis: fail_closed_for_operation
+  external_archive_submission: disabled
+  third_party_model_processing: denied_until_provider_permission_recorded
+personal_data:
+  status: awaiting_operator_rule   # G0-Q4
+  interim_rule: >
+    Organisation names publishable only after review; natural-person
+    names default withheld/redacted; special-category, criminal, minor
+    or identity-risk data never published without a specific decision;
+    unadjudicated allegations about natural persons require enhanced
+    human review (SEC-12).
+prohibitions:
+  - never submit paywalled/restricted/sealed/confidential or
+    non-redistributable material to external archives
+  - never commit a source document to git
