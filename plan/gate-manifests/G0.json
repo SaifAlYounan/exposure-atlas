@@ -1,0 +1,181 @@
+{
+ "schema_version": "atlas-gate-manifest/v1",
+ "gate": "G0",
+ "generated_at": "2026-08-31T17:50:30+00:00",
+ "commit": "90042811cbbf6b7c8ec59f5c70b6b20b5b27b145",
+ "pass": false,
+ "tasks": [
+  {
+   "id": "BOOT-000",
+   "status": "in_progress",
+   "evidence_state": "missing",
+   "receipt_ids": []
+  },
+  {
+   "id": "BOOT-010",
+   "status": "in_progress",
+   "evidence_state": "missing",
+   "receipt_ids": []
+  },
+  {
+   "id": "BOOT-020",
+   "status": "blocked_external",
+   "evidence_state": "missing",
+   "receipt_ids": []
+  },
+  {
+   "id": "BOOT-030",
+   "status": "blocked_external",
+   "evidence_state": "missing",
+   "receipt_ids": []
+  },
+  {
+   "id": "BOOT-040",
+   "status": "in_progress",
+   "evidence_state": "missing",
+   "receipt_ids": []
+  },
+  {
+   "id": "BOOT-050",
+   "status": "in_progress",
+   "evidence_state": "missing",
+   "receipt_ids": []
+  },
+  {
+   "id": "BOOT-080",
+   "status": "in_progress",
+   "evidence_state": "missing",
+   "receipt_ids": []
+  },
+  {
+   "id": "FND-000",
+   "status": "blocked_external",
+   "evidence_state": "missing",
+   "receipt_ids": []
+  },
+  {
+   "id": "FND-001",
+   "status": "in_progress",
+   "evidence_state": "missing",
+   "receipt_ids": []
+  },
+  {
+   "id": "FND-002",
+   "status": "blocked_external",
+   "evidence_state": "missing",
+   "receipt_ids": []
+  },
+  {
+   "id": "FND-003",
+   "status": "blocked_human",
+   "evidence_state": "missing",
+   "receipt_ids": []
+  },
+  {
+   "id": "FND-004",
+   "status": "blocked_human",
+   "evidence_state": "missing",
+   "receipt_ids": []
+  },
+  {
+   "id": "FND-005",
+   "status": "blocked_human",
+   "evidence_state": "missing",
+   "receipt_ids": []
+  },
+  {
+   "id": "FND-006",
+   "status": "blocked_human",
+   "evidence_state": "missing",
+   "receipt_ids": []
+  },
+  {
+   "id": "FND-007",
+   "status": "blocked_human",
+   "evidence_state": "missing",
+   "receipt_ids": []
+  },
+  {
+   "id": "HAR-000-01",
+   "status": "in_progress",
+   "evidence_state": "missing",
+   "receipt_ids": []
+  },
+  {
+   "id": "HAR-001-01",
+   "status": "in_progress",
+   "evidence_state": "missing",
+   "receipt_ids": []
+  },
+  {
+   "id": "HAR-002-01",
+   "status": "in_progress",
+   "evidence_state": "missing",
+   "receipt_ids": []
+  },
+  {
+   "id": "HAR-003-01",
+   "status": "in_progress",
+   "evidence_state": "missing",
+   "receipt_ids": []
+  },
+  {
+   "id": "HAR-005-01",
+   "status": "in_progress",
+   "evidence_state": "missing",
+   "receipt_ids": []
+  },
+  {
+   "id": "PLAN-002",
+   "status": "blocked_human",
+   "evidence_state": "missing",
+   "receipt_ids": []
+  },
+  {
+   "id": "PLAN-001",
+   "status": "in_progress",
+   "evidence_state": "missing",
+   "receipt_ids": []
+  }
+ ],
+ "missing_evidence": [
+  "BOOT-000: no evidence receipt",
+  "BOOT-010: no evidence receipt",
+  "BOOT-020: no evidence receipt",
+  "BOOT-030: no evidence receipt",
+  "BOOT-040: no evidence receipt",
+  "BOOT-050: no evidence receipt",
+  "BOOT-080: no evidence receipt",
+  "FND-000: no evidence receipt",
+  "FND-001: no evidence receipt",
+  "FND-002: no evidence receipt",
+  "FND-003: no evidence receipt",
+  "FND-004: no evidence receipt",
+  "FND-005: no evidence receipt",
+  "FND-006: no evidence receipt",
+  "FND-007: no evidence receipt",
+  "HAR-000-01: no evidence receipt",
+  "HAR-001-01: no evidence receipt",
+  "HAR-002-01: no evidence receipt",
+  "HAR-003-01: no evidence receipt",
+  "HAR-005-01: no evidence receipt",
+  "PLAN-002: no evidence receipt",
+  "PLAN-001: no evidence receipt"
+ ],
+ "missing_operator_decisions": [
+  "G0-Q1",
+  "G0-Q2",
+  "G0-Q3",
+  "G0-Q4",
+  "G0-Q5",
+  "G0-Q6",
+  "G0-Q7",
+  "G0-Q8",
+  "G0-Q9",
+  "G0-Q10",
+  "G0-Q11",
+  "G0-Q12",
+  "G0-Q13",
+  "G0-Q14"
+ ]
+}
