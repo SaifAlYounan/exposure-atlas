@@ -1,7 +1,7 @@
 # Quality gates v1 — DRAFT pending G0-Q6.
 schema_version: atlas-quality-gates/v1
-policy_version: 1.0.0-draft
-status: proposed
+policy_version: 1.0.0
+status: approved   # D-008; thresholds remain UNSET by design
 deterministic_invariants: 100_percent   # all SPEC 2.x invariants are hard gates
 severity:
   critical:

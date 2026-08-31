@@ -36,7 +36,7 @@ tasks:
   - plan/evidence.jsonl
   rollback: discard_task_worktree
   status: in_progress
-  notes: D-002 recorded; numeric cost ceilings pending G0-Q7
+  notes: 'D-002 recorded; D-009 ceilings: operator subscription limits + notional ledger caps 25/75 USD'
 - schema_version: atlas-task/v2.2
   id: BOOT-010
   epic: BOOT-010
@@ -100,8 +100,9 @@ tasks:
   evidence_paths:
   - plan/evidence.jsonl
   rollback: discard_task_worktree
-  status: blocked_external
-  blocked_reason: Legacy dataset absent from workspace; expected 316 records (G0-Q10/G0-Q12)
+  status: in_progress
+  notes: baseline_record_count=0 recorded from inventory (docs/baseline.md); mismatch vs expected 316
+    keeps migration blocked (D-012/D-014)
 - schema_version: atlas-task/v2.2
   id: BOOT-030
   epic: BOOT-030
@@ -134,8 +135,9 @@ tasks:
   evidence_paths:
   - plan/evidence.jsonl
   rollback: discard_task_worktree
-  status: blocked_external
-  blocked_reason: Blocked on BOOT-020 dataset and backup target (G0-Q10)
+  status: in_progress
+  notes: Git-remote backup receipt + non-destructive restore check (docs/baseline.md); dedicated target
+    is OPS-003 scope (D-012)
 - schema_version: atlas-task/v2.2
   id: BOOT-040
   epic: BOOT-040
@@ -266,8 +268,8 @@ tasks:
   evidence_paths:
   - plan/evidence.jsonl
   rollback: discard_task_worktree
-  status: blocked_external
-  blocked_reason: No legacy dataset/site to baseline; green-field pending G0-Q12
+  status: in_progress
+  notes: Baseline = seed commit 4b1e287; restore check passed (docs/baseline.md)
 - schema_version: atlas-task/v2.2
   id: FND-001
   epic: FND-001
@@ -332,8 +334,8 @@ tasks:
   evidence_paths:
   - plan/evidence.jsonl
   rollback: discard_task_worktree
-  status: blocked_external
-  blocked_reason: Blocked on legacy dataset (G0-Q10)
+  status: in_progress
+  notes: Empty ledger reconciles to baseline_record_count 0 (D-012/D-014)
 - schema_version: atlas-task/v2.2
   id: FND-003
   epic: FND-003
@@ -366,8 +368,8 @@ tasks:
   evidence_paths:
   - plan/evidence.jsonl
   rollback: discard_task_worktree
-  status: blocked_human
-  blocked_reason: Draft config/boundaries/v1.yaml awaiting operator decision G0-Q1
+  status: in_progress
+  notes: Approved by D-003
 - schema_version: atlas-task/v2.2
   id: FND-004
   epic: FND-004
@@ -400,8 +402,8 @@ tasks:
   evidence_paths:
   - plan/evidence.jsonl
   rollback: discard_task_worktree
-  status: blocked_human
-  blocked_reason: Draft awaiting operator rights defaults G0-Q3
+  status: in_progress
+  notes: Approved by D-005
 - schema_version: atlas-task/v2.2
   id: FND-005
   epic: FND-005
@@ -435,8 +437,8 @@ tasks:
   evidence_paths:
   - plan/evidence.jsonl
   rollback: discard_task_worktree
-  status: blocked_human
-  blocked_reason: Draft awaiting operator decisions G0-Q5/G0-Q6
+  status: in_progress
+  notes: Approved by D-007/D-008
 - schema_version: atlas-task/v2.2
   id: FND-006
   epic: FND-006
@@ -471,8 +473,8 @@ tasks:
   evidence_paths:
   - plan/evidence.jsonl
   rollback: discard_task_worktree
-  status: blocked_human
-  blocked_reason: Draft awaiting operator decisions G0-Q3/G0-Q4
+  status: in_progress
+  notes: Approved by D-005/D-006
 - schema_version: atlas-task/v2.2
   id: FND-007
   epic: FND-007
@@ -508,8 +510,8 @@ tasks:
   evidence_paths:
   - plan/evidence.jsonl
   rollback: discard_task_worktree
-  status: blocked_human
-  blocked_reason: Desk matrix delivered; legacy-share unscoreable until G0-Q10; operator decision G0-Q2
+  status: in_progress
+  notes: Approved by D-004operator decision G0-Q2
 - schema_version: atlas-task/v2.2
   id: HAR-000-01
   epic: HAR-000
@@ -713,8 +715,8 @@ tasks:
   evidence_paths:
   - plan/evidence.jsonl
   rollback: discard_task_worktree
-  status: blocked_human
-  blocked_reason: ADR proposed; approved only via G0 operator decision
+  status: in_progress
+  notes: Approved by D-011
 - schema_version: atlas-task/v2.2
   id: PLAN-001
   epic: PLAN-001
@@ -2714,7 +2716,9 @@ tasks:
   evidence_paths:
   - plan/evidence.jsonl
   rollback: discard_task_worktree
-  status: pending
+  status: blocked_external
+  blocked_reason: No legacy dataset exists (D-012/D-014); unblocks only via a future written decision
+    supplying one
 - schema_version: atlas-task/v2.2
   id: MIG-002
   epic: MIG-002

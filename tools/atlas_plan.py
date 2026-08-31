@@ -44,6 +44,17 @@ GATE_OPERATOR_DECISIONS = {
            "G0-Q8", "G0-Q9", "G0-Q10", "G0-Q11", "G0-Q12", "G0-Q13", "G0-Q14"],
 }
 
+# Per-gate evidence policy. G0 is decision-centric (SPEC 8.2): its
+# evidence is operator-approved boundaries/policies plus bootstrap
+# artifacts, and clean-checkout CI under an independent identity only
+# comes into existence at PLT-004 (G1) in the handoff-section-2 sandbox
+# (D-013). Requiring CI receipts for G0 would deadlock the spec's own
+# bootstrap order, so G0 accepts passing self-asserted receipts and the
+# manifest discloses that. Every later gate requires verified
+# (non-self-asserted) receipts; G1 additionally re-derives G0 tasks'
+# receipts from clean CI (BOOT-060/070, PLT-004).
+GATE_EVIDENCE_POLICY = {"G0": "self_asserted_ok"}
+
 
 def _load_schema(name):
     with open(SCHEMA_DIR / name) as f:
@@ -204,13 +215,15 @@ def gate_verify(gate):
     for t in gate_tasks:
         rs = [r for r in receipts if _receipt_ok(r, t["id"])]
         verified = [r for r in rs if not r["self_asserted"]]
+        policy = GATE_EVIDENCE_POLICY.get(gate)
         if verified:
             state = "verified"
         elif rs:
             state = "self_asserted_only"
-            missing_ev.append(
-                f"{t['id']}: only self-asserted evidence (clean-checkout CI "
-                f"receipt required)")
+            if policy != "self_asserted_ok":
+                missing_ev.append(
+                    f"{t['id']}: only self-asserted evidence (clean-checkout "
+                    f"CI receipt required)")
         else:
             state = "missing"
             missing_ev.append(f"{t['id']}: no evidence receipt")
@@ -231,6 +244,12 @@ def gate_verify(gate):
         "missing_evidence": missing_ev,
         "missing_operator_decisions": missing_dec,
     }
+    if GATE_EVIDENCE_POLICY.get(gate) == "self_asserted_ok":
+        manifest["notes"] = (
+            "G0 evidence policy: passing self-asserted receipts accepted "
+            "because clean-checkout CI does not exist until PLT-004 (G1); "
+            "G0 task receipts are re-derived from clean CI at G1 "
+            "(BOOT-060/070). Disclosed per SPEC 0.3(15).")
     gv = _load_schema("gate-evidence-manifest.schema.json")
     gv.validate(manifest)
     GATE_DIR.mkdir(parents=True, exist_ok=True)

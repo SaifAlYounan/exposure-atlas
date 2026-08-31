@@ -2,7 +2,7 @@
 # no adapter exists and no live access is authorized under A0).
 schema_version: atlas-source-registry/v1
 source_id: courtlistener_recap
-status: proposed
+status: approved   # D-004; live verification still requires A1
 authority_role: mirror_custodian     # issuing courts remain the authority
 issuer: US federal courts (per document)
 custodian: Free Law Project (CourtListener / RECAP)

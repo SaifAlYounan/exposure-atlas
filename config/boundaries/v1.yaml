@@ -2,9 +2,9 @@
 # Nothing here authorizes ingestion or publication. Three boundaries are
 # kept distinct per SPEC FND-003.
 schema_version: atlas-boundary/v1
-boundary_version: 1.0.0-draft
-status: proposed
-approval: null   # operator decision ID once G0-Q1 is answered
+boundary_version: 1.0.0
+status: approved
+approval: D-003
 
 substantive_boundary:
   description: >

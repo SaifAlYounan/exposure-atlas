@@ -1,6 +1,6 @@
 # ADR-0001: Infrastructure and cryptography (PLAN-002 — PROPOSED)
 
-Status: **proposed** — becomes approved only through the G0 operator
+Status: **accepted** (operator decision D-011, 2026-08-31). External provisioning remains blocked by authorization level.
 decision (pack item G0-Q9 acknowledgement + explicit ADR approval).
 
 ## Runtime environments

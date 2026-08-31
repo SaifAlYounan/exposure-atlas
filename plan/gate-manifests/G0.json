@@ -1,8 +1,8 @@
 {
  "schema_version": "atlas-gate-manifest/v1",
  "gate": "G0",
- "generated_at": "2026-08-31T17:55:08+00:00",
- "commit": "c62e3637dc6bec2d3d54640a492143aeff91feb9",
+ "generated_at": "2026-08-31T18:07:43+00:00",
+ "commit": "c6dcd8028792e002e27fde39c6f60107f82da6fd",
  "pass": false,
  "tasks": [
   {
@@ -21,13 +21,13 @@
   },
   {
    "id": "BOOT-020",
-   "status": "blocked_external",
+   "status": "in_progress",
    "evidence_state": "missing",
    "receipt_ids": []
   },
   {
    "id": "BOOT-030",
-   "status": "blocked_external",
+   "status": "in_progress",
    "evidence_state": "missing",
    "receipt_ids": []
   },
@@ -57,7 +57,7 @@
   },
   {
    "id": "FND-000",
-   "status": "blocked_external",
+   "status": "in_progress",
    "evidence_state": "missing",
    "receipt_ids": []
   },
@@ -71,37 +71,37 @@
   },
   {
    "id": "FND-002",
-   "status": "blocked_external",
+   "status": "in_progress",
    "evidence_state": "missing",
    "receipt_ids": []
   },
   {
    "id": "FND-003",
-   "status": "blocked_human",
+   "status": "in_progress",
    "evidence_state": "missing",
    "receipt_ids": []
   },
   {
    "id": "FND-004",
-   "status": "blocked_human",
+   "status": "in_progress",
    "evidence_state": "missing",
    "receipt_ids": []
   },
   {
    "id": "FND-005",
-   "status": "blocked_human",
+   "status": "in_progress",
    "evidence_state": "missing",
    "receipt_ids": []
   },
   {
    "id": "FND-006",
-   "status": "blocked_human",
+   "status": "in_progress",
    "evidence_state": "missing",
    "receipt_ids": []
   },
   {
    "id": "FND-007",
-   "status": "blocked_human",
+   "status": "in_progress",
    "evidence_state": "missing",
    "receipt_ids": []
   },
@@ -137,7 +137,7 @@
   },
   {
    "id": "PLAN-002",
-   "status": "blocked_human",
+   "status": "in_progress",
    "evidence_state": "missing",
    "receipt_ids": []
   },
@@ -152,14 +152,9 @@
  ],
  "missing_evidence": [
   "BOOT-000: no evidence receipt",
-  "BOOT-010: only self-asserted evidence (clean-checkout CI receipt required)",
   "BOOT-020: no evidence receipt",
   "BOOT-030: no evidence receipt",
-  "BOOT-040: only self-asserted evidence (clean-checkout CI receipt required)",
-  "BOOT-050: only self-asserted evidence (clean-checkout CI receipt required)",
-  "BOOT-080: only self-asserted evidence (clean-checkout CI receipt required)",
   "FND-000: no evidence receipt",
-  "FND-001: only self-asserted evidence (clean-checkout CI receipt required)",
   "FND-002: no evidence receipt",
   "FND-003: no evidence receipt",
   "FND-004: no evidence receipt",
@@ -171,23 +166,8 @@
   "HAR-002-01: no evidence receipt",
   "HAR-003-01: no evidence receipt",
   "HAR-005-01: no evidence receipt",
-  "PLAN-002: no evidence receipt",
-  "PLAN-001: only self-asserted evidence (clean-checkout CI receipt required)"
+  "PLAN-002: no evidence receipt"
  ],
- "missing_operator_decisions": [
-  "G0-Q1",
-  "G0-Q2",
-  "G0-Q3",
-  "G0-Q4",
-  "G0-Q5",
-  "G0-Q6",
-  "G0-Q7",
-  "G0-Q8",
-  "G0-Q9",
-  "G0-Q10",
-  "G0-Q11",
-  "G0-Q12",
-  "G0-Q13",
-  "G0-Q14"
- ]
+ "missing_operator_decisions": [],
+ "notes": "G0 evidence policy: passing self-asserted receipts accepted because clean-checkout CI does not exist until PLT-004 (G1); G0 task receipts are re-derived from clean CI at G1 (BOOT-060/070). Disclosed per SPEC 0.3(15)."
 }

@@ -117,3 +117,55 @@ decision pack; the kickoff message granted A0 for this first turn but
   revokes it.
 - **Status:** recorded
 
+
+## D-003 … D-016 — G0 decision pack 2026-W36 answered
+
+- **Decision IDs:** D-003, D-004, D-005, D-006, D-007, D-008, D-009,
+  D-010, D-011, D-012, D-013, D-014, D-015, D-016
+- **Recorded:** 2026-08-31
+- **Decider:** Alexios (operator), in one written pack per handoff
+  section 5, committed as `c6dcd8028792e002e27fde39c6f60107f82da6fd`
+- **Bound to:** `docs/decision-packs/2026-W36-G0-answers.yaml`
+  SHA-256 `77bd3442352dd9fc31dc72c43ef9a9132b3413b96e03b0230453ddc80af65d82`
+- **Summary (full text in the answers file, which is authoritative):**
+  - **D-003 (G0-Q1):** boundary v1 approved as drafted.
+  - **D-004 (G0-Q2):** pilot sources CourtListener/RECAP + FTC; GWU
+    tracker + one law-firm tracker.
+  - **D-005 (G0-Q3):** rights defaults approved: all internal_only,
+    archive submission disabled, no excerpts cleared.
+  - **D-006 (G0-Q4):** interim personal-data rule adopted.
+  - **D-007 (G0-Q5):** nine-category taxonomy v1 approved (multi-label,
+    other_detail required).
+  - **D-008 (G0-Q6):** severity policy approved; model thresholds stay
+    UNSET until the EVAL corpus exists.
+  - **D-009 (G0-Q7):** builder runs on the operator's Claude
+    subscription; subscription rate limits + session wall-clock are the
+    ceilings; notional ledger caps 25/75 USD set in config/budgets.yaml
+    for fail-closed accounting; on limit the builder stops and reports.
+  - **D-010 (G0-Q8):** channel = Claude Code sessions; packs and stop
+    reports committed to this repository and reviewed in-session.
+  - **D-011 (G0-Q9):** section 3 risk acceptances (register rows 1–12)
+    and ADR-0001 acknowledged as written with stated expiries.
+  - **D-012 (G0-Q10):** NO workspace inputs exist outside this
+    repository: no legacy dataset, no release-control repo, no backup
+    target. Model provider: Anthropic Claude via operator subscription.
+    Source allowlist as drafted in config/sources/.
+  - **D-013 (G0-Q11):** managed Claude Code environment accepted for
+    A0–G0 documentation/schema work; hand off to the
+    handoff-section-2 sandbox BEFORE G1 implementation.
+  - **D-014 (G0-Q12):** migration remains blocked_external; no
+    re-baseline without a separate written decision; operator confirms
+    no dataset exists outside this repository.
+  - **D-015 (G0-Q13):** D-002 confirmed as the BOOT-000 decision.
+  - **D-016 (G0-Q14):** harness confirmed: Claude Agent SDK,
+    builder_profiles [claude].
+- **Expiry:** boundary/rights/taxonomy/severity decisions stand until
+  superseded by a versioned change under SPEC 10.1 change class 2
+  (later-day cooling-period confirmation). Risk-acceptance expiries are
+  the reinstatement preconditions in docs/risk-register.md.
+- **Consequence for the baseline (D-012 + D-014):** the expected-316
+  legacy set does not exist; `baseline_record_count` is recorded as
+  **0 from actual inventory** per SPEC 0.3(3), the mismatch keeps every
+  migration task blocked_external, and no expected-count re-baseline
+  occurs without a future written decision.
+- **Status:** recorded

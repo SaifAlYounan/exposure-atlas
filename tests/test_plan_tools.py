@@ -87,14 +87,41 @@ def test_wrong_commit_evidence_fails(tmp_path, monkeypatch):
     assert atlas_plan.task_verify("REL-000") == 0
 
 
-def test_self_asserted_never_passes_gate(monkeypatch, capsys):
-    # even if every G0 task had self-asserted receipts, gate must fail
-    rc = atlas_plan.gate_verify("G0")
-    out = capsys.readouterr().out
+def test_self_asserted_never_passes_strict_gate(tmp_path, monkeypatch,
+                                                 capsys):
+    # a passing self-asserted receipt for a G1 task never satisfies G1
+    head = atlas_plan.head_commit()
+    receipt = {
+        "schema_version": "atlas-task-evidence-receipt/v1",
+        "receipt_id": "rcpt_g1-selfassert-test", "task_id": "REL-000",
+        "builder_profile": "claude",
+        "base_commit": head, "result_commit": head,
+        "commands": [{"cmd": "true", "exit_code": 0}],
+        "criteria": [{"id": "x", "tag": "automated", "result": "pass"}],
+        "self_asserted": True, "recorded_at": "2026-08-31T00:00:00Z",
+    }
+    ev = tmp_path / "evidence.jsonl"
+    ev.write_text(json.dumps(receipt) + "\n")
+    monkeypatch.setattr(atlas_plan, "EVIDENCE", ev)
+    rc = atlas_plan.gate_verify("G1")
+    capsys.readouterr()
     assert rc == 1
-    assert "missing operator decisions" in out or "missing evidence" in out
-    manifest = json.load(open(atlas_plan.GATE_DIR / "G0.json"))
+    manifest = json.load(open(atlas_plan.GATE_DIR / "G1.json"))
     assert manifest["pass"] is False
+    rel = [t for t in manifest["tasks"] if t["id"] == "REL-000"][0]
+    assert rel["evidence_state"] == "self_asserted_only"
+
+
+def test_g0_policy_is_disclosed_and_decisions_read(capsys):
+    # answered pack file supplies G0-Q* decisions; G0 manifest discloses
+    # its self-asserted evidence policy
+    decisions = atlas_plan.load_decisions()
+    assert "G0-Q1" in decisions and "D-009" in decisions
+    atlas_plan.gate_verify("G0")
+    capsys.readouterr()
+    manifest = json.load(open(atlas_plan.GATE_DIR / "G0.json"))
+    assert manifest["missing_operator_decisions"] == []
+    assert "self-asserted" in manifest.get("notes", "")
 
 
 def test_null_ceilings_block_plan_next(capsys):

@@ -36,16 +36,17 @@ def add(tid, title, deps, gate, auth="A0", role="implementer", req_dec=False,
 add("BOOT-000", "Record A0 decision, workspace manifest, selected SDK adapter",
     [], "G0", role="coordinator", req_dec=True, dec_ids=["D-002", "G0-Q7"],
     status="in_progress",
-    notes="D-002 recorded; numeric cost ceilings pending G0-Q7")
+    notes="D-002 recorded; D-009 ceilings: operator subscription limits + notional ledger caps 25/75 USD")
 add("BOOT-010", "Capture repository/deployment fingerprint", ["BOOT-000"],
     "G0", status="in_progress")
 add("BOOT-020", "Count, canonical-export and hash the legacy dataset",
-    ["BOOT-010"], "G0", status="blocked_external",
-    blocked="Legacy dataset absent from workspace; expected 316 records "
-            "(G0-Q10/G0-Q12)")
+    ["BOOT-010"], "G0", status="in_progress",
+    notes="baseline_record_count=0 recorded from inventory (docs/baseline.md); "
+          "mismatch vs expected 316 keeps migration blocked (D-012/D-014)")
 add("BOOT-030", "Create and verify restorable backup receipt",
-    ["BOOT-010", "BOOT-020"], "G0", status="blocked_external",
-    blocked="Blocked on BOOT-020 dataset and backup target (G0-Q10)")
+    ["BOOT-010", "BOOT-020"], "G0", status="in_progress",
+    notes="Git-remote backup receipt + non-destructive restore check "
+          "(docs/baseline.md); dedicated target is OPS-003 scope (D-012)")
 add("BOOT-040", "Task, decision and evidence-receipt schemas", ["BOOT-000"],
     "G0", status="in_progress")
 add("BOOT-050", "Implement task-verify, gate-verify, plan-next", ["BOOT-040"],
@@ -58,29 +59,29 @@ for i, extra in [("000", ""), ("001", ""), ("002", ""), ("003", ""),
     pass  # HAR contract atoms added below explicitly
 
 add("FND-000", "Create reversible baseline", ["BOOT-010", "BOOT-020", "BOOT-030"],
-    "G0", status="blocked_external",
-    blocked="No legacy dataset/site to baseline; green-field pending G0-Q12")
+    "G0", status="in_progress",
+    notes="Baseline = seed commit 4b1e287; restore check passed (docs/baseline.md)")
 add("FND-001", "Repository and deployment inventory", ["BOOT-010"], "G0",
     status="in_progress")
 add("FND-002", "Legacy record inventory / migration-ledger seed",
-    ["FND-000", "FND-001"], "G0", status="blocked_external",
-    blocked="Blocked on legacy dataset (G0-Q10)")
+    ["FND-000", "FND-001"], "G0", status="in_progress",
+    notes="Empty ledger reconciles to baseline_record_count 0 (D-012/D-014)")
 add("FND-003", "Versioned boundary manifest", ["FND-001"], "G0",
-    req_dec=True, dec_ids=["G0-Q1"], status="blocked_human",
-    blocked="Draft config/boundaries/v1.yaml awaiting operator decision G0-Q1")
+    req_dec=True, dec_ids=["G0-Q1"], status="in_progress",
+    notes="Approved by D-003")
 add("FND-004", "Source and proposition policy matrix", ["FND-003"], "G0",
-    req_dec=True, dec_ids=["G0-Q3"], status="blocked_human",
-    blocked="Draft awaiting operator rights defaults G0-Q3")
+    req_dec=True, dec_ids=["G0-Q3"], status="in_progress",
+    notes="Approved by D-005")
 add("FND-005", "Terminology, severity and quality policy", ["FND-003"], "G0",
-    req_dec=True, dec_ids=["G0-Q5", "G0-Q6"], status="blocked_human",
-    blocked="Draft awaiting operator decisions G0-Q5/G0-Q6")
+    req_dec=True, dec_ids=["G0-Q5", "G0-Q6"], status="in_progress",
+    notes="Approved by D-007/D-008")
 add("FND-006", "Threat model and rights policy", ["FND-001", "FND-004"], "G0",
-    req_dec=True, dec_ids=["G0-Q3", "G0-Q4"], status="blocked_human",
-    blocked="Draft awaiting operator decisions G0-Q3/G0-Q4")
+    req_dec=True, dec_ids=["G0-Q3", "G0-Q4"], status="in_progress",
+    notes="Approved by D-005/D-006")
 add("FND-007", "Pilot selection (scored matrix)",
     ["FND-002", "FND-003", "FND-004", "FND-006"], "G0",
-    req_dec=True, dec_ids=["G0-Q2"], status="blocked_human",
-    blocked="Desk matrix delivered; legacy-share unscoreable until G0-Q10; "
+    req_dec=True, dec_ids=["G0-Q2"], status="in_progress",
+    notes="Approved by D-004"
             "operator decision G0-Q2")
 
 HAR01 = ["HAR-000-01", "HAR-001-01", "HAR-002-01", "HAR-003-01", "HAR-005-01"]
@@ -94,8 +95,8 @@ for hid, htitle in [
 
 add("PLAN-002", "Infrastructure and cryptography ADR",
     ["FND-006", "FND-007"] + HAR01, "G0", req_dec=True,
-    dec_ids=["G0-Q9"], status="blocked_human",
-    blocked="ADR proposed; approved only via G0 operator decision")
+    dec_ids=["G0-Q9"], status="in_progress",
+    notes="Approved by D-011")
 add("PLAN-001", "Materialize and validate dependency DAG",
     ["FND-007", "PLAN-002"], "G0", status="in_progress")
 
@@ -206,7 +207,10 @@ add("REV-004", "Weekly decision pack and transport",
 add("REV-005", "Workload calibration", ["REV-004", "EVAL-002"], "G2",
     role="operator", req_dec=True)
 add("MIG-001", "Field mapping matrix",
-    ["FND-002", "DOM-001", "FND-003", "FND-004", "FND-005"], "G2")
+    ["FND-002", "DOM-001", "FND-003", "FND-004", "FND-005"], "G2",
+    status="blocked_external",
+    blocked="No legacy dataset exists (D-012/D-014); unblocks only via a "
+            "future written decision supplying one")
 add("MIG-002", "Idempotent importer and ledger",
     ["MIG-001", "DOM-002", "DOM-003", "DOM-005"], "G2")
 add("MIG-003", "Representative migration pilot",

@@ -1,8 +1,8 @@
 # Rights policy v1 — DRAFT pending G0-Q3 (per-source defaults) and
 # G0-Q4 (personal-data rule). Everything fails closed.
 schema_version: atlas-rights-policy/v1
-policy_version: 1.0.0-draft
-status: proposed
+policy_version: 1.0.0
+status: approved   # D-005 (defaults), D-006 (personal data)
 axes:
   - lawful_acquisition
   - lawful_retention
@@ -22,7 +22,7 @@ defaults:
   external_archive_submission: disabled
   third_party_model_processing: denied_until_provider_permission_recorded
 personal_data:
-  status: awaiting_operator_rule   # G0-Q4
+  status: approved_interim   # D-006
   interim_rule: >
     Organisation names publishable only after review; natural-person
     names default withheld/redacted; special-category, criminal, minor

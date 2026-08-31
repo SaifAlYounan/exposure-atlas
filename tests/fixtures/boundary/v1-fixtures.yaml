@@ -1,7 +1,7 @@
 # FND-003 boundary fixtures — DRAFT expectations pending G0-Q1 approval.
 # Each is a synthetic desk case (safe fixture, no live source content).
 schema_version: atlas-boundary-fixtures/v1
-boundary_version: 1.0.0-draft
+boundary_version: 1.0.0
 fixtures:
   - id: BF-01
     case: US federal complaint alleging an insurer's AI claims model unlawfully denied claims

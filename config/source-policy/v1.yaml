@@ -2,9 +2,9 @@
 # Encodes SPEC.md section 2.2. No source-level label alone confers
 # authority for every field.
 schema_version: atlas-source-policy/v1
-policy_version: 1.0.0-draft
-status: proposed
-approval: null
+policy_version: 1.0.0
+status: approved
+approval: D-005
 
 document_roles:
   complaint_or_pleading:

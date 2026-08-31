@@ -1,0 +1,231 @@
+{
+ "schema_version": "atlas-gate-manifest/v1",
+ "gate": "G1",
+ "generated_at": "2026-08-31T18:07:42+00:00",
+ "commit": "c6dcd8028792e002e27fde39c6f60107f82da6fd",
+ "pass": false,
+ "tasks": [
+  {
+   "id": "PLT-001",
+   "status": "pending",
+   "evidence_state": "missing",
+   "receipt_ids": []
+  },
+  {
+   "id": "PLT-002",
+   "status": "pending",
+   "evidence_state": "missing",
+   "receipt_ids": []
+  },
+  {
+   "id": "PLT-003",
+   "status": "pending",
+   "evidence_state": "missing",
+   "receipt_ids": []
+  },
+  {
+   "id": "HAR-000-03",
+   "status": "pending",
+   "evidence_state": "missing",
+   "receipt_ids": []
+  },
+  {
+   "id": "HAR-001",
+   "status": "pending",
+   "evidence_state": "missing",
+   "receipt_ids": []
+  },
+  {
+   "id": "HAR-002",
+   "status": "pending",
+   "evidence_state": "missing",
+   "receipt_ids": []
+  },
+  {
+   "id": "HAR-003",
+   "status": "pending",
+   "evidence_state": "missing",
+   "receipt_ids": []
+  },
+  {
+   "id": "HAR-005",
+   "status": "pending",
+   "evidence_state": "missing",
+   "receipt_ids": []
+  },
+  {
+   "id": "BOOT-060",
+   "status": "pending",
+   "evidence_state": "missing",
+   "receipt_ids": []
+  },
+  {
+   "id": "BOOT-070",
+   "status": "pending",
+   "evidence_state": "missing",
+   "receipt_ids": []
+  },
+  {
+   "id": "PLT-004",
+   "status": "pending",
+   "evidence_state": "missing",
+   "receipt_ids": []
+  },
+  {
+   "id": "DOM-001",
+   "status": "pending",
+   "evidence_state": "missing",
+   "receipt_ids": []
+  },
+  {
+   "id": "DOM-002",
+   "status": "pending",
+   "evidence_state": "missing",
+   "receipt_ids": []
+  },
+  {
+   "id": "DOM-003",
+   "status": "pending",
+   "evidence_state": "missing",
+   "receipt_ids": []
+  },
+  {
+   "id": "DOM-004",
+   "status": "pending",
+   "evidence_state": "missing",
+   "receipt_ids": []
+  },
+  {
+   "id": "DOM-005",
+   "status": "pending",
+   "evidence_state": "missing",
+   "receipt_ids": []
+  },
+  {
+   "id": "DOM-006",
+   "status": "pending",
+   "evidence_state": "missing",
+   "receipt_ids": []
+  },
+  {
+   "id": "POL-001",
+   "status": "pending",
+   "evidence_state": "missing",
+   "receipt_ids": []
+  },
+  {
+   "id": "MON-000",
+   "status": "pending",
+   "evidence_state": "missing",
+   "receipt_ids": []
+  },
+  {
+   "id": "COR-000",
+   "status": "pending",
+   "evidence_state": "missing",
+   "receipt_ids": []
+  },
+  {
+   "id": "SRC-001",
+   "status": "pending",
+   "evidence_state": "missing",
+   "receipt_ids": []
+  },
+  {
+   "id": "SRC-002",
+   "status": "pending",
+   "evidence_state": "missing",
+   "receipt_ids": []
+  },
+  {
+   "id": "SRC-003",
+   "status": "pending",
+   "evidence_state": "missing",
+   "receipt_ids": []
+  },
+  {
+   "id": "DOC-001",
+   "status": "pending",
+   "evidence_state": "missing",
+   "receipt_ids": []
+  },
+  {
+   "id": "DOC-002",
+   "status": "pending",
+   "evidence_state": "missing",
+   "receipt_ids": []
+  },
+  {
+   "id": "DOC-003",
+   "status": "pending",
+   "evidence_state": "missing",
+   "receipt_ids": []
+  },
+  {
+   "id": "VER-001",
+   "status": "pending",
+   "evidence_state": "missing",
+   "receipt_ids": []
+  },
+  {
+   "id": "VER-002",
+   "status": "pending",
+   "evidence_state": "missing",
+   "receipt_ids": []
+  },
+  {
+   "id": "REL-000",
+   "status": "pending",
+   "evidence_state": "self_asserted_only",
+   "receipt_ids": [
+    "rcpt_g1-selfassert-test"
+   ]
+  },
+  {
+   "id": "API-000",
+   "status": "pending",
+   "evidence_state": "missing",
+   "receipt_ids": []
+  },
+  {
+   "id": "SEC-001-01",
+   "status": "pending",
+   "evidence_state": "missing",
+   "receipt_ids": []
+  }
+ ],
+ "missing_evidence": [
+  "PLT-001: no evidence receipt",
+  "PLT-002: no evidence receipt",
+  "PLT-003: no evidence receipt",
+  "HAR-000-03: no evidence receipt",
+  "HAR-001: no evidence receipt",
+  "HAR-002: no evidence receipt",
+  "HAR-003: no evidence receipt",
+  "HAR-005: no evidence receipt",
+  "BOOT-060: no evidence receipt",
+  "BOOT-070: no evidence receipt",
+  "PLT-004: no evidence receipt",
+  "DOM-001: no evidence receipt",
+  "DOM-002: no evidence receipt",
+  "DOM-003: no evidence receipt",
+  "DOM-004: no evidence receipt",
+  "DOM-005: no evidence receipt",
+  "DOM-006: no evidence receipt",
+  "POL-001: no evidence receipt",
+  "MON-000: no evidence receipt",
+  "COR-000: no evidence receipt",
+  "SRC-001: no evidence receipt",
+  "SRC-002: no evidence receipt",
+  "SRC-003: no evidence receipt",
+  "DOC-001: no evidence receipt",
+  "DOC-002: no evidence receipt",
+  "DOC-003: no evidence receipt",
+  "VER-001: no evidence receipt",
+  "VER-002: no evidence receipt",
+  "REL-000: only self-asserted evidence (clean-checkout CI receipt required)",
+  "API-000: no evidence receipt",
+  "SEC-001-01: no evidence receipt"
+ ],
+ "missing_operator_decisions": []
+}

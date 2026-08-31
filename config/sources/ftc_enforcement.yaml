@@ -1,7 +1,7 @@
 # Source registry entry — DRAFT (pilot recommendation, pending G0-Q2/Q3).
 schema_version: atlas-source-registry/v1
 source_id: ftc_enforcement
-status: proposed
+status: approved   # D-004; live verification still requires A1
 authority_role: issuer_direct
 issuer: US Federal Trade Commission
 custodian: US Federal Trade Commission

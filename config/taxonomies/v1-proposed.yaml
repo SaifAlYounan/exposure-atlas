@@ -1,8 +1,8 @@
 # Nine-category taxonomy v1 — PROPOSAL pending operator decision G0-Q5.
 # Classifications are Atlas interpretation, physically separate from facts.
 schema_version: atlas-taxonomy/v1
-taxonomy_version: 1.0.0-proposed
-status: proposed
+taxonomy_version: 1.0.0
+status: approved   # D-007
 multi_label: true
 other_requires_detail: true
 categories:
