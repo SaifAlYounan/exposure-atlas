@@ -1,0 +1,25 @@
+# PLT-002 local stack (reproducible configuration). NOTE: image digests
+# MUST be pinned at first pull in the operator sandbox (SPEC 0.3(16));
+# tags below are placeholders that fail the PLT-004 digest check until
+# pinned. This managed environment has no docker daemon; the test suite
+# provisions an ephemeral PostgreSQL cluster instead and the evidence
+# store is filesystem-backed (deviation recorded in docs/as-built.md,
+# G1 pack item G1-Q3).
+services:
+  postgres:
+    image: postgres:16.13-bookworm   # PIN DIGEST AT FIRST SANDBOX PULL
+    environment:
+      POSTGRES_USER: atlas
+      POSTGRES_DB: atlas_local
+      POSTGRES_HOST_AUTH_METHOD: trust   # local dev only; never beyond local
+    ports: ["127.0.0.1:5432:5432"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U atlas"]
+      interval: 5s
+  minio:
+    image: minio/minio:RELEASE.2024-09-22T00-33-43Z  # PIN DIGEST AT FIRST SANDBOX PULL
+    command: server /data --console-address :9001
+    ports: ["127.0.0.1:9000:9000", "127.0.0.1:9001:9001"]
+    healthcheck:
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 5s

@@ -1,0 +1,11 @@
+schema_version: atlas-pack-answers/v1
+pack: 2026-W37-G1
+answered_by: Alexios
+answered_at: null
+answers:
+  - { item: G1-Q1, decision_id: null, answer: null }
+  - { item: G1-Q2, decision_id: null, answer: null }
+  - { item: G1-Q3, decision_id: null, answer: null }
+  - { item: G1-Q4, decision_id: null, answer: null }
+  - { item: G1-Q5, decision_id: null, answer: null }
+  - { item: G1-Q6, decision_id: null, answer: null }

@@ -332,6 +332,23 @@ G1_S1 = {
     "API-000": "read path serves signed artifact bytes; suppression first; no_match_is_not_absence",
     "SEC-001-01": "SSRF/private-IP, oversize, MIME-mismatch, canary-leak, tamper fixtures passing",
 }
+G1_S5 = {
+    "PLT-002": "health checks name the missing dependency; ephemeral-pg local stack; compose file "
+               "written with DIGEST-PINNING-REQUIRED markers; MinIO deferred: evidence store is "
+               "filesystem-backed until the sandbox stack (deviation, G1 pack item G1-Q3)",
+    "PLT-003": "typed config: no production secret defaults, missing secrets raise, non-local envs "
+               "require injected DB URL, log redaction (secrets/signed URLs) tested",
+}
+for _tid, _note in G1_S5.items():
+    T[_tid]["status"] = "in_progress"
+    T[_tid]["notes"] = (T[_tid]["notes"] + " | " if T[_tid]["notes"] else "") + "G1-S5: " + _note
+T["HAR-001"]["status"] = "blocked_external"
+T["HAR-001"]["blocked"] = ("Operator-provisioned sandbox required (handoff s2); "
+                           "A1 precondition per D-017 — G1 pack G1-Q2")
+T["HAR-003"]["status"] = "blocked_external"
+T["HAR-003"]["blocked"] = ("SDK adapter implementation+qualification happens in the sandbox "
+                           "launcher; exact SDK pin at that point (D-017) — G1 pack G1-Q2")
+
 G1_S4 = {
     "SRC-003": "archive gate: external submission disabled by default (D-005); every attempt "
                "records policy version+decision+result; missing/blocked axes fail closed",

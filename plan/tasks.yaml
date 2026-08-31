@@ -817,7 +817,10 @@ tasks:
   evidence_paths:
   - plan/evidence.jsonl
   rollback: discard_task_worktree
-  status: pending
+  status: in_progress
+  notes: 'G1-S5: health checks name the missing dependency; ephemeral-pg local stack; compose file written
+    with DIGEST-PINNING-REQUIRED markers; MinIO deferred: evidence store is filesystem-backed until the
+    sandbox stack (deviation, G1 pack item G1-Q3)'
 - schema_version: atlas-task/v2.2
   id: PLT-003
   epic: PLT-003
@@ -850,7 +853,9 @@ tasks:
   evidence_paths:
   - plan/evidence.jsonl
   rollback: discard_task_worktree
-  status: pending
+  status: in_progress
+  notes: 'G1-S5: typed config: no production secret defaults, missing secrets raise, non-local envs require
+    injected DB URL, log redaction (secrets/signed URLs) tested'
 - schema_version: atlas-task/v2.2
   id: HAR-000-03
   epic: HAR-000
@@ -921,7 +926,9 @@ tasks:
   evidence_paths:
   - plan/evidence.jsonl
   rollback: discard_task_worktree
-  status: pending
+  status: blocked_external
+  blocked_reason: "Operator-provisioned sandbox required (handoff s2); A1 precondition per D-017 \u2014\
+    \ G1 pack G1-Q2"
 - schema_version: atlas-task/v2.2
   id: HAR-002
   epic: HAR-002
@@ -992,7 +999,9 @@ tasks:
   evidence_paths:
   - plan/evidence.jsonl
   rollback: discard_task_worktree
-  status: pending
+  status: blocked_external
+  blocked_reason: "SDK adapter implementation+qualification happens in the sandbox launcher; exact SDK\
+    \ pin at that point (D-017) \u2014 G1 pack G1-Q2"
 - schema_version: atlas-task/v2.2
   id: HAR-005
   epic: HAR-005

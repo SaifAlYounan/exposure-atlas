@@ -86,3 +86,17 @@ read-only access to official SDK docs is A0-permitted).
   qualification.
 - SRC-003 archive gate (disabled by default, fail-closed, attempt
   records); kernel acceptance-replay guard (SEC-08).
+
+## G1 session 5 / close-out (2026-08-31)
+- PLT-003 typed config + redaction; PLT-002 health checks with named
+  missing dependencies; infra/local/docker-compose.yml written with
+  explicit DIGEST-PINNING-REQUIRED markers (no docker daemon here).
+- DEVIATION (G1 pack G1-Q3): the evidence store is a content-addressed
+  filesystem store, not MinIO, until the sandbox/local stack exists.
+  Never-overwrite and integrity-on-read are test-proven either way.
+- Kernel-to-PostgreSQL integration decision: the G1 fixture slice
+  remains file/memory-backed. Crash-safety and immutability claims are
+  proven AT THE DOM-002/003 LAYER against real PostgreSQL; the G1
+  vertical-slice acceptance (VER-002) does not require DB-backed state.
+  Wiring the pipeline onto the DB is the first G2 implementation step
+  and is listed in the G1 pack so the operator sees it explicitly.
