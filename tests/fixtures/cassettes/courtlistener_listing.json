@@ -1,0 +1,13 @@
+{
+  "_note": "SYNTHETIC cassette — represents CourtListener REST list SHAPE only; not real data",
+  "count": 2,
+  "next": null,
+  "results": [
+    {"id": 9000001, "absolute_url": "/docket/9000001/synthetic-a/",
+     "case_name": "Synthetic Doe v. Acme Cognition",
+     "date_filed": "2026-01-05", "docket_number": "1:26-cv-00001"},
+    {"id": 9000002, "absolute_url": "/docket/9000002/synthetic-b/",
+     "case_name": "Synthetic Roe v. Beta Models",
+     "date_filed": "2026-02-11", "docket_number": "1:26-cv-00002"}
+  ]
+}

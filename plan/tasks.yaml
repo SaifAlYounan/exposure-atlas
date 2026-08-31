@@ -1950,7 +1950,10 @@ tasks:
   evidence_paths:
   - plan/evidence.jsonl
   rollback: discard_task_worktree
-  status: pending
+  status: in_progress
+  notes: 'G2-S1: pilot adapters CourtListener/RECAP (mirror custodian) + FTC (issuer) over deterministic
+    synthetic cassettes; conformance kit passes; unregistered hosts refused; live smoke (SRC-004-80) kept
+    separate'
 - schema_version: atlas-task/v2.2
   id: SRC-004-80
   epic: SRC-004
@@ -1961,15 +1964,16 @@ tasks:
   parallelizable: true
   executor_role: implementer
   auditor_role: verifier_auditor
-  decision_owner: null
+  decision_owner: operator
   exclusive_resources: []
   conflicts_with: []
   worktree: task/SRC-004-80
   gate: G2
   estimated_builder_sessions: 1
   required_inputs: []
-  requires_operator_decision: false
-  operator_decision_ids: []
+  requires_operator_decision: true
+  operator_decision_ids:
+  - D-027
   builder_profiles:
   - claude
   network_profile: none
@@ -1982,8 +1986,10 @@ tasks:
   evidence_paths:
   - plan/evidence.jsonl
   rollback: discard_task_worktree
-  status: blocked_authorization
-  blocked_reason: Requires written A1 decision
+  status: blocked_human
+  blocked_reason: Probe entrypoint implemented behind inert template + activation token gate (D-027);
+    refuses without operator activation. Awaiting final operator 'activate' confirmation before any live
+    fetch.
 - schema_version: atlas-task/v2.2
   id: DISC-001
   epic: DISC-001

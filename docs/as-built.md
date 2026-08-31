@@ -123,3 +123,16 @@ read-only access to official SDK docs is A0-permitted).
   assertions are immutable via the trigger, and the slice still serves.
 - This is the acknowledged first G2 implementation step; it needs no new
   authorization (A0) and does not touch A1/live scope.
+
+## G2 — pilot adapters + gated probe (2026-09-01, A1 preconditions met)
+- atlas/pilot_adapters.py: CourtListener/RECAP (mirror custodian; copy
+  provenance stays unverified until corroborated) and FTC (issuer_direct)
+  adapters over synthetic cassettes (tests/fixtures/cassettes/). No live
+  network; conformance kit passes.
+- atlas/probe.py (SRC-004-80): live-probe entrypoint enforcing D-021 caps
+  (<=50 docs/source, host allowlist, connected-peer-IP validation,
+  recorded receipts, no model calls). run_live_probe REFUSES without the
+  activation token that only the protected live-fetch environment injects
+  (D-027); plan_probe is the network-free dry-run the operator reviews.
+- live-fetch.yml.template stays INERT. Awaiting the operator's explicit
+  "activate" confirmation before any live fetch (D-027).

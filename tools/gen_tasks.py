@@ -332,6 +332,21 @@ G1_S1 = {
     "API-000": "read path serves signed artifact bytes; suppression first; no_match_is_not_absence",
     "SEC-001-01": "SSRF/private-IP, oversize, MIME-mismatch, canary-leak, tamper fixtures passing",
 }
+G2_S1 = {
+    "SRC-004": "pilot adapters CourtListener/RECAP (mirror custodian) + FTC (issuer) over "
+               "deterministic synthetic cassettes; conformance kit passes; unregistered hosts "
+               "refused; live smoke (SRC-004-80) kept separate",
+}
+for _tid, _note in G2_S1.items():
+    T[_tid]["status"] = "in_progress"
+    T[_tid]["notes"] = (T[_tid]["notes"] + " | " if T[_tid]["notes"] else "") + "G2-S1: " + _note
+T["SRC-004-80"]["status"] = "blocked_human"
+T["SRC-004-80"]["blocked"] = ("Probe entrypoint implemented behind inert template + activation "
+                              "token gate (D-027); refuses without operator activation. Awaiting "
+                              "final operator 'activate' confirmation before any live fetch.")
+T["SRC-004-80"]["req_dec"] = True
+T["SRC-004-80"]["dec_ids"] = ["D-027"]
+
 G2_S0 = {
     "VER-002": "D-022: kernel now optionally persists the full slice through the DOM-002 "
                "PostgreSQL layer (docs/versions/receipts/text artifacts/proposals/decisions/"
