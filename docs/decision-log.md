@@ -82,3 +82,38 @@ deviations and expiries are recorded here per SPEC.md section 0.3(4).
 recorded as part of `BOOT-000` once the operator confirms the G0
 decision pack; the kickoff message granted A0 for this first turn but
 `BOOT-000` requires a signed/attributable decision ID.*
+
+## D-002 — Written A0 confirmation ("Approved")
+
+- **Decision ID:** D-002
+- **Recorded:** 2026-08-31
+- **Decider:** Alexios (operator), via the builder session channel
+- **Decision text:** "Approved", in direct response to the first-turn
+  report (commit `efa7689`), which proposed: (a) treating the kickoff +
+  this confirmation as the written A0 decision BOOT-000 requires, and
+  (b) proceeding with the proposed G0 task list.
+- **Recorded scope:** A0 only (SPEC.md section 0.6): local edits,
+  schemas, safe fixtures, tests, docs, local stack, baseline capture,
+  official builder-SDK documentation. Nothing in this decision grants
+  A1+, Atlas live-source access, runtime model calls, deployment or
+  publication.
+- **Explicitly NOT decided by D-002:** every G0 decision-pack item
+  (pack `docs/decision-packs/2026-W36-G0.md`, items G0-Q1…G0-Q14).
+  Per the operator handoff (section 5), pack questions are answered in
+  one written pack, not chat fragments. FND-003–FND-007, the section 3
+  risk acceptances and cost ceilings remain open operator decisions.
+- **Known deficiencies recorded with this grant (do not silently cure):**
+  - No numeric session/day cost ceilings supplied (kickoff placeholders
+    [X]/[Y]). Interim control: the managed session's own harness
+    ceilings; `make plan-next` refuses to mark cost-gated tasks ready
+    while `config/budgets.yaml` ceilings are null. Formal ceilings are
+    pack item G0-Q7.
+  - Delivery channel unnamed (pack item G0-Q8).
+  - Builder control plane is the managed Claude Code remote environment,
+    not the handoff-section-2 sandbox (first-turn difference M4; pack
+    item G0-Q11). Accepted here for A0 documentation/schema/fixture
+    work only.
+- **Expiry:** until the answered G0 pack replaces it or the operator
+  revokes it.
+- **Status:** recorded
+

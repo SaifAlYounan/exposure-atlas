@@ -1,0 +1,16 @@
+# Current authorization state. Host-of-record for `make plan-next`.
+# Only an operator decision recorded in docs/decision-log.md may change
+# this file. SPEC.md section 0.6 is the ladder definition.
+schema_version: atlas-authorization/v1
+current_level: A0
+granted_by_decisions: [D-002]
+grants:
+  - level: A0
+    decision_id: D-002
+    scope: "Local edits, schemas, safe fixtures, tests, docs, local stack, baseline capture, official builder-SDK documentation"
+    expiry: null
+forbidden_reminders:
+  - atlas_live_source_access
+  - runtime_model_calls
+  - deployment
+  - publication
