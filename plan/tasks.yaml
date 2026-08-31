@@ -927,8 +927,8 @@ tasks:
   - plan/evidence.jsonl
   rollback: discard_task_worktree
   status: blocked_external
-  blocked_reason: "Operator-provisioned sandbox required (handoff s2); A1 precondition per D-017 \u2014\
-    \ G1 pack G1-Q2"
+  blocked_reason: 'D-019: GitHub-hosted confinement qualification to be designed, implemented and pack-approved;
+    A1 contingent (D-021)'
 - schema_version: atlas-task/v2.2
   id: HAR-002
   epic: HAR-002
@@ -1000,8 +1000,8 @@ tasks:
   - plan/evidence.jsonl
   rollback: discard_task_worktree
   status: blocked_external
-  blocked_reason: "SDK adapter implementation+qualification happens in the sandbox launcher; exact SDK\
-    \ pin at that point (D-017) \u2014 G1 pack G1-Q2"
+  blocked_reason: 'D-019: qualification via GitHub-hosted design + managed-session role-isolation fixtures;
+    see ADR-0002'
 - schema_version: atlas-task/v2.2
   id: HAR-005
   epic: HAR-005

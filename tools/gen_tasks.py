@@ -343,11 +343,11 @@ for _tid, _note in G1_S5.items():
     T[_tid]["status"] = "in_progress"
     T[_tid]["notes"] = (T[_tid]["notes"] + " | " if T[_tid]["notes"] else "") + "G1-S5: " + _note
 T["HAR-001"]["status"] = "blocked_external"
-T["HAR-001"]["blocked"] = ("Operator-provisioned sandbox required (handoff s2); "
-                           "A1 precondition per D-017 — G1 pack G1-Q2")
+T["HAR-001"]["blocked"] = ("D-019: GitHub-hosted confinement qualification to be "
+                           "designed, implemented and pack-approved; A1 contingent (D-021)")
 T["HAR-003"]["status"] = "blocked_external"
-T["HAR-003"]["blocked"] = ("SDK adapter implementation+qualification happens in the sandbox "
-                           "launcher; exact SDK pin at that point (D-017) — G1 pack G1-Q2")
+T["HAR-003"]["blocked"] = ("D-019: qualification via GitHub-hosted design + managed-session "
+                           "role-isolation fixtures; see ADR-0002")
 
 G1_S4 = {
     "SRC-003": "archive gate: external submission disabled by default (D-005); every attempt "

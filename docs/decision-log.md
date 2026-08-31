@@ -199,3 +199,37 @@ run (run ID + conclusion recorded) are treated as non-self-asserted.
 The builder cannot read the Actions identity/token. G1 is planned as
 multiple builder sessions (SPEC 14.1 estimates 8–15); each session
 commits per task and updates build-status.
+
+## D-018 … D-023 — G1 decision pack 2026-W37 answered
+
+- **Decision IDs:** D-018, D-019, D-020, D-021, D-022, D-023
+- **Recorded:** 2026-08-31
+- **Decider:** Alexios (operator), one written pack, committed as
+  `d89942a`
+- **Bound to:** `docs/decision-packs/2026-W37-G1-answers.yaml`
+  SHA-256 `07f8307ee0046a3a3e75f3d51de8d03aa293b0d742684008e31446b0450d37d0`
+- **Summary (answers file is authoritative):**
+  - **D-018 (G1-Q1):** capability report accepted as interim G1 harness
+    evidence; full confinement qualification remains a hard A1
+    precondition.
+  - **D-019 (G1-Q2):** no separate VPS/VM sandbox. Builder must design
+    and propose, in the next decision pack, a confinement qualification
+    for HAR-001/HAR-003 running entirely on GitHub-hosted
+    infrastructure, satisfying the handoff-section-2 intent (no
+    personal credentials, deny-by-default egress during live fetching,
+    ephemeral hosts, injected scoped secrets) — or state explicitly
+    that it cannot be honestly satisfied there. A1 stays blocked until
+    the qualification passes.
+  - **D-020 (G1-Q3):** PLT-002 deviation accepted; expiry at
+    confinement-stack provisioning per D-019.
+  - **D-021 (G1-Q4):** A1 granted CONTINGENT — effective only when the
+    D-019 qualification closes. Scope: read-only probes of the
+    CourtListener API and ftc.gov listing/document pages only; ≤50
+    documents/source; conservative rate caps; recorded receipts;
+    30-day expiry from effectiveness; no runtime model calls on
+    fetched documents.
+  - **D-022 (G1-Q5):** kernel→PostgreSQL integration acknowledged as
+    first G2 step.
+  - **D-023 (G1-Q6):** CI evidence accepted as presented.
+- **Status:** recorded. A1 is NOT yet effective; authorization remains
+  A0 until the D-019 qualification passes and its pack is approved.
