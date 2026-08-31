@@ -100,3 +100,15 @@ read-only access to official SDK docs is A0-permitted).
   vertical-slice acceptance (VER-002) does not require DB-backed state.
   Wiring the pipeline onto the DB is the first G2 implementation step
   and is listed in the G1 pack so the operator sees it explicitly.
+
+## Confinement qualification design (2026-08-31, D-019)
+- ADR-0002: GitHub-hosted confinement for HAR-001/HAR-003, honest
+  residuals R1–R3. Verdict: qualifiable on GitHub-hosted infra
+  conditional on four operator-only R1 controls.
+- confinement.yml (A0-safe self-test, harden-runner audit) +
+  live-fetch.yml.template (inert, A1-gated, harden-runner block with
+  pilot-host allowlist + protected environment). CODEOWNERS added.
+- tests/test_confinement.py (4 fixtures) proves the in-code egress
+  blocks, host-policy denial enforcement of the SDK-denial fixture set,
+  and that the ADR residuals cannot be silently removed.
+- Proposed to the operator as pack 2026-W38-G1b.

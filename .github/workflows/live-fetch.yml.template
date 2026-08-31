@@ -1,0 +1,35 @@
+# A1 LIVE-FETCH WORKFLOW — TEMPLATE, NOT ACTIVE.
+# Saved as .template so it cannot trigger. It is activated (renamed to
+# live-fetch.yml) ONLY after: (a) the 2026-W38 pack approves ADR-0002,
+# (b) the operator sets branch protection + CODEOWNERS + the protected
+# `live-fetch` environment (ADR-0002 R1), and (c) A1 (D-021) becomes
+# effective. Until then no live Atlas fetch runs anywhere.
+name: live-fetch
+on:
+  workflow_dispatch:
+    inputs:
+      source_id: { description: "courtlistener_recap | ftc_enforcement", required: true }
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    environment: live-fetch      # operator-gated; secrets injected here only
+    steps:
+      - uses: step-security/harden-runner@v2
+        with:
+          egress-policy: block
+          allowed-endpoints: >
+            www.courtlistener.com:443
+            storage.courtlistener.com:443
+            www.ftc.gov:443
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with: { version: "0.5.24" }
+      - run: |
+          uv venv .venv --python 3.11
+          uv pip install --python .venv/bin/python -e ".[dev]"
+      # Enforced caps (D-021): <=50 docs/source, conservative rate,
+      # recorded receipts, no runtime model calls. The probe entrypoint
+      # (SRC-004-80) is implemented only after this workflow is activated.
+      - run: echo "A1 probe entrypoint not implemented until activation"

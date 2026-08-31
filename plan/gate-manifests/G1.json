@@ -1,41 +1,33 @@
 {
  "schema_version": "atlas-gate-manifest/v1",
  "gate": "G1",
- "generated_at": "2026-08-31T19:29:38+00:00",
- "commit": "81dd25bde62929103506fa54ce327f3d2fff3017",
+ "generated_at": "2026-08-31T20:03:09+00:00",
+ "commit": "5237cf2eaaf0788829faaa4c7715d0326b7f6a25",
  "pass": false,
  "tasks": [
   {
    "id": "PLT-001",
    "status": "in_progress",
-   "evidence_state": "verified",
-   "receipt_ids": [
-    "rcpt_plt-001-g1s1-ci"
-   ]
+   "evidence_state": "missing",
+   "receipt_ids": []
   },
   {
    "id": "PLT-002",
    "status": "in_progress",
-   "evidence_state": "verified",
-   "receipt_ids": [
-    "rcpt_plt002-g1s5-ci"
-   ]
+   "evidence_state": "missing",
+   "receipt_ids": []
   },
   {
    "id": "PLT-003",
    "status": "in_progress",
-   "evidence_state": "verified",
-   "receipt_ids": [
-    "rcpt_plt003-g1s5-ci"
-   ]
+   "evidence_state": "missing",
+   "receipt_ids": []
   },
   {
    "id": "HAR-000-03",
    "status": "in_progress",
-   "evidence_state": "verified",
-   "receipt_ids": [
-    "rcpt_har00003-g1s4-ci"
-   ]
+   "evidence_state": "missing",
+   "receipt_ids": []
   },
   {
    "id": "HAR-001",
@@ -46,10 +38,8 @@
   {
    "id": "HAR-002",
    "status": "in_progress",
-   "evidence_state": "verified",
-   "receipt_ids": [
-    "rcpt_har002-g1s4-ci"
-   ]
+   "evidence_state": "missing",
+   "receipt_ids": []
   },
   {
    "id": "HAR-003",
@@ -60,201 +50,182 @@
   {
    "id": "HAR-005",
    "status": "in_progress",
-   "evidence_state": "verified",
-   "receipt_ids": [
-    "rcpt_har005-g1s4-ci"
-   ]
+   "evidence_state": "missing",
+   "receipt_ids": []
   },
   {
    "id": "BOOT-060",
    "status": "in_progress",
-   "evidence_state": "verified",
-   "receipt_ids": [
-    "rcpt_boot060-g1s4-ci"
-   ]
+   "evidence_state": "missing",
+   "receipt_ids": []
   },
   {
    "id": "BOOT-070",
    "status": "in_progress",
-   "evidence_state": "verified",
-   "receipt_ids": [
-    "rcpt_boot070-g1s4-ci"
-   ]
+   "evidence_state": "missing",
+   "receipt_ids": []
   },
   {
    "id": "PLT-004",
    "status": "in_progress",
-   "evidence_state": "verified",
-   "receipt_ids": [
-    "rcpt_plt-004-g1s1-ci"
-   ]
+   "evidence_state": "missing",
+   "receipt_ids": []
   },
   {
    "id": "DOM-001",
    "status": "in_progress",
-   "evidence_state": "verified",
-   "receipt_ids": [
-    "rcpt_dom-001-g1s1-ci",
-    "rcpt_dom001-g1s3-ci"
-   ]
+   "evidence_state": "missing",
+   "receipt_ids": []
   },
   {
    "id": "DOM-002",
    "status": "in_progress",
-   "evidence_state": "verified",
-   "receipt_ids": [
-    "rcpt_dom-002-g1s2-ci"
-   ]
+   "evidence_state": "missing",
+   "receipt_ids": []
   },
   {
    "id": "DOM-003",
    "status": "in_progress",
-   "evidence_state": "verified",
-   "receipt_ids": [
-    "rcpt_dom-003-g1s2-ci"
-   ]
+   "evidence_state": "missing",
+   "receipt_ids": []
   },
   {
    "id": "DOM-004",
    "status": "in_progress",
-   "evidence_state": "verified",
-   "receipt_ids": [
-    "rcpt_dom-004-g1s2-ci"
-   ]
+   "evidence_state": "missing",
+   "receipt_ids": []
   },
   {
    "id": "DOM-005",
    "status": "in_progress",
-   "evidence_state": "verified",
-   "receipt_ids": [
-    "rcpt_dom005-g1s3-ci"
-   ]
+   "evidence_state": "missing",
+   "receipt_ids": []
   },
   {
    "id": "DOM-006",
    "status": "in_progress",
-   "evidence_state": "verified",
-   "receipt_ids": [
-    "rcpt_dom006-g1s3-ci"
-   ]
+   "evidence_state": "missing",
+   "receipt_ids": []
   },
   {
    "id": "POL-001",
    "status": "in_progress",
-   "evidence_state": "verified",
-   "receipt_ids": [
-    "rcpt_pol-001-g1s1-ci"
-   ]
+   "evidence_state": "missing",
+   "receipt_ids": []
   },
   {
    "id": "MON-000",
    "status": "in_progress",
-   "evidence_state": "verified",
-   "receipt_ids": [
-    "rcpt_mon-000-g1s2-ci"
-   ]
+   "evidence_state": "missing",
+   "receipt_ids": []
   },
   {
    "id": "COR-000",
    "status": "in_progress",
-   "evidence_state": "verified",
-   "receipt_ids": [
-    "rcpt_cor-000-g1s1-ci"
-   ]
+   "evidence_state": "missing",
+   "receipt_ids": []
   },
   {
    "id": "SRC-001",
    "status": "in_progress",
-   "evidence_state": "verified",
-   "receipt_ids": [
-    "rcpt_src001-g1s3-ci"
-   ]
+   "evidence_state": "missing",
+   "receipt_ids": []
   },
   {
    "id": "SRC-002",
    "status": "in_progress",
-   "evidence_state": "verified",
-   "receipt_ids": [
-    "rcpt_src-002-g1s1-ci"
-   ]
+   "evidence_state": "missing",
+   "receipt_ids": []
   },
   {
    "id": "SRC-003",
    "status": "in_progress",
-   "evidence_state": "verified",
-   "receipt_ids": [
-    "rcpt_src003-g1s4-ci"
-   ]
+   "evidence_state": "missing",
+   "receipt_ids": []
   },
   {
    "id": "DOC-001",
    "status": "in_progress",
-   "evidence_state": "verified",
-   "receipt_ids": [
-    "rcpt_doc-001-g1s1-ci"
-   ]
+   "evidence_state": "missing",
+   "receipt_ids": []
   },
   {
    "id": "DOC-002",
    "status": "in_progress",
-   "evidence_state": "verified",
-   "receipt_ids": [
-    "rcpt_doc-002-g1s1-ci"
-   ]
+   "evidence_state": "missing",
+   "receipt_ids": []
   },
   {
    "id": "DOC-003",
    "status": "in_progress",
-   "evidence_state": "verified",
-   "receipt_ids": [
-    "rcpt_doc003-g1s3-ci"
-   ]
+   "evidence_state": "missing",
+   "receipt_ids": []
   },
   {
    "id": "VER-001",
    "status": "in_progress",
-   "evidence_state": "verified",
-   "receipt_ids": [
-    "rcpt_ver-001-g1s1-ci"
-   ]
+   "evidence_state": "missing",
+   "receipt_ids": []
   },
   {
    "id": "VER-002",
    "status": "in_progress",
-   "evidence_state": "verified",
-   "receipt_ids": [
-    "rcpt_ver-002-g1s1-ci"
-   ]
+   "evidence_state": "missing",
+   "receipt_ids": []
   },
   {
    "id": "REL-000",
    "status": "in_progress",
-   "evidence_state": "verified",
+   "evidence_state": "self_asserted_only",
    "receipt_ids": [
-    "rcpt_rel-000-g1s1-ci"
+    "rcpt_g1-selfassert-test"
    ]
   },
   {
    "id": "API-000",
    "status": "in_progress",
-   "evidence_state": "verified",
-   "receipt_ids": [
-    "rcpt_api-000-g1s1-ci"
-   ]
+   "evidence_state": "missing",
+   "receipt_ids": []
   },
   {
    "id": "SEC-001-01",
    "status": "in_progress",
-   "evidence_state": "verified",
-   "receipt_ids": [
-    "rcpt_sec-001-01-g1s1-ci",
-    "rcpt_sec00101-g1s4-ci"
-   ]
+   "evidence_state": "missing",
+   "receipt_ids": []
   }
  ],
  "missing_evidence": [
+  "PLT-001: no evidence receipt",
+  "PLT-002: no evidence receipt",
+  "PLT-003: no evidence receipt",
+  "HAR-000-03: no evidence receipt",
   "HAR-001: no evidence receipt",
-  "HAR-003: no evidence receipt"
+  "HAR-002: no evidence receipt",
+  "HAR-003: no evidence receipt",
+  "HAR-005: no evidence receipt",
+  "BOOT-060: no evidence receipt",
+  "BOOT-070: no evidence receipt",
+  "PLT-004: no evidence receipt",
+  "DOM-001: no evidence receipt",
+  "DOM-002: no evidence receipt",
+  "DOM-003: no evidence receipt",
+  "DOM-004: no evidence receipt",
+  "DOM-005: no evidence receipt",
+  "DOM-006: no evidence receipt",
+  "POL-001: no evidence receipt",
+  "MON-000: no evidence receipt",
+  "COR-000: no evidence receipt",
+  "SRC-001: no evidence receipt",
+  "SRC-002: no evidence receipt",
+  "SRC-003: no evidence receipt",
+  "DOC-001: no evidence receipt",
+  "DOC-002: no evidence receipt",
+  "DOC-003: no evidence receipt",
+  "VER-001: no evidence receipt",
+  "VER-002: no evidence receipt",
+  "REL-000: only self-asserted evidence (clean-checkout CI receipt required)",
+  "API-000: no evidence receipt",
+  "SEC-001-01: no evidence receipt"
  ],
  "missing_operator_decisions": []
 }

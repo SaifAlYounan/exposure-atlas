@@ -1,0 +1,8 @@
+# Operator-owned confinement-critical paths (ADR-0002 R1.2). A PR
+# touching these requires @SaifAlYounan review. This file is itself
+# confinement-critical.
+/.github/            @SaifAlYounan
+/config/sources/     @SaifAlYounan
+/config/rights/      @SaifAlYounan
+/config/source-policy/ @SaifAlYounan
+/CODEOWNERS          @SaifAlYounan
