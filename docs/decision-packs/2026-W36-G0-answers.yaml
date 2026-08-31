@@ -1,0 +1,24 @@
+# Operator answers to the 2026-W36 G0 pack. Fill `answer` and
+# `decision_id` (D-003, D-004, ...) for each item IN ONE SITTING, then
+# commit. `make plan-next` and `make gate-verify GATE=G0` read this
+# file; an item without both fields remains unanswered (restrictive
+# default holds).
+schema_version: atlas-pack-answers/v1
+pack: 2026-W36-G0
+answered_by: Alexios
+answered_at: null
+answers:
+  - { item: G0-Q1,  decision_id: null, answer: null }
+  - { item: G0-Q2,  decision_id: null, answer: null }
+  - { item: G0-Q3,  decision_id: null, answer: null }
+  - { item: G0-Q4,  decision_id: null, answer: null }
+  - { item: G0-Q5,  decision_id: null, answer: null }
+  - { item: G0-Q6,  decision_id: null, answer: null }
+  - { item: G0-Q7,  decision_id: null, answer: null }   # session/day ceilings + currency
+  - { item: G0-Q8,  decision_id: null, answer: null }   # channel name
+  - { item: G0-Q9,  decision_id: null, answer: null }
+  - { item: G0-Q10, decision_id: null, answer: null }   # dataset path etc.
+  - { item: G0-Q11, decision_id: null, answer: null }
+  - { item: G0-Q12, decision_id: null, answer: null }
+  - { item: G0-Q13, decision_id: null, answer: null }
+  - { item: G0-Q14, decision_id: null, answer: null }
