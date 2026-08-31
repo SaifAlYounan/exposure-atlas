@@ -163,3 +163,16 @@ read-only access to official SDK docs is A0-permitted).
   probe onto the query library + candidate ledger (so live probes discover
   in-scope matters and log candidates) is a follow-up that touches the
   CODEOWNERS-protected probe path and will go through a PR for operator merge.
+
+## Probe wired onto query library + candidate ledger; CL API acquisition (2026-09-01)
+- tools/run_probe.py: discovery now driven by the DISC-002 query library
+  (active query -> listing URL); every lead logged into a DISC-001
+  CandidateLedger (idempotent) and a DiscoveryRun coverage record emitted
+  into the summary. CL lead_id derived from the opinion-URL cluster id
+  (fixes cl-None). CL acquisition resolves opinion text via the v4 API
+  opinion content field (plain_text/html*), not the 202-empty HTML view
+  (SRC-FIND-01); mirror copy provenance stays unverified (SP-05).
+- Offline tests cover listing-URL construction + CL cluster-id parsing;
+  the live CL API content-field behavior is verified on the next
+  operator-approved dispatch. Summary stays metadata-only (R-17): adds
+  candidate_id, content_field name, discovery_run — never raw text.

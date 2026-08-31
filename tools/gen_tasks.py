@@ -332,6 +332,16 @@ G1_S1 = {
     "API-000": "read path serves signed artifact bytes; suppression first; no_match_is_not_absence",
     "SEC-001-01": "SSRF/private-IP, oversize, MIME-mismatch, canary-leak, tamper fixtures passing",
 }
+G2_S3 = {
+    "SRC-004-80": "probe wired onto DISC-002 query library (query drives discovery) + DISC-001 "
+                  "candidate ledger (each lead logged idempotently; DiscoveryRun coverage recorded); "
+                  "CL lead_id from opinion-URL cluster id (fixes cl-None); CL acquisition via v4 API "
+                  "opinion content field (plain_text/html*), not the 202-empty HTML view (SRC-FIND-01); "
+                  "mirror copy provenance stays unverified (SP-05). Live re-run pending operator dispatch",
+}
+for _tid, _note in G2_S3.items():
+    T[_tid]["notes"] = (T[_tid]["notes"] + " | " if T[_tid]["notes"] else "") + "G2-S3: " + _note
+
 G2_S2 = {
     "DISC-001": "candidate ledger: deterministic fingerprint (source+normalized URL) => idempotent "
                 "rediscovery appends an observation, never a duplicate; controlled exclusion reasons "
