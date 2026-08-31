@@ -1,0 +1,88 @@
+{
+ "source_id": "ftc_enforcement",
+ "max_docs": 10,
+ "leads_discovered": 8,
+ "documents": [
+  {
+   "lead_id": "ftc-6685334",
+   "url": "https://www.ftc.gov/legal-library/browse/cases-proceedings/banned-debt-collectors",
+   "sha256": "da2bcfee3b8ce3a41224c01c8eecf1154615b6468dfd11af5614ff46e0df41e0",
+   "bytes": 1071605,
+   "http_status": 200,
+   "kind": "html",
+   "canonical_sha256": "7c923a1a90cd5d7ed97fe4c2d2c5a1697fb7a202fddb20fa9ea7d1fc76637250",
+   "canonical_len": 38984
+  },
+  {
+   "lead_id": "ftc-3340485",
+   "url": "https://www.ftc.gov/legal-library/browse/cases-proceedings/adjudicative-proceedings",
+   "sha256": "f19c7b591dc82971aa6576760464f5c3c037fe77cd5a331dd898efc7f4570996",
+   "bytes": 1074191,
+   "http_status": 200,
+   "kind": "html",
+   "canonical_sha256": "4299b35fd80594a1e996a9fa68730e3b020d0a50477ef68758fc9bb4f286e779",
+   "canonical_len": 37047
+  },
+  {
+   "lead_id": "ftc-19574636",
+   "url": "https://www.ftc.gov/legal-library/browse/cases-proceedings/221-0114-caremark-rx-zinc-health-services-et-al-matter-insulin",
+   "sha256": "497bdcb67132453777b83a268be06f29e04e3a4881cbe066f14f27c05cae14d7",
+   "bytes": 1361739,
+   "http_status": 200,
+   "kind": "html",
+   "canonical_sha256": "908f29ca738a18ed464855e04ca94f3592ae6e8d0d625345b551bf27f4259298",
+   "canonical_len": 52307
+  },
+  {
+   "lead_id": "ftc-18935293",
+   "url": "https://www.ftc.gov/legal-library/browse/cases-proceedings/2323092-content-scale-ai",
+   "sha256": "4911a69833c8b38f475fecf0072a04e06a0a0a140f0a77d160d8e55649ed2564",
+   "bytes": 995329,
+   "http_status": 200,
+   "kind": "html",
+   "canonical_sha256": "37f7ee46097624be895cc5ff3dc30f3eafd7a7cc340524d8f1e3f6f0a7eb136f",
+   "canonical_len": 15483
+  },
+  {
+   "lead_id": "ftc-67370118",
+   "url": "https://www.ftc.gov/legal-library/browse/cases-proceedings/sitejabber",
+   "sha256": "5a1bb77b8f5281f0b204ffc52b11138a45f68b26805174ef4c4a04a19a47910b",
+   "bytes": 995426,
+   "http_status": 200,
+   "kind": "html",
+   "canonical_sha256": "38b28219eb23403c6a5015116d53719ce195a4a9dab02a9606d86511bc3e37f3",
+   "canonical_len": 15692
+  },
+  {
+   "lead_id": "ftc-56230590",
+   "url": "https://www.ftc.gov/legal-library/browse/cases-proceedings/automators",
+   "sha256": "ec08467f1e4df81e30652f114b0a573a15eb00ceb66ad3b43429345e99a95d3e",
+   "bytes": 996761,
+   "http_status": 200,
+   "kind": "html",
+   "canonical_sha256": "6f5c1207e7fed4f5a8550986e71d6ec3cedbfeda63be538acf9b7bfc0a0217ba",
+   "canonical_len": 17152
+  },
+  {
+   "lead_id": "ftc-30243526",
+   "url": "https://www.ftc.gov/legal-library/browse/cases-proceedings/closing-letters",
+   "sha256": "ff4d498ce48397fda59a6aa8d357a8b8204d150efa9f9478e931ccbff99da5bc",
+   "bytes": 1072204,
+   "http_status": 200,
+   "kind": "html",
+   "canonical_sha256": "11c2e55b56b5d0925811adedf16d554a567e0f24a1168e8c44af4e20c8b3d9b8",
+   "canonical_len": 30854
+  },
+  {
+   "lead_id": "ftc-62346580",
+   "url": "https://www.ftc.gov/legal-library/browse/cases-proceedings/closing-letters/social-intelligence-corporation",
+   "sha256": "9c26fe8a5c15658832084b3a990e64c8164cd7683c96532e4dcf4317c5ef617d",
+   "bytes": 985835,
+   "http_status": 200,
+   "kind": "html",
+   "canonical_sha256": "148eb984b2ed81c34719f433ac9716f9b4a067f426cd59e26f9ef0b0e9b2c475",
+   "canonical_len": 14522
+  }
+ ],
+ "errors": []
+}
