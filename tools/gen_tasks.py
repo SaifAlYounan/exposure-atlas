@@ -332,6 +332,19 @@ G1_S1 = {
     "API-000": "read path serves signed artifact bytes; suppression first; no_match_is_not_absence",
     "SEC-001-01": "SSRF/private-IP, oversize, MIME-mismatch, canary-leak, tamper fixtures passing",
 }
+G2_S2 = {
+    "DISC-001": "candidate ledger: deterministic fingerprint (source+normalized URL) => idempotent "
+                "rediscovery appends an observation, never a duplicate; controlled exclusion reasons "
+                "+ boundary version; excluded candidates replayable on boundary change; partial "
+                "adapter outage degrades run coverage_state",
+    "DISC-002": "versioned query library (config/queries/v1.yaml): effective-dated queries traceable "
+                "by id+version; candidate carries query_version+run; query change flags backfill; "
+                "results below expected band flagged",
+}
+for _tid, _note in G2_S2.items():
+    T[_tid]["status"] = "in_progress"
+    T[_tid]["notes"] = (T[_tid]["notes"] + " | " if T[_tid]["notes"] else "") + "G2-S2: " + _note
+
 G2_S1 = {
     "SRC-004": "pilot adapters CourtListener/RECAP (mirror custodian) + FTC (issuer) over "
                "deterministic synthetic cassettes; conformance kit passes; unregistered hosts "
