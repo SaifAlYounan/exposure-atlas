@@ -2025,7 +2025,10 @@ tasks:
   evidence_paths:
   - plan/evidence.jsonl
   rollback: discard_task_worktree
-  status: pending
+  status: in_progress
+  notes: 'G2-S2: candidate ledger: deterministic fingerprint (source+normalized URL) => idempotent rediscovery
+    appends an observation, never a duplicate; controlled exclusion reasons + boundary version; excluded
+    candidates replayable on boundary change; partial adapter outage degrades run coverage_state'
 - schema_version: atlas-task/v2.2
   id: DISC-002
   epic: DISC-002
@@ -2059,7 +2062,10 @@ tasks:
   evidence_paths:
   - plan/evidence.jsonl
   rollback: discard_task_worktree
-  status: pending
+  status: in_progress
+  notes: 'G2-S2: versioned query library (config/queries/v1.yaml): effective-dated queries traceable by
+    id+version; candidate carries query_version+run; query change flags backfill; results below expected
+    band flagged'
 - schema_version: atlas-task/v2.2
   id: ID-001
   epic: ID-001

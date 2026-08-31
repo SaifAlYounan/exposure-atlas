@@ -149,3 +149,17 @@ read-only access to official SDK docs is A0-permitted).
   (get_me = SaifAlYounan) per explicit instruction; no admin bypass.
 - The live run still requires the operator to approve the environment
   gate at dispatch; that is the D-027 enforcement point.
+
+## G2 — DISC-001 candidate ledger + DISC-002 query library (2026-09-01)
+- atlas/discovery.py: idempotent candidate fingerprint (source + normalized
+  URL); rediscovery appends an observation, never duplicates; controlled
+  exclusion reasons bound to a boundary version; excluded candidates
+  replayable on boundary change; DiscoveryRun coverage_state degrades on
+  partial outage; below-expected-band flag.
+- config/queries/v1.yaml: versioned, effective-dated query library (DISC-002);
+  active-query selection, backfill trigger on version change.
+- schemas: query-definition, discovery-run (catalogue now 64 schemas).
+- NOTE: run_probe.py still uses its placeholder discovery query; wiring the
+  probe onto the query library + candidate ledger (so live probes discover
+  in-scope matters and log candidates) is a follow-up that touches the
+  CODEOWNERS-protected probe path and will go through a PR for operator merge.

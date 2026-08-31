@@ -1,0 +1,29 @@
+# Versioned query library v1 (DISC-002). Each query is traceable by
+# query_id + version; changes create a new version and trigger a
+# backfill/reconciliation decision. Effective-dated. These are the
+# pilot smoke queries; boundary-aligned refinement is ongoing.
+schema_version: atlas-query-library/v1
+library_version: 1.0.0
+queries:
+  - query_id: q_ftc_ai_matters
+    version: 1.0.0
+    source_id: ftc_enforcement
+    jurisdiction: US-federal-regulator
+    category: null
+    language: en
+    query: "artificial intelligence"
+    effective_from: "2026-09-01"
+    effective_to: null
+    expected_min_results: 5
+    supersedes: null
+  - query_id: q_courtlistener_ai_opinions
+    version: 1.0.0
+    source_id: courtlistener_recap
+    jurisdiction: US-federal
+    category: null
+    language: en
+    query: "artificial intelligence"
+    effective_from: "2026-09-01"
+    effective_to: null
+    expected_min_results: 5
+    supersedes: null
