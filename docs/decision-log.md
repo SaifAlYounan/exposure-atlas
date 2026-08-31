@@ -169,3 +169,24 @@ decision pack; the kickoff message granted A0 for this first turn but
   migration task blocked_external, and no expected-count re-baseline
   occurs without a future written decision.
 - **Status:** recorded
+
+## D-017 — Builder environment for implementation gates (amends D-013)
+
+- **Decision ID:** D-017
+- **Recorded:** 2026-08-31
+- **Decider:** Alexios (operator), via the builder session channel
+- **Decision text:** "Just do everything on GitHub, and Claude Code —
+  go." The managed Claude Code cloud session environment (as documented
+  in docs/as-built.md) plus GitHub-hosted CI is accepted as the builder
+  environment for G1 and subsequent implementation gates, superseding
+  the D-013 requirement to hand off to the handoff-section-2 sandbox
+  before G1.
+- **Recorded scope:** implementation work on schemas, code, tests,
+  fixtures and CI within A0 authorization. This decision does NOT grant
+  A1 or above. The handoff-section-2 sandbox requirement is not
+  abolished: it moves to become a precondition of the first written A1
+  decision — no live-source access, no runtime model calls on real
+  documents, and no ingestion may run in the managed environment.
+  Repository remains private; sources are never committed to git
+  (SPEC 2.3, line-600 rule).
+- **Status:** recorded
