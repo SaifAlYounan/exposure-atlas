@@ -1,0 +1,49 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "https://exposure-atlas.invalid/schemas/domain/source-version.schema.json",
+ "title": "SourceVersion",
+ "type": "object",
+ "required": [
+  "schema_version",
+  "source_version_id",
+  "source_document_id",
+  "content_sha256",
+  "mime_type",
+  "size_bytes",
+  "copy_provenance_state"
+ ],
+ "properties": {
+  "schema_version": {
+   "const": "atlas-source-version/v1"
+  },
+  "source_version_id": {
+   "type": "string",
+   "pattern": "^sver_[a-z0-9]{8,}$"
+  },
+  "source_document_id": {
+   "type": "string",
+   "pattern": "^sdoc_[a-z0-9]{8,}$"
+  },
+  "content_sha256": {
+   "type": "string",
+   "pattern": "^[0-9a-f]{64}$"
+  },
+  "mime_type": {
+   "type": "string"
+  },
+  "size_bytes": {
+   "type": "integer",
+   "minimum": 0
+  },
+  "copy_provenance_state": {
+   "$ref": "https://exposure-atlas.invalid/schemas/domain/common.schema.json#/$defs/copy_provenance"
+  },
+  "supersedes": {
+   "type": [
+    "string",
+    "null"
+   ]
+  }
+ },
+ "unevaluatedProperties": false
+}

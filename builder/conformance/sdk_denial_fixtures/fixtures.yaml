@@ -1,0 +1,17 @@
+schema_version: atlas-sdk-denial-fixtures/v1
+fixtures:
+  - id: planner_cannot_write
+    role: planner
+    denied_tool: write
+  - id: planner_cannot_shell
+    role: planner
+    denied_tool: shell
+  - id: implementer_cannot_push_main
+    role: implementer
+    denied_tool: git_push_main
+  - id: reviewer_cannot_mutate_source
+    role: adversarial_security_reviewer
+    denied_tool: write
+  - id: coordinator_cannot_waive_check
+    role: coordinator
+    denied_tool: waive_failed_check

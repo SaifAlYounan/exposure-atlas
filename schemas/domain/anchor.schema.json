@@ -1,0 +1,66 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "https://exposure-atlas.invalid/schemas/domain/anchor.schema.json",
+ "title": "Anchor",
+ "type": "object",
+ "required": [
+  "schema_version",
+  "anchor_id",
+  "text_artifact_id",
+  "quote",
+  "quote_sha256",
+  "start_byte",
+  "end_byte",
+  "prefix",
+  "suffix",
+  "anchor_basis"
+ ],
+ "properties": {
+  "schema_version": {
+   "const": "atlas-anchor/v1"
+  },
+  "anchor_id": {
+   "type": "string",
+   "pattern": "^anc_[a-z0-9]{8,}$"
+  },
+  "text_artifact_id": {
+   "type": "string",
+   "pattern": "^txt_[a-z0-9]{8,}$"
+  },
+  "quote": {
+   "type": "string",
+   "minLength": 1
+  },
+  "quote_sha256": {
+   "type": "string",
+   "pattern": "^[0-9a-f]{64}$"
+  },
+  "start_byte": {
+   "type": "integer",
+   "minimum": 0
+  },
+  "end_byte": {
+   "type": "integer",
+   "minimum": 1
+  },
+  "prefix": {
+   "type": "string"
+  },
+  "suffix": {
+   "type": "string"
+  },
+  "page_label": {
+   "type": [
+    "string",
+    "null"
+   ]
+  },
+  "anchor_basis": {
+   "enum": [
+    "native_text",
+    "ocr"
+   ]
+  }
+ },
+ "unevaluatedProperties": false
+}

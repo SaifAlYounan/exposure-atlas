@@ -1,0 +1,97 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "https://exposure-atlas.invalid/schemas/domain/release-manifest.schema.json",
+ "title": "ReleaseManifest",
+ "type": "object",
+ "required": [
+  "schema_version",
+  "release_id",
+  "snapshot_id",
+  "created_from_commit",
+  "artifact_hashes",
+  "root_hash",
+  "policy_versions",
+  "build_meta",
+  "signing"
+ ],
+ "properties": {
+  "schema_version": {
+   "const": "atlas-release-manifest/v1"
+  },
+  "release_id": {
+   "type": "string",
+   "pattern": "^rel_[a-z0-9]{8,}$"
+  },
+  "snapshot_id": {
+   "type": "string",
+   "pattern": "^snp_[a-z0-9]{8,}$"
+  },
+  "prior_release_id": {
+   "type": [
+    "string",
+    "null"
+   ]
+  },
+  "created_from_commit": {
+   "type": "string"
+  },
+  "artifact_hashes": {
+   "type": "object",
+   "additionalProperties": {
+    "type": "string",
+    "pattern": "^[0-9a-f]{64}$"
+   }
+  },
+  "root_hash": {
+   "type": "string",
+   "pattern": "^[0-9a-f]{64}$"
+  },
+  "policy_versions": {
+   "type": "object",
+   "additionalProperties": {
+    "type": "string"
+   }
+  },
+  "build_meta": {
+   "type": "object",
+   "unevaluatedProperties": false,
+   "required": [
+    "build_timestamp",
+    "builder"
+   ],
+   "properties": {
+    "build_timestamp": {
+     "type": "string",
+     "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?(Z|[+-]\\d{2}:\\d{2})$"
+    },
+    "builder": {
+     "type": "string"
+    }
+   }
+  },
+  "signing": {
+   "type": "object",
+   "unevaluatedProperties": false,
+   "required": [
+    "scheme",
+    "key_id",
+    "payload_sha256"
+   ],
+   "properties": {
+    "scheme": {
+     "enum": [
+      "test_key_sha256"
+     ]
+    },
+    "key_id": {
+     "type": "string"
+    },
+    "payload_sha256": {
+     "type": "string",
+     "pattern": "^[0-9a-f]{64}$"
+    }
+   }
+  }
+ },
+ "unevaluatedProperties": false
+}

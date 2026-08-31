@@ -1,0 +1,80 @@
+{
+ "schema_version": "atlas-harness-capability/v1",
+ "provider": "claude",
+ "sdk_version": "claude-code-managed-session (exact SDK pin recorded at sandbox qualification; D-017)",
+ "qualified_at": "2026-08-31T19:12:03+00:00",
+ "fixtures": [
+  {
+   "fixture": "structured_output_canonical_validation",
+   "result": "pass",
+   "detail": "tests/test_schema_catalogue.py: provider/manual output revalidated against canonical 2020-12; unknown keys and lossy output fail"
+  },
+  {
+   "fixture": "completion_gate_authoritative",
+   "result": "pass",
+   "detail": "tests/test_plan_tools.py + tests/test_builder_core.py: provider success, interruption, max-turn and invalid-output cannot mark done; done requires receipt bound to exact commit"
+  },
+  {
+   "fixture": "failure_completion_paths",
+   "result": "pass",
+   "detail": "tests/test_builder_core.py: interrupted/failed/budget terminations refuse completion"
+  },
+  {
+   "fixture": "budget_exhaustion_blocks_cleanly",
+   "result": "pass",
+   "detail": "tests/test_builder_core.py: reservation beyond ceiling raises BudgetExhausted -> blocked_budget; verification never weakened"
+  },
+  {
+   "fixture": "transcript_cost_normalization",
+   "result": "pass",
+   "detail": "schemas/plan/task-evidence-receipt + builder-run-manifest schemas; ledger entries validate; raw events stay outside the worktree"
+  },
+  {
+   "fixture": "deterministic_release_receipts",
+   "result": "pass",
+   "detail": "REL-000 two-build byte-identical test, enforced per-push in CI"
+  },
+  {
+   "fixture": "role_tool_policy_deny_by_default",
+   "result": "pass",
+   "detail": "tests/test_builder_core.py: omitted tool unavailable; unknown role denied; policy change changes compiled hash"
+  },
+  {
+   "fixture": "evidence_binds_exact_commit",
+   "result": "pass",
+   "detail": "tests/test_plan_tools.py: wrong-commit receipt fails task-verify"
+  },
+  {
+   "fixture": "filesystem_confinement_symlink_traversal_subprocess",
+   "result": "not_applicable",
+   "detail": "NOT CLAIMED in managed environment: requires operator-provisioned sandbox (handoff section 2); precondition of first A1 decision per D-017"
+  },
+  {
+   "fixture": "network_deny_by_default_connected_peer_validation",
+   "result": "not_applicable",
+   "detail": "NOT CLAIMED in managed environment: requires sandbox egress proxy; fetchguard logic is unit-proven but host enforcement is not; precondition of first A1 decision per D-017"
+  },
+  {
+   "fixture": "credential_isolation_env_git_cloud_package",
+   "result": "not_applicable",
+   "detail": "NOT CLAIMED in managed environment: requires scrubbed sandbox; managed session credentials are harness-held and unaudited by the builder; precondition of first A1 decision per D-017"
+  },
+  {
+   "fixture": "specialist_tool_omission_enforced_by_host",
+   "result": "not_applicable",
+   "detail": "NOT CLAIMED in managed environment: config/builder-roles.yaml is compiled and code-enforced; SDK-level subagent restriction qualification requires the sandbox launcher; precondition of first A1 decision per D-017"
+  }
+ ],
+ "substitutions": [
+  {
+   "capability": "filesystem/network/credential confinement",
+   "supplied_by": "operator-provisioned sandbox (handoff section 2), precondition of A1",
+   "adr": "ADR-0001 + decision D-017"
+  },
+  {
+   "capability": "clean-checkout CI identity isolation",
+   "supplied_by": "GitHub Actions (identity unreadable by builder)",
+   "adr": "ADR-0001 + decision D-017"
+  }
+ ]
+}

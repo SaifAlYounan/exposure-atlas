@@ -1,0 +1,66 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "https://exposure-atlas.invalid/schemas/domain/stats-v1.schema.json",
+ "title": "StatsV1 (every figure names its denominator)",
+ "type": "object",
+ "required": [
+  "schema_version",
+  "projection_version",
+  "release_id",
+  "dimension",
+  "boundary_version",
+  "as_of",
+  "rows"
+ ],
+ "properties": {
+  "schema_version": {
+   "const": "atlas-stats/v1"
+  },
+  "projection_version": {
+   "const": "V1"
+  },
+  "release_id": {
+   "type": "string",
+   "pattern": "^rel_[a-z0-9]{8,}$"
+  },
+  "dimension": {
+   "type": "string",
+   "minLength": 1
+  },
+  "boundary_version": {
+   "type": "string",
+   "minLength": 1
+  },
+  "as_of": {
+   "type": "string",
+   "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?(Z|[+-]\\d{2}:\\d{2})$"
+  },
+  "rows": {
+   "type": "array",
+   "items": {
+    "type": "object",
+    "unevaluatedProperties": false,
+    "required": [
+     "key",
+     "count",
+     "denominator"
+    ],
+    "properties": {
+     "key": {
+      "type": "string",
+      "minLength": 1
+     },
+     "count": {
+      "type": "integer",
+      "minimum": 0
+     },
+     "denominator": {
+      "type": "string",
+      "minLength": 1
+     }
+    }
+   }
+  }
+ },
+ "unevaluatedProperties": false
+}

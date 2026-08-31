@@ -1,0 +1,194 @@
+{
+ "schema_version": "atlas-gate-manifest/v1",
+ "gate": "G0",
+ "generated_at": "2026-08-31T22:20:55+00:00",
+ "commit": "076be14c1568657c99e68422c7855078a64d47f3",
+ "pass": true,
+ "tasks": [
+  {
+   "id": "BOOT-000",
+   "status": "in_progress",
+   "evidence_state": "self_asserted_only",
+   "receipt_ids": [
+    "rcpt_boot-000-g0-close"
+   ]
+  },
+  {
+   "id": "BOOT-010",
+   "status": "in_progress",
+   "evidence_state": "self_asserted_only",
+   "receipt_ids": [
+    "rcpt_boot-010-a0-bootstrap",
+    "rcpt_boot-010-g0-close"
+   ]
+  },
+  {
+   "id": "BOOT-020",
+   "status": "in_progress",
+   "evidence_state": "self_asserted_only",
+   "receipt_ids": [
+    "rcpt_boot-020-g0-close"
+   ]
+  },
+  {
+   "id": "BOOT-030",
+   "status": "in_progress",
+   "evidence_state": "self_asserted_only",
+   "receipt_ids": [
+    "rcpt_boot-030-g0-close"
+   ]
+  },
+  {
+   "id": "BOOT-040",
+   "status": "in_progress",
+   "evidence_state": "self_asserted_only",
+   "receipt_ids": [
+    "rcpt_boot-040-a0-bootstrap",
+    "rcpt_boot-040-g0-close"
+   ]
+  },
+  {
+   "id": "BOOT-050",
+   "status": "in_progress",
+   "evidence_state": "self_asserted_only",
+   "receipt_ids": [
+    "rcpt_boot-050-a0-bootstrap",
+    "rcpt_boot-050-g0-close"
+   ]
+  },
+  {
+   "id": "BOOT-080",
+   "status": "in_progress",
+   "evidence_state": "self_asserted_only",
+   "receipt_ids": [
+    "rcpt_boot-080-a0-bootstrap",
+    "rcpt_boot-080-g0-close"
+   ]
+  },
+  {
+   "id": "FND-000",
+   "status": "in_progress",
+   "evidence_state": "self_asserted_only",
+   "receipt_ids": [
+    "rcpt_fnd-000-g0-close"
+   ]
+  },
+  {
+   "id": "FND-001",
+   "status": "in_progress",
+   "evidence_state": "self_asserted_only",
+   "receipt_ids": [
+    "rcpt_fnd-001-a0-bootstrap",
+    "rcpt_fnd-001-g0-close"
+   ]
+  },
+  {
+   "id": "FND-002",
+   "status": "in_progress",
+   "evidence_state": "self_asserted_only",
+   "receipt_ids": [
+    "rcpt_fnd-002-g0-close"
+   ]
+  },
+  {
+   "id": "FND-003",
+   "status": "in_progress",
+   "evidence_state": "self_asserted_only",
+   "receipt_ids": [
+    "rcpt_fnd-003-g0-close"
+   ]
+  },
+  {
+   "id": "FND-004",
+   "status": "in_progress",
+   "evidence_state": "self_asserted_only",
+   "receipt_ids": [
+    "rcpt_fnd-004-g0-close"
+   ]
+  },
+  {
+   "id": "FND-005",
+   "status": "in_progress",
+   "evidence_state": "self_asserted_only",
+   "receipt_ids": [
+    "rcpt_fnd-005-g0-close"
+   ]
+  },
+  {
+   "id": "FND-006",
+   "status": "in_progress",
+   "evidence_state": "self_asserted_only",
+   "receipt_ids": [
+    "rcpt_fnd-006-g0-close"
+   ]
+  },
+  {
+   "id": "FND-007",
+   "status": "in_progress",
+   "evidence_state": "self_asserted_only",
+   "receipt_ids": [
+    "rcpt_fnd-007-g0-close"
+   ]
+  },
+  {
+   "id": "HAR-000-01",
+   "status": "in_progress",
+   "evidence_state": "self_asserted_only",
+   "receipt_ids": [
+    "rcpt_har-000-01-g0-close"
+   ]
+  },
+  {
+   "id": "HAR-001-01",
+   "status": "in_progress",
+   "evidence_state": "self_asserted_only",
+   "receipt_ids": [
+    "rcpt_har-001-01-g0-close"
+   ]
+  },
+  {
+   "id": "HAR-002-01",
+   "status": "in_progress",
+   "evidence_state": "self_asserted_only",
+   "receipt_ids": [
+    "rcpt_har-002-01-g0-close"
+   ]
+  },
+  {
+   "id": "HAR-003-01",
+   "status": "in_progress",
+   "evidence_state": "self_asserted_only",
+   "receipt_ids": [
+    "rcpt_har-003-01-g0-close"
+   ]
+  },
+  {
+   "id": "HAR-005-01",
+   "status": "in_progress",
+   "evidence_state": "self_asserted_only",
+   "receipt_ids": [
+    "rcpt_har-005-01-g0-close"
+   ]
+  },
+  {
+   "id": "PLAN-002",
+   "status": "in_progress",
+   "evidence_state": "self_asserted_only",
+   "receipt_ids": [
+    "rcpt_plan-002-g0-close"
+   ]
+  },
+  {
+   "id": "PLAN-001",
+   "status": "in_progress",
+   "evidence_state": "self_asserted_only",
+   "receipt_ids": [
+    "rcpt_plan-001-a0-bootstrap",
+    "rcpt_plan-001-g0-close"
+   ]
+  }
+ ],
+ "missing_evidence": [],
+ "missing_operator_decisions": [],
+ "notes": "G0 evidence policy: passing self-asserted receipts accepted because clean-checkout CI does not exist until PLT-004 (G1); G0 task receipts are re-derived from clean CI at G1 (BOOT-060/070). Disclosed per SPEC 0.3(15)."
+}

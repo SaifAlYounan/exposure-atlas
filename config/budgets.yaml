@@ -1,0 +1,12 @@
+# Builder cost ledger configuration. Ceilings are OPERATOR decisions
+# (G0 pack item G0-Q7). Null means UNSET: plan-next must refuse to
+# reserve budget and reports the blocking question. Interim containment
+# is the managed session's own harness ceilings (recorded in D-002).
+schema_version: atlas-budgets/v1
+currency: USD
+session_ceiling: 25
+day_ceiling: 75
+ledger_path: plan/budget-ledger.jsonl
+# D-009: builder runs on the operator's Claude subscription via
+# Claude Code sessions; ceilings above are notional ledger caps for
+# fail-closed accounting, not a separate metered API budget.

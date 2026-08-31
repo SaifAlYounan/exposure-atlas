@@ -1,0 +1,13 @@
+{
+ "schema_version": "atlas-operator-decision/v1",
+ "decision_id": "D-002",
+ "decided_by": "Alexios",
+ "recorded_at": "2026-08-31",
+ "channel": "builder session",
+ "decision": "A0 confirmed; proceed with proposed G0 task list",
+ "scope": "A0 only",
+ "authorization_level": "A0",
+ "bound_commit": "efa7689",
+ "bound_hashes": {},
+ "status": "recorded"
+}

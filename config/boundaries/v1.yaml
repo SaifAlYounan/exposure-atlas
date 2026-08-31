@@ -1,0 +1,71 @@
+# Boundary manifest v1 — DRAFT PROPOSAL pending operator decision G0-Q1.
+# Nothing here authorizes ingestion or publication. Three boundaries are
+# kept distinct per SPEC FND-003.
+schema_version: atlas-boundary/v1
+boundary_version: 1.0.0
+status: approved
+approval: D-003
+
+substantive_boundary:
+  description: >
+    Formal proceedings in which an organisation's use of AI met a court,
+    tribunal, arbitral body or regulator.
+  jurisdictions: [US]            # proposal; operator may add UK
+  forums:
+    - us_federal_courts
+    - us_ftc                     # regulator pilot
+  date_window: { from: "2015-01-01", to: open }
+  included_proceeding_types:
+    - civil_litigation
+    - regulatory_enforcement
+    - administrative_proceeding
+  organisational_nexus: >
+    A named organisation (not solely a private individual) whose
+    development, deployment, procurement or representation of an AI
+    system is material to the proceeding.
+  ai_nexus: >
+    The AI system's behavior, output, marketing or governance is a
+    subject of the claim, defence, finding, order or announced action —
+    not merely an incidental tool used by counsel (e.g. sanctions for
+    fabricated citations ARE in scope when the filing party's AI use is
+    the subject of the order).
+  filings_treatment: included as allegation/party_position modality only
+  investigations_treatment: >
+    Announced formal investigations are candidates (awaiting_primary)
+    until an authoritative instrument exists.
+  settlements_treatment: included via settlement instrument or approving order
+  arbitration_treatment: >
+    Included only where an award or authoritative record is lawfully
+    published; confidential arbitration is out of observable scope and
+    never represented as covered.
+  explicit_exclusions:
+    - press coverage without a primary instrument
+    - academic or policy commentary
+    - legislation and rulemaking without an enforcement action
+    - proceedings where AI is only incidentally mentioned
+    - purely private individual disputes without organisational nexus
+  languages: [en]
+  accessibility_constraints: >
+    Sealed, paywalled-only or confidential material is out of the
+    observable-source boundary; its existence may be recorded as a gap.
+
+observable_source_boundary:
+  description: What declared adapters can actually observe.
+  declared_sources: [courtlistener_recap, ftc_enforcement]   # G0-Q2
+  known_gaps:
+    - US state courts (no pilot adapter)
+    - PACER-only documents not present in RECAP
+    - confidential arbitration
+    - non-US proceedings
+
+publication_boundary:
+  description: What rights and evidence rules permit publishing.
+  rule: >
+    Publication requires the full SPEC 2.1 assertion invariant; rights
+    defaults per config/rights/v1.yaml; everything is internal_only
+    until source-specific rights decisions exist (G0-Q3).
+
+change_approval: >
+  Any change creates a new boundary_version and requires an operator
+  decision with a later-day cooling-period confirmation (SPEC 10.1
+  change class 2).

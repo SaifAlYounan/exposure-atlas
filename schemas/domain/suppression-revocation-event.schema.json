@@ -1,0 +1,51 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "https://exposure-atlas.invalid/schemas/domain/suppression-revocation-event.schema.json",
+ "title": "SuppressionRevocationEvent (append-only, operator-authenticated)",
+ "type": "object",
+ "required": [
+  "schema_version",
+  "event_id",
+  "action",
+  "record_ids",
+  "decided_by",
+  "decided_at",
+  "reason"
+ ],
+ "properties": {
+  "schema_version": {
+   "const": "atlas-suppression-event/v1"
+  },
+  "event_id": {
+   "type": "string",
+   "pattern": "^spe_[a-z0-9]{8,}$"
+  },
+  "action": {
+   "enum": [
+    "deny",
+    "withdraw",
+    "restore"
+   ]
+  },
+  "record_ids": {
+   "type": "array",
+   "minItems": 1,
+   "items": {
+    "type": "string",
+    "pattern": "^rec_[a-z0-9]{8,}$"
+   }
+  },
+  "decided_by": {
+   "const": "Alexios"
+  },
+  "decided_at": {
+   "type": "string",
+   "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?(Z|[+-]\\d{2}:\\d{2})$"
+  },
+  "reason": {
+   "type": "string",
+   "minLength": 1
+  }
+ },
+ "unevaluatedProperties": false
+}

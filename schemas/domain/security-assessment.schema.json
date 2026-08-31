@@ -1,0 +1,52 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "https://exposure-atlas.invalid/schemas/domain/security-assessment.schema.json",
+ "title": "SecurityAssessment",
+ "type": "object",
+ "required": [
+  "schema_version",
+  "assessment_id",
+  "source_version_id",
+  "state",
+  "assessed_at",
+  "scanner_versions"
+ ],
+ "properties": {
+  "schema_version": {
+   "const": "atlas-security-assessment/v1"
+  },
+  "assessment_id": {
+   "type": "string",
+   "pattern": "^sec_[a-z0-9]{8,}$"
+  },
+  "source_version_id": {
+   "type": "string",
+   "pattern": "^sver_[a-z0-9]{8,}$"
+  },
+  "state": {
+   "enum": [
+    "quarantined",
+    "cleared_inert",
+    "cleared_scanned",
+    "rejected"
+   ]
+  },
+  "assessed_at": {
+   "type": "string",
+   "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?(Z|[+-]\\d{2}:\\d{2})$"
+  },
+  "scanner_versions": {
+   "type": "object",
+   "additionalProperties": {
+    "type": "string"
+   }
+  },
+  "findings": {
+   "type": "array",
+   "items": {
+    "type": "string"
+   }
+  }
+ },
+ "unevaluatedProperties": false
+}

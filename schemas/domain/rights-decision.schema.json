@@ -1,0 +1,99 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "https://exposure-atlas.invalid/schemas/domain/rights-decision.schema.json",
+ "title": "RightsDecision (one axis, one scope)",
+ "type": "object",
+ "required": [
+  "schema_version",
+  "rights_decision_id",
+  "axis",
+  "subject_ref",
+  "outcome",
+  "decided_by",
+  "decided_at",
+  "policy_version",
+  "expiry"
+ ],
+ "properties": {
+  "schema_version": {
+   "const": "atlas-rights-decision/v1"
+  },
+  "rights_decision_id": {
+   "type": "string",
+   "pattern": "^rgt_[a-z0-9]{8,}$"
+  },
+  "axis": {
+   "enum": [
+    "lawful_acquisition",
+    "lawful_retention",
+    "reuse_copyright_database_contract",
+    "confidentiality_sealing",
+    "personal_data_publication",
+    "excerpt_scope",
+    "external_archive_submission",
+    "third_party_model_processing",
+    "downstream_audience_tier_territory_use"
+   ]
+  },
+  "subject_ref": {
+   "type": "object",
+   "unevaluatedProperties": false,
+   "required": [
+    "kind",
+    "id"
+   ],
+   "properties": {
+    "kind": {
+     "enum": [
+      "source",
+      "source_version",
+      "artifact",
+      "record",
+      "excerpt"
+     ]
+    },
+    "id": {
+     "type": "string",
+     "minLength": 1
+    }
+   }
+  },
+  "outcome": {
+   "enum": [
+    "pending",
+    "cleared_public",
+    "cleared_metadata_only",
+    "cleared_licensee",
+    "internal_only",
+    "prohibited",
+    "withdrawn"
+   ]
+  },
+  "decided_by": {
+   "const": "Alexios"
+  },
+  "decided_at": {
+   "type": "string",
+   "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?(Z|[+-]\\d{2}:\\d{2})$"
+  },
+  "policy_version": {
+   "type": "string",
+   "minLength": 1
+  },
+  "expiry": {
+   "anyOf": [
+    {
+     "type": "string",
+     "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?(Z|[+-]\\d{2}:\\d{2})$"
+    },
+    {
+     "type": "null"
+    }
+   ]
+  },
+  "reason": {
+   "type": "string"
+  }
+ },
+ "unevaluatedProperties": false
+}

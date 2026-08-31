@@ -1,0 +1,74 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "https://exposure-atlas.invalid/schemas/domain/text-artifact.schema.json",
+ "title": "TextArtifact",
+ "type": "object",
+ "required": [
+  "schema_version",
+  "text_artifact_id",
+  "source_version_id",
+  "canonical_sha256",
+  "canonicalizer_version",
+  "extractor",
+  "anchor_basis",
+  "language"
+ ],
+ "properties": {
+  "schema_version": {
+   "const": "atlas-text-artifact/v1"
+  },
+  "text_artifact_id": {
+   "type": "string",
+   "pattern": "^txt_[a-z0-9]{8,}$"
+  },
+  "source_version_id": {
+   "type": "string",
+   "pattern": "^sver_[a-z0-9]{8,}$"
+  },
+  "canonical_sha256": {
+   "type": "string",
+   "pattern": "^[0-9a-f]{64}$"
+  },
+  "canonicalizer_version": {
+   "type": "string"
+  },
+  "extractor": {
+   "type": "string"
+  },
+  "anchor_basis": {
+   "enum": [
+    "native_text",
+    "ocr"
+   ]
+  },
+  "language": {
+   "type": "string"
+  },
+  "page_map": {
+   "type": "array",
+   "items": {
+    "type": "object",
+    "unevaluatedProperties": false,
+    "required": [
+     "page_label",
+     "start_byte",
+     "end_byte"
+    ],
+    "properties": {
+     "page_label": {
+      "type": "string"
+     },
+     "start_byte": {
+      "type": "integer",
+      "minimum": 0
+     },
+     "end_byte": {
+      "type": "integer",
+      "minimum": 0
+     }
+    }
+   }
+  }
+ },
+ "unevaluatedProperties": false
+}

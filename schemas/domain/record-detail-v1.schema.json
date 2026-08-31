@@ -1,0 +1,86 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "https://exposure-atlas.invalid/schemas/domain/record-detail-v1.schema.json",
+ "title": "RecordDetailV1 (facts and classification NEVER flatten)",
+ "type": "object",
+ "required": [
+  "schema_version",
+  "projection_version",
+  "release_id",
+  "record_id",
+  "record_revision_id",
+  "boundary_version",
+  "facts",
+  "classification",
+  "notices"
+ ],
+ "properties": {
+  "schema_version": {
+   "const": "atlas-record-detail/v1"
+  },
+  "projection_version": {
+   "const": "V1"
+  },
+  "release_id": {
+   "type": "string",
+   "pattern": "^rel_[a-z0-9]{8,}$"
+  },
+  "record_id": {
+   "type": "string",
+   "pattern": "^rec_[a-z0-9]{8,}$"
+  },
+  "record_revision_id": {
+   "type": "string",
+   "pattern": "^rrv_[a-z0-9]{8,}$"
+  },
+  "boundary_version": {
+   "type": "string",
+   "minLength": 1
+  },
+  "facts": {
+   "type": "object",
+   "unevaluatedProperties": false,
+   "required": [
+    "assertions"
+   ],
+   "properties": {
+    "assertions": {
+     "type": "array",
+     "items": {
+      "type": "object"
+     }
+    }
+   }
+  },
+  "classification": {
+   "type": "object",
+   "unevaluatedProperties": false,
+   "required": [
+    "taxonomy_version",
+    "assignments",
+    "opinion_notice"
+   ],
+   "properties": {
+    "taxonomy_version": {
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "assignments": {
+     "type": "array",
+     "items": {
+      "type": "object"
+     }
+    },
+    "opinion_notice": {
+     "const": "Classifications are Atlas analysis, not source facts."
+    }
+   }
+  },
+  "notices": {
+   "type": "object"
+  }
+ },
+ "unevaluatedProperties": false
+}

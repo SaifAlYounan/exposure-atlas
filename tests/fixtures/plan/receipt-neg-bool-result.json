@@ -1,0 +1,23 @@
+{
+ "schema_version": "atlas-task-evidence-receipt/v1",
+ "receipt_id": "rcpt_boot-040-example",
+ "task_id": "BOOT-040",
+ "builder_profile": "claude",
+ "base_commit": "4b1e287dbbe865cba0128efbedb05bb645f68870",
+ "result_commit": "4b1e287dbbe865cba0128efbedb05bb645f68870",
+ "commands": [
+  {
+   "cmd": "make test",
+   "exit_code": 0
+  }
+ ],
+ "criteria": [
+  {
+   "id": "schemas_validate",
+   "tag": "automated",
+   "result": true
+  }
+ ],
+ "self_asserted": true,
+ "recorded_at": "2026-08-31T00:00:00Z"
+}

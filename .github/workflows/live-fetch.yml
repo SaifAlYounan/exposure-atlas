@@ -1,0 +1,58 @@
+# A1 LIVE-FETCH WORKFLOW — ACTIVATED (D-028).
+# Runs ONLY on manual dispatch, and every run BLOCKS on the protected
+# `live-fetch` environment review (operator approval) which injects the
+# activation token. harden-runner is in BLOCK mode with the pilot-host
+# allowlist. The probe writes only hashes + metadata as an artifact
+# (never raw source bytes — R-17 / SPEC 2.3). D-021 caps enforced in
+# tools/run_probe.py (<=50 docs/source; peer-IP validation; no model calls).
+name: live-fetch
+on:
+  workflow_dispatch:
+    inputs:
+      source_id:
+        description: "courtlistener_recap | ftc_enforcement"
+        required: true
+      max_docs:
+        description: "documents to probe (hard-capped at 50)"
+        required: false
+        default: "10"
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    environment: live-fetch      # operator approval gate (D-027 enforcement)
+    steps:
+      - uses: step-security/harden-runner@v2
+        with:
+          egress-policy: block
+          allowed-endpoints: >
+            www.courtlistener.com:443
+            storage.courtlistener.com:443
+            www.ftc.gov:443
+            github.com:443
+            api.github.com:443
+            objects.githubusercontent.com:443
+            pypi.org:443
+            files.pythonhosted.org:443
+            astral.sh:443
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with: { version: "0.5.24" }
+      - run: |
+          uv venv .venv --python 3.11
+          uv pip install --python .venv/bin/python -e ".[dev]"
+      - name: live probe (D-021 scope; activation token from environment)
+        env:
+          ATLAS_LIVE_FETCH_ACTIVATION: ${{ github.run_id }}-${{ github.actor }}
+        run: |
+          .venv/bin/python tools/run_probe.py \
+            --source "${{ inputs.source_id }}" \
+            --max-docs "${{ inputs.max_docs }}" \
+            --out probe-summary.json
+      - name: upload SAFE summary (hashes + metadata only)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: probe-summary-${{ inputs.source_id }}
+          path: probe-summary.json

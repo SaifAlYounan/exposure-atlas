@@ -1,0 +1,58 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "https://exposure-atlas.invalid/schemas/domain/record-relationship.schema.json",
+ "title": "RecordRelationship (typed, audited; never destructive merge)",
+ "type": "object",
+ "required": [
+  "schema_version",
+  "relationship_id",
+  "kind",
+  "from_record_id",
+  "to_record_id",
+  "decided_by",
+  "decided_at",
+  "reversible"
+ ],
+ "properties": {
+  "schema_version": {
+   "const": "atlas-record-relationship/v1"
+  },
+  "relationship_id": {
+   "type": "string",
+   "pattern": "^rln_[a-z0-9]{8,}$"
+  },
+  "kind": {
+   "enum": [
+    "appeal_of",
+    "consolidated_with",
+    "same_matter_as",
+    "supersedes",
+    "corrects",
+    "withdraws",
+    "split_from"
+   ]
+  },
+  "from_record_id": {
+   "type": "string",
+   "pattern": "^rec_[a-z0-9]{8,}$"
+  },
+  "to_record_id": {
+   "type": "string",
+   "pattern": "^rec_[a-z0-9]{8,}$"
+  },
+  "decided_by": {
+   "const": "Alexios"
+  },
+  "decided_at": {
+   "type": "string",
+   "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?(Z|[+-]\\d{2}:\\d{2})$"
+  },
+  "reversible": {
+   "const": true
+  },
+  "reason": {
+   "type": "string"
+  }
+ },
+ "unevaluatedProperties": false
+}

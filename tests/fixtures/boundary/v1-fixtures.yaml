@@ -1,0 +1,65 @@
+# FND-003 boundary fixtures — DRAFT expectations pending G0-Q1 approval.
+# Each is a synthetic desk case (safe fixture, no live source content).
+schema_version: atlas-boundary-fixtures/v1
+boundary_version: 1.0.0
+fixtures:
+  - id: BF-01
+    case: US federal complaint alleging an insurer's AI claims model unlawfully denied claims
+    expect: include            # allegation modality
+  - id: BF-02
+    case: FTC consent order over deceptive AI-capability marketing by a retailer
+    expect: include
+  - id: BF-03
+    case: News article about a rumored AI lawsuit, no docket identified
+    expect: exclude            # no primary instrument
+  - id: BF-04
+    case: US federal sanctions order against a firm that filed AI-fabricated citations
+    expect: include            # AI use is the subject of the order
+  - id: BF-05
+    case: Brief that merely cites ChatGPT in a footnote, no AI issue in the matter
+    expect: exclude            # incidental mention
+  - id: BF-06
+    case: EU DPA fine against a US company's AI chatbot (non-pilot jurisdiction)
+    expect: exclude            # outside pilot substantive boundary v1; record as gap
+  - id: BF-07
+    case: Confidential arbitration reported second-hand by a law firm
+    expect: exclude            # not observable; never shown as covered
+  - id: BF-08
+    case: Published arbitral award concerning an AI vendor's model performance
+    expect: uncertain          # in substantive scope; observable/rights unclear
+  - id: BF-09
+    case: SEC AI-washing enforcement action with published order
+    expect: uncertain          # in scope substantively; SEC not a pilot source v1
+  - id: BF-10
+    case: State-court AI discrimination suit (no pilot adapter)
+    expect: uncertain          # substantive yes, observable no -> awaiting capability
+  - id: BF-11
+    case: FTC press release announcing an investigation, no instrument yet
+    expect: uncertain          # candidate awaiting_primary
+  - id: BF-12
+    case: US class action about algorithmic pricing, AI system central
+    expect: include
+  - id: BF-13
+    case: Complaint against an individual hobbyist's chatbot, no organisation
+    expect: exclude            # no organisational nexus
+  - id: BF-14
+    case: 2012 predictive-analytics lawsuit (before date window)
+    expect: exclude
+  - id: BF-15
+    case: US federal judgment where the court makes findings on an AI hiring tool
+    expect: include
+  - id: BF-16
+    case: Rulemaking comment period on AI regulation, no enforcement
+    expect: exclude
+  - id: BF-17
+    case: Settlement approved by a US federal court in an AI biometrics case
+    expect: include
+  - id: BF-18
+    case: Non-English filing in a US proceeding, no translation capability
+    expect: uncertain          # DOC-003 exclusion path; route to review
+  - id: BF-19
+    case: Docket entry showing appeal filed in an in-scope AI matter
+    expect: include            # procedural_event on existing matter
+  - id: BF-20
+    case: Academic dataset paper analyzing AI court cases
+    expect: exclude

@@ -1,0 +1,55 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "https://exposure-atlas.invalid/schemas/domain/assertion-acceptance-decision.schema.json",
+ "title": "AssertionAcceptanceDecision",
+ "type": "object",
+ "required": [
+  "schema_version",
+  "decision_id",
+  "proposal_id",
+  "decided_by",
+  "role",
+  "decision",
+  "reason",
+  "decided_at",
+  "validation_report_sha256"
+ ],
+ "properties": {
+  "schema_version": {
+   "const": "atlas-assertion-acceptance/v1"
+  },
+  "decision_id": {
+   "type": "string",
+   "pattern": "^dec_[a-z0-9]{8,}$"
+  },
+  "proposal_id": {
+   "type": "string",
+   "pattern": "^prop_[a-z0-9]{8,}$"
+  },
+  "decided_by": {
+   "const": "Alexios"
+  },
+  "role": {
+   "const": "operator_reviewer"
+  },
+  "decision": {
+   "enum": [
+    "accept",
+    "reject"
+   ]
+  },
+  "reason": {
+   "type": "string",
+   "minLength": 1
+  },
+  "decided_at": {
+   "type": "string",
+   "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?(Z|[+-]\\d{2}:\\d{2})$"
+  },
+  "validation_report_sha256": {
+   "type": "string",
+   "pattern": "^[0-9a-f]{64}$"
+  }
+ },
+ "unevaluatedProperties": false
+}

@@ -1,0 +1,32 @@
+{
+ "schema_version": "atlas-task/v2.2",
+ "id": "DOM-001-01",
+ "epic": "DOM-001",
+ "title": "Define common schema identifiers",
+ "depends_on": [],
+ "authorization_min": "A0",
+ "parallelizable": true,
+ "executor_role": "implementer",
+ "auditor_role": "verifier_auditor",
+ "decision_owner": null,
+ "exclusive_resources": [],
+ "conflicts_with": [],
+ "worktree": "task/DOM-001-01",
+ "gate": "G1",
+ "estimated_builder_sessions": 1,
+ "required_inputs": [],
+ "requires_operator_decision": false,
+ "operator_decision_ids": [],
+ "builder_profiles": [
+  "openai"
+ ],
+ "network_profile": "none",
+ "credential_profile": "none",
+ "artifacts": [],
+ "permitted_writes": [],
+ "automated_commands": [],
+ "acceptance_checks": [],
+ "evidence_paths": [],
+ "rollback": "discard_task_worktree",
+ "status": "pending"
+}

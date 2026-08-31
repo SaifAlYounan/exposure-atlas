@@ -1,0 +1,51 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "https://exposure-atlas.invalid/schemas/domain/identity-match-proposal.schema.json",
+ "title": "IdentityMatchProposal (advisory only; never auto-merges)",
+ "type": "object",
+ "required": [
+  "schema_version",
+  "proposal_id",
+  "candidate_id",
+  "matched_record_id",
+  "match_kind",
+  "features",
+  "rule_version",
+  "score"
+ ],
+ "properties": {
+  "schema_version": {
+   "const": "atlas-identity-match/v1"
+  },
+  "proposal_id": {
+   "type": "string",
+   "pattern": "^imp_[a-z0-9]{8,}$"
+  },
+  "candidate_id": {
+   "type": "string",
+   "pattern": "^cnd_[a-z0-9]{8,}$"
+  },
+  "matched_record_id": {
+   "type": "string",
+   "pattern": "^rec_[a-z0-9]{8,}$"
+  },
+  "match_kind": {
+   "enum": [
+    "exact_identifier",
+    "fuzzy"
+   ]
+  },
+  "features": {
+   "type": "object"
+  },
+  "rule_version": {
+   "type": "string",
+   "minLength": 1
+  },
+  "score": {
+   "type": "string",
+   "description": "decimal string; floats forbidden"
+  }
+ },
+ "unevaluatedProperties": false
+}

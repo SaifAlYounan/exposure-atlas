@@ -1,0 +1,118 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "https://exposure-atlas.invalid/schemas/domain/common.schema.json",
+ "title": "Common definitions",
+ "type": "object",
+ "$defs": {
+  "sha256": {
+   "type": "string",
+   "pattern": "^[0-9a-f]{64}$"
+  },
+  "datetime": {
+   "type": "string",
+   "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?(Z|[+-]\\d{2}:\\d{2})$"
+  },
+  "date": {
+   "type": "string",
+   "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+  },
+  "value_status": {
+   "enum": [
+    "stated",
+    "not_stated",
+    "unknown",
+    "not_applicable",
+    "conflicted",
+    "withheld",
+    "not_checked"
+   ]
+  },
+  "procedural_modality": {
+   "enum": [
+    "allegation",
+    "party_position",
+    "admission",
+    "finding",
+    "holding",
+    "order",
+    "procedural_event",
+    "announcement"
+   ]
+  },
+  "document_role": {
+   "enum": [
+    "complaint_or_pleading",
+    "judgment_or_order",
+    "official_docket_entry",
+    "regulator_decision",
+    "official_press_release",
+    "settlement_instrument",
+    "mirror_copy",
+    "tracker_or_news"
+   ]
+  },
+  "copy_provenance": {
+   "enum": [
+    "issuer_direct",
+    "official_docket",
+    "signature_verified",
+    "digest_crossmatched",
+    "human_corroborated",
+    "unverified",
+    "conflicted"
+   ]
+  },
+  "passage_role": {
+   "enum": [
+    "issuer_text",
+    "operative_part",
+    "quoted_party",
+    "quoted_authority",
+    "annex",
+    "reporter_summary",
+    "translation"
+   ]
+  },
+  "money": {
+   "type": "object",
+   "unevaluatedProperties": false,
+   "required": [
+    "decimal",
+    "currency",
+    "amount_type"
+   ],
+   "properties": {
+    "decimal": {
+     "type": "string",
+     "pattern": "^-?\\d+\\.\\d{2}$"
+    },
+    "currency": {
+     "type": "string",
+     "pattern": "^[A-Z]{3}$"
+    },
+    "amount_type": {
+     "enum": [
+      "sought",
+      "ordered",
+      "paid",
+      "penalty",
+      "damages",
+      "other"
+     ]
+    },
+    "other_detail": {
+     "type": "string"
+    }
+   }
+  },
+  "check_result": {
+   "enum": [
+    "pass",
+    "fail",
+    "indeterminate",
+    "not_applicable"
+   ]
+  }
+ },
+ "unevaluatedProperties": false
+}

@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://exposure-atlas.invalid/schemas/plan/operator-decision.schema.json",
+  "title": "Operator decision record",
+  "type": "object",
+  "unevaluatedProperties": false,
+  "required": ["schema_version", "decision_id", "decided_by", "recorded_at", "decision", "scope", "expiry", "bound_commit", "bound_hashes", "status"],
+  "properties": {
+    "schema_version": { "const": "atlas-operator-decision/v1" },
+    "decision_id": { "type": "string", "pattern": "^D-[0-9]{3,}$" },
+    "decided_by": { "const": "Alexios" },
+    "recorded_at": { "type": "string", "format": "date" },
+    "channel": { "type": "string" },
+    "decision": { "type": "string", "minLength": 1 },
+    "scope": { "type": "string", "minLength": 1 },
+    "authorization_level": { "enum": ["A0", "A1", "A2", "A3", "A4", "A5", "A6", null] },
+    "expiry": { "type": ["string", "null"] },
+    "bound_commit": { "type": "string", "pattern": "^[0-9a-f]{7,40}$" },
+    "bound_hashes": { "type": "object", "additionalProperties": { "type": "string", "pattern": "^[0-9a-f]{64}$" } },
+    "supersedes": { "type": ["string", "null"] },
+    "status": { "enum": ["recorded", "expired", "revoked", "superseded"] },
+    "notes": { "type": "string" }
+  }
+}

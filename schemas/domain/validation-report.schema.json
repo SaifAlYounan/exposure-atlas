@@ -1,0 +1,56 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "https://exposure-atlas.invalid/schemas/domain/validation-report.schema.json",
+ "title": "ValidationReport",
+ "type": "object",
+ "required": [
+  "schema_version",
+  "report_id",
+  "target_id",
+  "verifier_version",
+  "checks",
+  "overall"
+ ],
+ "properties": {
+  "schema_version": {
+   "const": "atlas-validation-report/v1"
+  },
+  "report_id": {
+   "type": "string",
+   "pattern": "^vrp_[a-z0-9]{8,}$"
+  },
+  "target_id": {
+   "type": "string"
+  },
+  "verifier_version": {
+   "type": "string"
+  },
+  "checks": {
+   "type": "array",
+   "minItems": 1,
+   "items": {
+    "type": "object",
+    "unevaluatedProperties": false,
+    "required": [
+     "check",
+     "result"
+    ],
+    "properties": {
+     "check": {
+      "type": "string"
+     },
+     "result": {
+      "$ref": "https://exposure-atlas.invalid/schemas/domain/common.schema.json#/$defs/check_result"
+     },
+     "detail": {
+      "type": "string"
+     }
+    }
+   }
+  },
+  "overall": {
+   "$ref": "https://exposure-atlas.invalid/schemas/domain/common.schema.json#/$defs/check_result"
+  }
+ },
+ "unevaluatedProperties": false
+}

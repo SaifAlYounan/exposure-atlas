@@ -1,0 +1,493 @@
+{
+ "scope-manifest.schema.json": {
+  "schema_version": "atlas-scope-manifest/v1",
+  "boundary_version": "1.0.0",
+  "jurisdictions": [
+   "US"
+  ],
+  "sources": [
+   "ftc_enforcement"
+  ],
+  "date_window_from": "2015-01-01",
+  "date_window_to": "open",
+  "languages": [
+   "en"
+  ],
+  "known_gaps": [
+   "state courts"
+  ]
+ },
+ "source-registry-entry.schema.json": {
+  "schema_version": "atlas-source-registry/v1",
+  "source_id": "ftc_enforcement",
+  "status": "approved",
+  "authority_role": "issuer_direct",
+  "issuer": "US FTC",
+  "custodian": "US FTC",
+  "jurisdiction": "US-federal-regulator",
+  "host_allowlist": [
+   "www.ftc.gov"
+  ],
+  "document_roles": [
+   "regulator_decision"
+  ],
+  "formats": [
+   "html",
+   "pdf"
+  ],
+  "rights_default": "internal_only",
+  "copy_provenance_default": "issuer_direct",
+  "monitoring_capability": "html_listing_polling",
+  "cadence_default": "per_monitoring_policy",
+  "rate_constraints": "polite",
+  "archive_policy": "external_archive_disabled"
+ },
+ "job-envelope.schema.json": {
+  "schema_version": "atlas-job-envelope/v1",
+  "run_id": "r1",
+  "correlation_id": "c1",
+  "idempotency_key": "k1",
+  "kind": "fetch",
+  "input_hashes": {
+   "doc": "abababababababababababababababababababababababababababababababab"
+  },
+  "code_commit": "deadbeef",
+  "created_at": "2026-08-31T12:00:00Z"
+ },
+ "record-relationship.schema.json": {
+  "schema_version": "atlas-record-relationship/v1",
+  "relationship_id": "rln_abcdef123456",
+  "kind": "appeal_of",
+  "from_record_id": "rec_abcdef123456",
+  "to_record_id": "rec_abcdef123457",
+  "decided_by": "Alexios",
+  "decided_at": "2026-08-31T12:00:00Z",
+  "reversible": true
+ },
+ "proceeding.schema.json": {
+  "schema_version": "atlas-proceeding/v1",
+  "proceeding_id": "prc_abcdef123456",
+  "record_id": "rec_abcdef123456",
+  "forum": "US District Court",
+  "jurisdiction": "US-federal",
+  "docket": "1:26-cv-1"
+ },
+ "procedural-event.schema.json": {
+  "schema_version": "atlas-procedural-event/v1",
+  "event_id": "evt_abcdef123456",
+  "proceeding_id": "prc_abcdef123456",
+  "kind": "order",
+  "legal_time": {
+   "effective_date": "2026-08-31",
+   "precision": "day"
+  },
+  "superseded_by": null
+ },
+ "party-occurrence.schema.json": {
+  "schema_version": "atlas-party-occurrence/v1",
+  "party_id": "pty_abcdef123456",
+  "proceeding_id": "prc_abcdef123456",
+  "source_name": "Acme Cognition, Inc.",
+  "normalized_entity_id": null,
+  "normalization_version": null,
+  "procedural_role": "defendant",
+  "entity_type": "organisation"
+ },
+ "rights-decision.schema.json": {
+  "schema_version": "atlas-rights-decision/v1",
+  "rights_decision_id": "rgt_abcdef123456",
+  "axis": "excerpt_scope",
+  "subject_ref": {
+   "kind": "source_version",
+   "id": "sver_abcdef123456"
+  },
+  "outcome": "internal_only",
+  "decided_by": "Alexios",
+  "decided_at": "2026-08-31T12:00:00Z",
+  "policy_version": "1.0.0",
+  "expiry": null
+ },
+ "security-assessment.schema.json": {
+  "schema_version": "atlas-security-assessment/v1",
+  "assessment_id": "sec_abcdef123456",
+  "source_version_id": "sver_abcdef123456",
+  "state": "quarantined",
+  "assessed_at": "2026-08-31T12:00:00Z",
+  "scanner_versions": {
+   "magic": "1"
+  },
+  "findings": []
+ },
+ "translation-artifact.schema.json": {
+  "schema_version": "atlas-translation-artifact/v1",
+  "translation_id": "trn_abcdef123456",
+  "text_artifact_id": "txt_abcdef123456",
+  "source_language": "fr",
+  "target_language": "en",
+  "method": "machine",
+  "provider_permission_id": null,
+  "reviewer_status": "not_reviewed"
+ },
+ "boundary-proposal.schema.json": {
+  "schema_version": "atlas-boundary-proposal/v1",
+  "proposal_id": "bpr_abcdef123456",
+  "candidate_id": "cnd_abcdef123456",
+  "boundary_version": "1.0.0",
+  "criteria": [
+   {
+    "criterion": "organisational_nexus",
+    "result": "met",
+    "anchor_ids": []
+   }
+  ],
+  "proposed_outcome": "include",
+  "proposed_by": "manual"
+ },
+ "boundary-decision.schema.json": {
+  "schema_version": "atlas-boundary-decision/v1",
+  "decision_id": "bnd_abcdef123456",
+  "candidate_id": "cnd_abcdef123456",
+  "boundary_version": "1.0.0",
+  "outcome": "exclude",
+  "decided_by": "Alexios",
+  "decided_at": "2026-08-31T12:00:00Z"
+ },
+ "classification-revision.schema.json": {
+  "schema_version": "atlas-classification-revision/v1",
+  "classification_revision_id": "cls_abcdef123456",
+  "record_id": "rec_abcdef123456",
+  "facts_revision_id": "fct_abcdef123456",
+  "boundary_version": "1.0.0",
+  "taxonomy_version": "1.0.0",
+  "rubric_version": "1.0.0",
+  "assignment_ids": [
+   "asg_abcdef123456"
+  ],
+  "created_at": "2026-08-31T12:00:00Z"
+ },
+ "classification-assignment.schema.json": {
+  "schema_version": "atlas-classification-assignment/v1",
+  "assignment_id": "asg_abcdef123456",
+  "target_ref": {
+   "entity_type": "matter",
+   "entity_id": "rec_abcdef123456"
+  },
+  "facts_revision_id": "fct_abcdef123456",
+  "taxonomy_version": "1.0.0",
+  "labels": [
+   "deceptive_practices"
+  ],
+  "review_state": "human_approved"
+ },
+ "classification-proposal.schema.json": {
+  "schema_version": "atlas-classification-proposal/v1",
+  "proposal_id": "cpr_abcdef123456",
+  "target_ref": {
+   "a": 1
+  },
+  "labels": [
+   "other"
+  ],
+  "other_detail": "novel category",
+  "taxonomy_version": "1.0.0",
+  "rubric_version": "1.0.0",
+  "proposed_by": "manual",
+  "run_id": "r1"
+ },
+ "identity-match-proposal.schema.json": {
+  "schema_version": "atlas-identity-match/v1",
+  "proposal_id": "imp_abcdef123456",
+  "candidate_id": "cnd_abcdef123456",
+  "matched_record_id": "rec_abcdef123456",
+  "match_kind": "fuzzy",
+  "features": {
+   "name_similarity": "0.93"
+  },
+  "rule_version": "1.0.0",
+  "score": "0.93"
+ },
+ "policy-override.schema.json": {
+  "schema_version": "atlas-policy-override/v1",
+  "override_id": "ovr_abcdef123456",
+  "approver": "Alexios",
+  "reason": "scoped exception",
+  "scope": "one record",
+  "expiry": "2026-08-31T12:00:00Z",
+  "created_at": "2026-08-31T12:00:00Z"
+ },
+ "monitoring-policy.schema.json": {
+  "schema_version": "atlas-monitoring-policy/v1",
+  "policy_version": "1.0.0",
+  "cadence_rules": [
+   {
+    "posture": "pending",
+    "cadence_days": 14
+   }
+  ],
+  "grace_period_days": 7
+ },
+ "candidate.schema.json": {
+  "schema_version": "atlas-candidate/v1",
+  "candidate_id": "cnd_abcdef123456",
+  "source_id": "ftc_enforcement",
+  "lead_url": "https://www.ftc.gov/x",
+  "discovered_at": "2026-08-31T12:00:00Z",
+  "work_state": "open",
+  "disposition": "unresolved"
+ },
+ "review-task.schema.json": {
+  "schema_version": "atlas-review-task/v1",
+  "task_id": "rvt_abcdef123456",
+  "queue": "new_candidates",
+  "priority": "P2",
+  "question": "Include this candidate?",
+  "restrictive_default": "hold",
+  "created_at": "2026-08-31T12:00:00Z",
+  "expiry": "2026-08-31T12:00:00Z"
+ },
+ "review-decision.schema.json": {
+  "schema_version": "atlas-review-decision/v1",
+  "decision_id": "rvd_abcdef123456",
+  "task_id": "rvt_abcdef123456",
+  "action": "approve",
+  "decided_by": "Alexios",
+  "role": "operator_reviewer",
+  "decided_at": "2026-08-31T12:00:00Z",
+  "reason": "meets boundary",
+  "input_hashes": {
+   "card": "abababababababababababababababababababababababababababababababab"
+  }
+ },
+ "revision-lifecycle-event.schema.json": {
+  "schema_version": "atlas-revision-lifecycle/v1",
+  "event_id": "rle_abcdef123456",
+  "record_revision_id": "rrv_abcdef123456",
+  "from_state": "draft",
+  "to_state": "in_review",
+  "at": "2026-08-31T12:00:00Z",
+  "actor": "operator:Alexios",
+  "release_id": null
+ },
+ "correction-event.schema.json": {
+  "schema_version": "atlas-correction-event/v1",
+  "correction_id": "cor_abcdef123456",
+  "kind": "atlas_correction",
+  "affected_record_ids": [
+   "rec_abcdef123456"
+  ],
+  "severity": "major",
+  "reported_at": "2026-08-31T12:00:00Z",
+  "reporter": "operator",
+  "immediate_suppression_required": false,
+  "superseded_by": null
+ },
+ "migration-ledger-entry.schema.json": {
+  "schema_version": "atlas-migration-ledger/v1",
+  "legacy_id": "legacy-001",
+  "payload_sha256": "abababababababababababababababababababababababababababababababab",
+  "mapping_version": "1.0.0",
+  "disposition": "awaiting_primary",
+  "verification_migration_state": "legacy_unverified",
+  "owner": "operator",
+  "next_action": "recover source",
+  "retry_review_date": "2026-08-31"
+ },
+ "run-manifest.schema.json": {
+  "schema_version": "atlas-run-manifest/v1",
+  "run_id": "r1",
+  "stage": "canonicalize",
+  "input_hashes": {
+   "src": "abababababababababababababababababababababababababababababababab"
+  },
+  "code_commit": "deadbeef",
+  "config_hashes": {
+   "canonicalizer": "abababababababababababababababababababababababababababababababab"
+  },
+  "model_id": null,
+  "prompt_hash": null,
+  "started_at": "2026-08-31T12:00:00Z",
+  "finished_at": "2026-08-31T12:00:00Z",
+  "output_hash": "abababababababababababababababababababababababababababababababab"
+ },
+ "suppression-revocation-event.schema.json": {
+  "schema_version": "atlas-suppression-event/v1",
+  "event_id": "spe_abcdef123456",
+  "action": "deny",
+  "record_ids": [
+   "rec_abcdef123456"
+  ],
+  "decided_by": "Alexios",
+  "decided_at": "2026-08-31T12:00:00Z",
+  "reason": "sealing order"
+ },
+ "authorization-grant.schema.json": {
+  "schema_version": "atlas-authorization-grant/v1",
+  "grant_id": "agr_abcdef123456",
+  "level": "A0",
+  "decision_id": "D-002",
+  "scope": "local build",
+  "granted_at": "2026-08-31T12:00:00Z",
+  "expiry": null
+ },
+ "operator-decision-envelope.schema.json": {
+  "schema_version": "atlas-operator-envelope/v1",
+  "envelope_id": "env_abcdef123456",
+  "operator_id": "Alexios",
+  "decision_type": "acceptance",
+  "action": "accept_assertion",
+  "canonical_arguments_hash": "abababababababababababababababababababababababababababababababab",
+  "input_hashes": {
+   "proposal": "abababababababababababababababababababababababababababababababab"
+  },
+  "authorization_level": "A0",
+  "nonce": "n1",
+  "expiry": "2026-08-31T12:00:00Z",
+  "decided_at": "2026-08-31T12:00:00Z"
+ },
+ "decision-pack.schema.json": {
+  "schema_version": "atlas-decision-pack/v1",
+  "pack_id": "pck_abcdef123456",
+  "week": "2026-W36",
+  "created_at": "2026-08-31T12:00:00Z",
+  "item_ids": [
+   "G0-Q1"
+  ],
+  "estimated_review_minutes": 170,
+  "caps": {
+   "review_minutes": 240,
+   "decision_cards": 25,
+   "record_reviews": 12,
+   "complex_decisions": 3
+  }
+ },
+ "decision-pack-item.schema.json": {
+  "schema_version": "atlas-decision-pack-item/v1",
+  "item_id": "G0-Q1",
+  "pack_id": "pck_abcdef123456",
+  "question": "Approve boundary?",
+  "proposed_answer": "yes",
+  "restrictive_default": "hold",
+  "estimated_minutes": 40,
+  "input_hashes": {
+   "draft": "abababababababababababababababababababababababababababababababab"
+  },
+  "expiry": "2026-08-31T12:00:00Z"
+ },
+ "builder-run-manifest.schema.json": {
+  "schema_version": "atlas-builder-run/v1",
+  "run_id": "r1",
+  "provider": "claude",
+  "sdk_version": "x",
+  "model_id": "claude-fable-5",
+  "task_id": "DOM-001",
+  "role": "implementer",
+  "authorization_level": "A0",
+  "base_commit": "a",
+  "result_commit": "b",
+  "started_at": "2026-08-31T12:00:00Z",
+  "ended_at": "2026-08-31T12:00:00Z",
+  "termination_reason": "complete",
+  "completeness_state": "complete"
+ },
+ "harness-capability-report.schema.json": {
+  "schema_version": "atlas-harness-capability/v1",
+  "provider": "claude",
+  "sdk_version": "x",
+  "qualified_at": "2026-08-31T12:00:00Z",
+  "fixtures": [
+   {
+    "fixture": "planner_cannot_write",
+    "result": "pass"
+   }
+  ],
+  "substitutions": []
+ },
+ "audit-checkpoint.schema.json": {
+  "schema_version": "atlas-audit-checkpoint/v1",
+  "checkpoint_id": "ckp_abcdef123456",
+  "through_seq": 10,
+  "chain_head": "abababababababababababababababababababababababababababababababab",
+  "created_at": "2026-08-31T12:00:00Z",
+  "signing": {
+   "scheme": "test_key_sha256",
+   "key_id": "atlas-test-key-1",
+   "payload_sha256": "abababababababababababababababababababababababababababababababab"
+  }
+ },
+ "deployment-manifest.schema.json": {
+  "schema_version": "atlas-deployment-manifest/v1",
+  "deployment_id": "dep-1",
+  "environment": "local",
+  "commit": "deadbeef",
+  "config_hashes": {},
+  "deployed_at": "2026-08-31T12:00:00Z"
+ },
+ "citation-bundle-v1.schema.json": {
+  "schema_version": "atlas-citation-bundle/v1",
+  "projection_version": "V1",
+  "issuing_body": "US FTC",
+  "source_title": "Decision and Order",
+  "docket": "C-0000",
+  "filing_or_decision_date": "2026-08-31",
+  "pinpoint": "para 4",
+  "official_url": "https://www.ftc.gov/x",
+  "custodian_status": "issuer_direct",
+  "source_version_sha256": "abababababababababababababababababababababababababababababababab",
+  "language": "en",
+  "atlas_release_id": "rel_abcdef123456",
+  "atlas_record_revision_id": "rrv_abcdef123456",
+  "verification_date": "2026-08-31",
+  "warnings": []
+ },
+ "record-detail-v1.schema.json": {
+  "schema_version": "atlas-record-detail/v1",
+  "projection_version": "V1",
+  "release_id": "rel_abcdef123456",
+  "record_id": "rec_abcdef123456",
+  "record_revision_id": "rrv_abcdef123456",
+  "boundary_version": "1.0.0",
+  "facts": {
+   "assertions": []
+  },
+  "classification": {
+   "taxonomy_version": "1.0.0",
+   "assignments": [],
+   "opinion_notice": "Classifications are Atlas analysis, not source facts."
+  },
+  "notices": {}
+ },
+ "change-summary-v1.schema.json": {
+  "schema_version": "atlas-change-summary/v1",
+  "projection_version": "V1",
+  "release_id": "rel_abcdef123456",
+  "changes": [
+   {
+    "record_id": "rec_abcdef123456",
+    "kind": "corrected"
+   }
+  ]
+ },
+ "stats-v1.schema.json": {
+  "schema_version": "atlas-stats/v1",
+  "projection_version": "V1",
+  "release_id": "rel_abcdef123456",
+  "dimension": "jurisdiction",
+  "boundary_version": "1.0.0",
+  "as_of": "2026-08-31T12:00:00Z",
+  "rows": [
+   {
+    "key": "US",
+    "count": 2,
+    "denominator": "records in release rel_abcdef123456"
+   }
+  ]
+ },
+ "citation-check-result-v1.schema.json": {
+  "schema_version": "atlas-citation-check/v1",
+  "projection_version": "V1",
+  "release_id": "rel_abcdef123456",
+  "status": "not_found_in_atlas",
+  "record_id": null,
+  "no_match_is_not_absence": true
+ }
+}

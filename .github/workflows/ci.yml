@@ -1,0 +1,41 @@
+name: ci
+on:
+  push:
+    branches: ["claude/**", "main"]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          version: "0.5.24"
+      - name: ensure postgresql server binaries
+        run: |
+          if [ ! -x /usr/lib/postgresql/16/bin/initdb ]; then
+            sudo apt-get update -qq && sudo apt-get install -y -qq postgresql
+          fi
+      - name: bootstrap (clean checkout)
+        run: |
+          uv venv .venv --python 3.11
+          uv pip install --python .venv/bin/python -e ".[dev]"
+      - name: plan-validate
+        run: make plan-validate
+      - name: lint
+        run: .venv/bin/ruff check packages tools tests
+      - name: tests
+        run: make test
+      - name: release determinism (two clean builds)
+        run: make release-determinism
+      - name: receipt summary
+        if: always()
+        run: |
+          echo "commit=$GITHUB_SHA run_id=$GITHUB_RUN_ID" > ci-receipt.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ci-receipt
+          path: ci-receipt.txt

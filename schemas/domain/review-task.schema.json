@@ -1,0 +1,72 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "https://exposure-atlas.invalid/schemas/domain/review-task.schema.json",
+ "title": "ReviewTask",
+ "type": "object",
+ "required": [
+  "schema_version",
+  "task_id",
+  "queue",
+  "priority",
+  "question",
+  "restrictive_default",
+  "created_at",
+  "expiry"
+ ],
+ "properties": {
+  "schema_version": {
+   "const": "atlas-review-task/v1"
+  },
+  "task_id": {
+   "type": "string",
+   "pattern": "^rvt_[a-z0-9]{8,}$"
+  },
+  "queue": {
+   "enum": [
+    "new_candidates",
+    "status_updates",
+    "uncertain",
+    "duplicates",
+    "corrections",
+    "quarantine",
+    "migration"
+   ]
+  },
+  "priority": {
+   "enum": [
+    "P0",
+    "P1",
+    "P2",
+    "P3"
+   ]
+  },
+  "question": {
+   "type": "string",
+   "minLength": 1
+  },
+  "restrictive_default": {
+   "enum": [
+    "hold",
+    "exclude",
+    "human_review",
+    "defer"
+   ]
+  },
+  "created_at": {
+   "type": "string",
+   "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?(Z|[+-]\\d{2}:\\d{2})$"
+  },
+  "expiry": {
+   "type": "string",
+   "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?(Z|[+-]\\d{2}:\\d{2})$"
+  },
+  "input_hashes": {
+   "type": "object",
+   "additionalProperties": {
+    "type": "string",
+    "pattern": "^[0-9a-f]{64}$"
+   }
+  }
+ },
+ "unevaluatedProperties": false
+}

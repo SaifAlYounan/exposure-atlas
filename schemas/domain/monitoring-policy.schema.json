@@ -1,0 +1,48 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "https://exposure-atlas.invalid/schemas/domain/monitoring-policy.schema.json",
+ "title": "MonitoringPolicy",
+ "type": "object",
+ "required": [
+  "schema_version",
+  "policy_version",
+  "cadence_rules",
+  "grace_period_days"
+ ],
+ "properties": {
+  "schema_version": {
+   "const": "atlas-monitoring-policy/v1"
+  },
+  "policy_version": {
+   "type": "string",
+   "minLength": 1
+  },
+  "cadence_rules": {
+   "type": "array",
+   "minItems": 1,
+   "items": {
+    "type": "object",
+    "unevaluatedProperties": false,
+    "required": [
+     "posture",
+     "cadence_days"
+    ],
+    "properties": {
+     "posture": {
+      "type": "string",
+      "minLength": 1
+     },
+     "cadence_days": {
+      "type": "integer",
+      "minimum": 1
+     }
+    }
+   }
+  },
+  "grace_period_days": {
+   "type": "integer",
+   "minimum": 0
+  }
+ },
+ "unevaluatedProperties": false
+}

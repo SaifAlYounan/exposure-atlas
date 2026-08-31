@@ -1,0 +1,104 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "https://exposure-atlas.invalid/schemas/domain/source-registry-entry.schema.json",
+ "title": "SourceRegistryEntry",
+ "type": "object",
+ "required": [
+  "schema_version",
+  "source_id",
+  "status",
+  "authority_role",
+  "issuer",
+  "custodian",
+  "jurisdiction",
+  "host_allowlist",
+  "document_roles",
+  "formats",
+  "rights_default",
+  "copy_provenance_default",
+  "monitoring_capability",
+  "cadence_default",
+  "rate_constraints",
+  "archive_policy"
+ ],
+ "properties": {
+  "schema_version": {
+   "const": "atlas-source-registry/v1"
+  },
+  "source_id": {
+   "type": "string",
+   "minLength": 1
+  },
+  "status": {
+   "type": "string"
+  },
+  "authority_role": {
+   "enum": [
+    "issuer_direct",
+    "mirror_custodian"
+   ]
+  },
+  "issuer": {
+   "type": "string",
+   "minLength": 1
+  },
+  "custodian": {
+   "type": "string",
+   "minLength": 1
+  },
+  "jurisdiction": {
+   "type": "string",
+   "minLength": 1
+  },
+  "host_allowlist": {
+   "type": "array",
+   "minItems": 1,
+   "items": {
+    "type": "string",
+    "minLength": 1
+   }
+  },
+  "document_roles": {
+   "type": "array",
+   "items": {
+    "$ref": "https://exposure-atlas.invalid/schemas/domain/common.schema.json#/$defs/document_role"
+   }
+  },
+  "formats": {
+   "type": "array",
+   "items": {
+    "enum": [
+     "pdf",
+     "html",
+     "json_api"
+    ]
+   }
+  },
+  "rights_default": {
+   "type": "string"
+  },
+  "copy_provenance_default": {
+   "$ref": "https://exposure-atlas.invalid/schemas/domain/common.schema.json#/$defs/copy_provenance"
+  },
+  "monitoring_capability": {
+   "type": "string",
+   "minLength": 1
+  },
+  "cadence_default": {
+   "type": "string",
+   "minLength": 1
+  },
+  "rate_constraints": {
+   "type": "string",
+   "minLength": 1
+  },
+  "archive_policy": {
+   "type": "string",
+   "minLength": 1
+  },
+  "notes": {
+   "type": "string"
+  }
+ },
+ "unevaluatedProperties": false
+}

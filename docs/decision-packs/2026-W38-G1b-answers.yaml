@@ -1,0 +1,46 @@
+schema_version: atlas-pack-answers/v1
+pack: 2026-W38-G1b
+answered_by: Alexios
+answered_at: "2026-09-01"
+answers:
+  - item: G1b-Q1
+    decision_id: D-024
+    answer: >-
+      Approve ADR-0002's design and verdict as the HAR-001/HAR-003
+      qualification approach, including its stated residuals R1-R3.
+  - item: G1b-Q2
+    decision_id: D-025
+    answer: >-
+      Confirmed and already SET, not merely promised. To enable
+      enforcement on GitHub's plan tier, the operator decided to make
+      the repository public (secret scan performed first; no
+      credentials or personal data in tracked files; sources are never
+      committed per SPEC 2.3). The four controls as applied:
+      (1) branch protection on main - one required approving review,
+      force-push and deletion disabled; (2) require_code_owner_reviews
+      enabled, with the committed CODEOWNERS covering .github/**,
+      config/sources/**, config/rights/**, config/source-policy/**;
+      (3) protected GitHub Environment "live-fetch" with the operator
+      (SaifAlYounan, id 265073165) as required reviewer, holding any
+      source credential; (4) environment deployment_branch_policy set
+      to protected branches only, so live-fetch triggers only from
+      main or operator-gated dispatch.
+  - item: G1b-Q3
+    decision_id: D-026
+    answer: >-
+      Confirmed. The CourtListener/RECAP REST API is provided by the
+      Free Law Project explicitly for programmatic access subject to
+      its published rate limits; read-only evaluation at no more than
+      50 documents per source with conservative rate caps is within its
+      terms. FTC enforcement pages are US government works. The public
+      repository must still never contain fetched documents; probe
+      outputs go to the evidence store per SPEC 2.3, which is now a
+      hard constraint since the repository is public.
+  - item: G1b-Q4
+    decision_id: D-027
+    answer: >-
+      Yes. Implement SRC-004-80 behind the inert template and return
+      for a final explicit "activate" confirmation from the operator
+      before any live fetch executes. The protected live-fetch
+      environment review is the enforcement point for that
+      confirmation.

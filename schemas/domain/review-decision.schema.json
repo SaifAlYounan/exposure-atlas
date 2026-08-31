@@ -1,0 +1,73 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "https://exposure-atlas.invalid/schemas/domain/review-decision.schema.json",
+ "title": "ReviewDecision (immutable)",
+ "type": "object",
+ "required": [
+  "schema_version",
+  "decision_id",
+  "task_id",
+  "action",
+  "decided_by",
+  "role",
+  "decided_at",
+  "reason",
+  "input_hashes"
+ ],
+ "properties": {
+  "schema_version": {
+   "const": "atlas-review-decision/v1"
+  },
+  "decision_id": {
+   "type": "string",
+   "pattern": "^rvd_[a-z0-9]{8,}$"
+  },
+  "task_id": {
+   "type": "string",
+   "pattern": "^rvt_[a-z0-9]{8,}$"
+  },
+  "action": {
+   "enum": [
+    "approve",
+    "reject",
+    "edit",
+    "request_source",
+    "merge",
+    "link",
+    "split",
+    "escalate",
+    "correct",
+    "withdraw",
+    "suppress",
+    "retract",
+    "defer"
+   ]
+  },
+  "decided_by": {
+   "const": "Alexios"
+  },
+  "role": {
+   "enum": [
+    "operator_reviewer",
+    "policy_rights_adjudicator",
+    "release_approver"
+   ]
+  },
+  "decided_at": {
+   "type": "string",
+   "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?(Z|[+-]\\d{2}:\\d{2})$"
+  },
+  "reason": {
+   "type": "string",
+   "minLength": 1
+  },
+  "input_hashes": {
+   "type": "object",
+   "additionalProperties": {
+    "type": "string",
+    "pattern": "^[0-9a-f]{64}$"
+   }
+  }
+ },
+ "unevaluatedProperties": false
+}

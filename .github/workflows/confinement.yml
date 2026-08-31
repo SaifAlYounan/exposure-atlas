@@ -1,0 +1,52 @@
+# HAR-001/HAR-003 confinement qualification (ADR-0002). This workflow
+# runs the confinement SELF-TEST — proving the egress allowlist blocks
+# non-allowlisted hosts and the metadata IP, and running the SDK-denial
+# and host-substitution fixtures. It performs NO live Atlas fetching
+# (that is the separate, operator-environment-gated live-fetch workflow
+# authorized only under A1). Safe to run under A0.
+name: confinement
+on:
+  push:
+    branches: ["claude/**", "main"]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  egress-policy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: harden runner (deny-by-default egress, audit here)
+        uses: step-security/harden-runner@v2
+        with:
+          egress-policy: audit   # 'block' with an allowlist in the
+                                  # A1 live-fetch workflow; audit here so
+                                  # the qualification itself needs no
+                                  # network allowlist
+      - uses: actions/checkout@v4
+      - name: prove metadata IP and private ranges are blocked in-code
+        run: |
+          python3 - <<'PY'
+          import ipaddress, sys
+          sys.path.insert(0, "packages/python")
+          from atlas.fetchguard import validate_peer_ip, FetchPolicyError
+          blocked = ["169.254.169.254", "127.0.0.1", "10.0.0.5",
+                     "192.168.1.1", "::1", "fe80::1"]
+          for ip in blocked:
+              try:
+                  validate_peer_ip(ip); raise SystemExit(f"NOT blocked: {ip}")
+              except FetchPolicyError:
+                  pass
+          print("all private/metadata IPs blocked in-code")
+          PY
+  confinement-fixtures:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with: { version: "0.5.24" }
+      - name: bootstrap
+        run: |
+          uv venv .venv --python 3.11
+          uv pip install --python .venv/bin/python -e ".[dev]"
+      - name: confinement + host-substitution fixtures
+        run: .venv/bin/python -m pytest tests/test_confinement.py -q
