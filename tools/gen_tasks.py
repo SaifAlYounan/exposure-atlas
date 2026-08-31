@@ -340,12 +340,15 @@ G2_S1 = {
 for _tid, _note in G2_S1.items():
     T[_tid]["status"] = "in_progress"
     T[_tid]["notes"] = (T[_tid]["notes"] + " | " if T[_tid]["notes"] else "") + "G2-S1: " + _note
-T["SRC-004-80"]["status"] = "blocked_human"
-T["SRC-004-80"]["blocked"] = ("Probe entrypoint implemented behind inert template + activation "
-                              "token gate (D-027); refuses without operator activation. Awaiting "
-                              "final operator 'activate' confirmation before any live fetch.")
+T["SRC-004-80"]["status"] = "in_progress"
+T["SRC-004-80"]["notes"] = ("D-028 activated: runnable entrypoint tools/run_probe.py wired into "
+                            "the live-fetch workflow (harden-runner block + protected environment). "
+                            "Executes only after operator approves the environment gate; enforces "
+                            "D-021 caps; emits hashes+metadata only. Live-run receipt pending the "
+                            "operator-approved dispatch.")
 T["SRC-004-80"]["req_dec"] = True
-T["SRC-004-80"]["dec_ids"] = ["D-027"]
+T["SRC-004-80"]["dec_ids"] = ["D-027", "D-028"]
+T["SRC-004-80"]["auth"] = "A1"
 
 G2_S0 = {
     "VER-002": "D-022: kernel now optionally persists the full slice through the DOM-002 "

@@ -272,3 +272,26 @@ commits per task and updates build-status.
   access-controlled release-control store, NEVER this repo; and a public
   clone cannot be recalled by a later suppression. Tracked as R-17.
 - **Status:** recorded
+
+## D-028 — Live-probe activation (D-027 enforcement)
+
+- **Decision ID:** D-028
+- **Recorded:** 2026-09-01
+- **Decider:** Alexios (operator), explicit: "Activate (D-027): proceed
+  with the live probe. Merge that PR on GitHub."
+- **Effect:** the D-027 activation gate is satisfied. SRC-004-80 is
+  authorized to execute a live probe within the D-021 scope ONLY:
+  read-only CourtListener API + ftc.gov pages; ≤50 docs/source;
+  conservative rate caps; recorded receipts; NO runtime model calls
+  (A2 ungranted); external archive submission stays disabled (D-005).
+- **Mechanism (unchanged, not bypassed):** the probe still runs only
+  inside the protected `live-fetch` GitHub Environment, which injects
+  the activation token after the operator approves that specific run.
+  Merging the enabling PR is performed via the operator's own GitHub
+  identity (get_me = SaifAlYounan, id 265073165) per the operator's
+  instruction; the builder uses no admin force-bypass.
+- **Public-repo constraint (R-17) reaffirmed:** the probe writes NO raw
+  source bytes to the repository or to any workflow artifact — only
+  hashes and metadata; raw bytes stay in the (ephemeral) evidence store.
+- **Expiry:** the D-021 30-day A1 window begins at first live probe.
+- **Status:** recorded

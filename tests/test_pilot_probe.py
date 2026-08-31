@@ -95,3 +95,20 @@ def test_live_probe_blocks_rebinding_peer_ip(monkeypatch):
     with pytest.raises(FetchPolicyError):
         run_live_probe(_ftc(), fetcher=lambda *a, **k: (b"x", {}),
                        peer_ip_resolver=lambda u: "169.254.169.254")
+
+
+def test_run_probe_entrypoint_refuses_without_token(monkeypatch):
+    import importlib.util
+    import pathlib as _pl
+    monkeypatch.delenv("ATLAS_LIVE_FETCH_ACTIVATION", raising=False)
+    spec = importlib.util.spec_from_file_location(
+        "run_probe", _pl.Path(__file__).resolve().parent.parent / "tools" / "run_probe.py")
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    monkeypatch.setattr("sys.argv", ["run_probe.py", "--source", "ftc_enforcement"])
+    from atlas.probe import ProbeNotActivated
+    import pytest as _pt
+    with _pt.raises(ProbeNotActivated):
+        mod.main()
+    # DISCOVERY config only covers the two approved pilot sources
+    assert set(mod.DISCOVERY) == {"courtlistener_recap", "ftc_enforcement"}

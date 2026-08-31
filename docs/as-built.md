@@ -136,3 +136,16 @@ read-only access to official SDK docs is A0-permitted).
   (D-027); plan_probe is the network-free dry-run the operator reviews.
 - live-fetch.yml.template stays INERT. Awaiting the operator's explicit
   "activate" confirmation before any live fetch (D-027).
+
+## Live-probe activation (2026-09-01, D-028)
+- live-fetch.yml ACTIVATED: workflow_dispatch + protected `live-fetch`
+  environment (operator approval injects the activation token) +
+  harden-runner block with the pilot-host allowlist.
+- tools/run_probe.py: live SRC-004-80 entrypoint. Refuses without the
+  token; enforces D-021 caps; validates connected peer IP; canonicalizes
+  fetched docs; emits probe-summary.json (hashes + metadata ONLY, no raw
+  bytes — R-17/SPEC 2.3); writes nothing to the repo.
+- Merge of the enabling PR performed as the operator's GitHub identity
+  (get_me = SaifAlYounan) per explicit instruction; no admin bypass.
+- The live run still requires the operator to approve the environment
+  gate at dispatch; that is the D-027 enforcement point.
