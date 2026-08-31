@@ -1,8 +1,8 @@
 {
  "schema_version": "atlas-gate-manifest/v1",
  "gate": "G0",
- "generated_at": "2026-08-31T17:50:30+00:00",
- "commit": "90042811cbbf6b7c8ec59f5c70b6b20b5b27b145",
+ "generated_at": "2026-08-31T17:55:08+00:00",
+ "commit": "c62e3637dc6bec2d3d54640a492143aeff91feb9",
  "pass": false,
  "tasks": [
   {
@@ -14,8 +14,10 @@
   {
    "id": "BOOT-010",
    "status": "in_progress",
-   "evidence_state": "missing",
-   "receipt_ids": []
+   "evidence_state": "self_asserted_only",
+   "receipt_ids": [
+    "rcpt_boot-010-a0-bootstrap"
+   ]
   },
   {
    "id": "BOOT-020",
@@ -32,20 +34,26 @@
   {
    "id": "BOOT-040",
    "status": "in_progress",
-   "evidence_state": "missing",
-   "receipt_ids": []
+   "evidence_state": "self_asserted_only",
+   "receipt_ids": [
+    "rcpt_boot-040-a0-bootstrap"
+   ]
   },
   {
    "id": "BOOT-050",
    "status": "in_progress",
-   "evidence_state": "missing",
-   "receipt_ids": []
+   "evidence_state": "self_asserted_only",
+   "receipt_ids": [
+    "rcpt_boot-050-a0-bootstrap"
+   ]
   },
   {
    "id": "BOOT-080",
    "status": "in_progress",
-   "evidence_state": "missing",
-   "receipt_ids": []
+   "evidence_state": "self_asserted_only",
+   "receipt_ids": [
+    "rcpt_boot-080-a0-bootstrap"
+   ]
   },
   {
    "id": "FND-000",
@@ -56,8 +64,10 @@
   {
    "id": "FND-001",
    "status": "in_progress",
-   "evidence_state": "missing",
-   "receipt_ids": []
+   "evidence_state": "self_asserted_only",
+   "receipt_ids": [
+    "rcpt_fnd-001-a0-bootstrap"
+   ]
   },
   {
    "id": "FND-002",
@@ -134,20 +144,22 @@
   {
    "id": "PLAN-001",
    "status": "in_progress",
-   "evidence_state": "missing",
-   "receipt_ids": []
+   "evidence_state": "self_asserted_only",
+   "receipt_ids": [
+    "rcpt_plan-001-a0-bootstrap"
+   ]
   }
  ],
  "missing_evidence": [
   "BOOT-000: no evidence receipt",
-  "BOOT-010: no evidence receipt",
+  "BOOT-010: only self-asserted evidence (clean-checkout CI receipt required)",
   "BOOT-020: no evidence receipt",
   "BOOT-030: no evidence receipt",
-  "BOOT-040: no evidence receipt",
-  "BOOT-050: no evidence receipt",
-  "BOOT-080: no evidence receipt",
+  "BOOT-040: only self-asserted evidence (clean-checkout CI receipt required)",
+  "BOOT-050: only self-asserted evidence (clean-checkout CI receipt required)",
+  "BOOT-080: only self-asserted evidence (clean-checkout CI receipt required)",
   "FND-000: no evidence receipt",
-  "FND-001: no evidence receipt",
+  "FND-001: only self-asserted evidence (clean-checkout CI receipt required)",
   "FND-002: no evidence receipt",
   "FND-003: no evidence receipt",
   "FND-004: no evidence receipt",
@@ -160,7 +172,7 @@
   "HAR-003-01: no evidence receipt",
   "HAR-005-01: no evidence receipt",
   "PLAN-002: no evidence receipt",
-  "PLAN-001: no evidence receipt"
+  "PLAN-001: only self-asserted evidence (clean-checkout CI receipt required)"
  ],
  "missing_operator_decisions": [
   "G0-Q1",
