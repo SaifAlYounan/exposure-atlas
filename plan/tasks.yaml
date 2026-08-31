@@ -1218,8 +1218,9 @@ tasks:
   - plan/evidence.jsonl
   rollback: discard_task_worktree
   status: in_progress
-  notes: 'G1-S2: PostgreSQL schema+repos: FK integrity, byte-hash dedupe, immutability triggers (update/delete
-    refused; only supersede pointer mutable); ephemeral-cluster tests'
+  notes: 'G2-S0: D-022: kernel integration exercises the schema+triggers end-to-end; accepted assertions
+    immutable in DB during the live slice | G1-S2: PostgreSQL schema+repos: FK integrity, byte-hash dedupe,
+    immutability triggers (update/delete refused; only supersede pointer mutable); ephemeral-cluster tests'
 - schema_version: atlas-task/v2.2
   id: DOM-003
   epic: DOM-003
@@ -1762,7 +1763,10 @@ tasks:
   - plan/evidence.jsonl
   rollback: discard_task_worktree
   status: in_progress
-  notes: 'G1-S1: manual slice passes end-to-end for one PDF + one HTML fixture (no AI)'
+  notes: 'G2-S0: D-022: kernel now optionally persists the full slice through the DOM-002 PostgreSQL layer
+    (docs/versions/receipts/text artifacts/proposals/decisions/assertions) with the atomic accept path
+    + DB audit chain; file/memory path kept as fallback; DB-backed end-to-end slice test green (test_db_integration.py)
+    | G1-S1: manual slice passes end-to-end for one PDF + one HTML fixture (no AI)'
 - schema_version: atlas-task/v2.2
   id: REL-000
   epic: REL-000

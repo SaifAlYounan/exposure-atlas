@@ -31,8 +31,11 @@ class UnsupportedLanguageError(ValueError):
 
 class Kernel:
     def __init__(self, var_dir: pathlib.Path, allowed_hosts: list[str],
-                 supported_languages: tuple[str, ...] = ("en",)):
+                 supported_languages: tuple[str, ...] = ("en",),
+                 engine=None):
         self.supported_languages = supported_languages
+        self.engine = engine  # DOM-002 PostgreSQL persistence (D-022);
+        # when None the kernel stays purely in-memory/file-backed.
         self.var = pathlib.Path(var_dir)
         self.store = EvidenceStore(self.var / "evidence")
         self.audit_path = self.var / "audit.jsonl"
@@ -50,6 +53,24 @@ class Kernel:
 
     def _audit(self, action: str, at: str, detail: dict):
         append_event(self.audit_path, "builder-kernel", action, at, detail)
+
+    def _persist(self, table_name: str, values: dict):
+        if self.engine is None:
+            return
+
+        import sqlalchemy as _sa
+
+        from . import db as _db
+        table = getattr(_db, table_name)
+        row = {}
+        for col in table.columns.keys():
+            if col in values:
+                row[col] = values[col]
+        with self.engine.begin() as conn:
+            try:
+                conn.execute(table.insert().values(**row))
+            except _sa.exc.IntegrityError:
+                pass  # idempotent: identical bytes / re-ingest dedupe
 
     # -- acquisition (fixture adapter mode; live fetching needs A1) ----
     def ingest_fixture(self, path: pathlib.Path, *, declared_url: str,
@@ -92,6 +113,19 @@ class Kernel:
         self.source_documents[sdoc["source_document_id"]] = sdoc
         self.source_versions[sver["source_version_id"]] = sver
         self.acquisitions.append(acq)
+        import json as _json
+        self._persist("source_documents", {
+            "source_document_id": sdoc["source_document_id"],
+            "payload": _json.dumps(sdoc, sort_keys=True)})
+        self._persist("source_versions", {
+            "source_version_id": sver["source_version_id"],
+            "source_document_id": sdoc["source_document_id"],
+            "content_sha256": sver["content_sha256"],
+            "payload": _json.dumps(sver, sort_keys=True)})
+        self._persist("acquisition_receipts", {
+            "acquisition_id": acq["acquisition_id"],
+            "source_version_id": sver["source_version_id"],
+            "payload": _json.dumps(acq, sort_keys=True)})
         self._audit("ingest_fixture", retrieved_at,
                     {"source_version_id": sver["source_version_id"],
                      "sha256": digest})
@@ -118,6 +152,12 @@ class Kernel:
         validate("text-artifact.schema.json", artifact)
         self.text_artifacts[artifact["text_artifact_id"]] = artifact
         self.canonical_texts[artifact["text_artifact_id"]] = text
+        import json as _json
+        self._persist("text_artifacts", {
+            "text_artifact_id": artifact["text_artifact_id"],
+            "source_version_id": source_version_id,
+            "canonical_sha256": artifact["canonical_sha256"],
+            "payload": _json.dumps(artifact, sort_keys=True)})
         self._audit("canonicalize", at,
                     {"text_artifact_id": artifact["text_artifact_id"],
                      "canonical_sha256": artifact["canonical_sha256"],
@@ -149,6 +189,11 @@ class Kernel:
                 "normalized_value": normalized_value, "transform": transform}
         validate("assertion-proposal.schema.json", prop)
         self.proposals[prop["proposal_id"]] = prop
+        import json as _json
+        self._persist("assertion_proposals", {
+            "proposal_id": prop["proposal_id"],
+            "source_version_id": source_version_id,
+            "payload": _json.dumps(prop, sort_keys=True)})
         self._audit("propose", observed_at, {"proposal_id": prop["proposal_id"]})
         return prop
 
@@ -211,6 +256,11 @@ class Kernel:
                      "observed_at": prop["observed_at"]}
         validate("assertion.schema.json", assertion)
         self.assertions[assertion["assertion_id"]] = assertion
+        if self.engine is not None:
+            from .db import accept_assertion_atomic
+            accept_assertion_atomic(
+                self.engine, proposal=prop, decision=dec,
+                assertion=assertion, at=decided_at)
         return assertion
 
     def policy_check(self, assertion_id: str, at: str, *,

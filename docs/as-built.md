@@ -112,3 +112,14 @@ read-only access to official SDK docs is A0-permitted).
   blocks, host-policy denial enforcement of the SDK-denial fixture set,
   and that the ADR residuals cannot be silently removed.
 - Proposed to the operator as pack 2026-W38-G1b.
+
+## G2 first step — kernel↔PostgreSQL integration (2026-08-31, D-022)
+- atlas/kernel.py takes an optional `engine`; when set, ingest/
+  canonicalize/propose persist rows through atlas/db.py and approve uses
+  accept_assertion_atomic (decision+assertion+audit in one transaction).
+  The in-memory/file path is unchanged when engine is None.
+- tests/test_db_integration.py runs the full VER-002 slice DB-backed:
+  state is in PostgreSQL, the DB audit chain verifies, accepted
+  assertions are immutable via the trigger, and the slice still serves.
+- This is the acknowledged first G2 implementation step; it needs no new
+  authorization (A0) and does not touch A1/live scope.

@@ -332,6 +332,17 @@ G1_S1 = {
     "API-000": "read path serves signed artifact bytes; suppression first; no_match_is_not_absence",
     "SEC-001-01": "SSRF/private-IP, oversize, MIME-mismatch, canary-leak, tamper fixtures passing",
 }
+G2_S0 = {
+    "VER-002": "D-022: kernel now optionally persists the full slice through the DOM-002 "
+               "PostgreSQL layer (docs/versions/receipts/text artifacts/proposals/decisions/"
+               "assertions) with the atomic accept path + DB audit chain; file/memory path kept "
+               "as fallback; DB-backed end-to-end slice test green (test_db_integration.py)",
+    "DOM-002": "D-022: kernel integration exercises the schema+triggers end-to-end; accepted "
+               "assertions immutable in DB during the live slice",
+}
+for _tid, _note in G2_S0.items():
+    T[_tid]["notes"] = (T[_tid]["notes"] + " | " if T[_tid]["notes"] else "") + "G2-S0: " + _note
+
 G1_S5 = {
     "PLT-002": "health checks name the missing dependency; ephemeral-pg local stack; compose file "
                "written with DIGEST-PINNING-REQUIRED markers; MinIO deferred: evidence store is "
