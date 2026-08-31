@@ -332,6 +332,26 @@ G1_S1 = {
     "API-000": "read path serves signed artifact bytes; suppression first; no_match_is_not_absence",
     "SEC-001-01": "SSRF/private-IP, oversize, MIME-mismatch, canary-leak, tamper fixtures passing",
 }
+G1_S3 = {
+    "DOM-001": "full 5.4 catalogue: 62 strict schemas, positive fixture per schema, universal "
+               "unknown-property rejection, conditional requirements (other_detail, "
+               "confirmed_out_of_scope needs stored decision)",
+    "DOM-005": "facts/record revision manifests immutable-by-construction; lifecycle derived from "
+               "append-only events; publication requires release inclusion; classification-only "
+               "change reuses facts revision",
+    "DOM-006": "RecordDetailV1 (facts/classification never flatten; unreviewed dropped), "
+               "CitationBundleV1, citation_check (absence never out-of-scope; pending never "
+               "leaks to unauthorized audience), StatsV1 denominators",
+    "SRC-001": "adapter protocol + registry schema validation + conformance kit (pagination, "
+               "idempotent rediscovery, no accepted-state writes, unregistered host refused)",
+    "REL-001A": "ReleaseInputSnapshot pure builder; release manifest binds snapshot+policy versions",
+    "DOC-003": "pilot language exclusion: unsupported language routes to awaiting_capability; "
+               "no translation path exists to publish unlabelled",
+}
+for _tid, _note in G1_S3.items():
+    T[_tid]["status"] = "in_progress"
+    T[_tid]["notes"] = (T[_tid]["notes"] + " | " if T[_tid]["notes"] else "") + "G1-S3: " + _note
+
 G1_S2 = {
     "DOM-002": "PostgreSQL schema+repos: FK integrity, byte-hash dedupe, immutability triggers "
                "(update/delete refused; only supersede pointer mutable); ephemeral-cluster tests",

@@ -23,8 +23,16 @@ def _oid(prefix: str) -> str:
     return f"{prefix}_{secrets.token_hex(6)}"
 
 
+class UnsupportedLanguageError(ValueError):
+    """DOC-003 pilot exclusion: unsupported-language candidates route to
+    review/awaiting-capability; no unlabelled translation ever publishes
+    (no translation path exists yet)."""
+
+
 class Kernel:
-    def __init__(self, var_dir: pathlib.Path, allowed_hosts: list[str]):
+    def __init__(self, var_dir: pathlib.Path, allowed_hosts: list[str],
+                 supported_languages: tuple[str, ...] = ("en",)):
+        self.supported_languages = supported_languages
         self.var = pathlib.Path(var_dir)
         self.store = EvidenceStore(self.var / "evidence")
         self.audit_path = self.var / "audit.jsonl"
@@ -48,7 +56,12 @@ class Kernel:
                        declared_mime: str, issuer: str, title: str,
                        document_role: str, source_id: str,
                        copy_provenance_state: str, retrieved_at: str,
-                       docket: str | None = None) -> tuple[dict, dict]:
+                       docket: str | None = None,
+                       language: str = "en") -> tuple[dict, dict]:
+        if language not in self.supported_languages:
+            raise UnsupportedLanguageError(
+                f"language {language!r} outside pilot boundary; route to "
+                "awaiting_capability (DOC-003)")
         validate_url(declared_url, self.allowed_hosts)
         data = bounded_bytes(pathlib.Path(path).read_bytes())
         check_mime(declared_mime, data)

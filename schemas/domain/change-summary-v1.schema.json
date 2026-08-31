@@ -1,0 +1,53 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "https://exposure-atlas.invalid/schemas/domain/change-summary-v1.schema.json",
+ "title": "ChangeSummaryV1",
+ "type": "object",
+ "required": [
+  "schema_version",
+  "projection_version",
+  "release_id",
+  "changes"
+ ],
+ "properties": {
+  "schema_version": {
+   "const": "atlas-change-summary/v1"
+  },
+  "projection_version": {
+   "const": "V1"
+  },
+  "release_id": {
+   "type": "string",
+   "pattern": "^rel_[a-z0-9]{8,}$"
+  },
+  "changes": {
+   "type": "array",
+   "items": {
+    "type": "object",
+    "unevaluatedProperties": false,
+    "required": [
+     "record_id",
+     "kind"
+    ],
+    "properties": {
+     "record_id": {
+      "type": "string",
+      "pattern": "^rec_[a-z0-9]{8,}$"
+     },
+     "kind": {
+      "enum": [
+       "new",
+       "updated",
+       "status_changed",
+       "classification_changed",
+       "corrected",
+       "suppressed",
+       "retracted"
+      ]
+     }
+    }
+   }
+  }
+ },
+ "unevaluatedProperties": false
+}

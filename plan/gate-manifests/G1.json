@@ -1,8 +1,8 @@
 {
  "schema_version": "atlas-gate-manifest/v1",
  "gate": "G1",
- "generated_at": "2026-08-31T18:45:41+00:00",
- "commit": "a722e4d90a15100f04fce05b5dd3e7625cbc033f",
+ "generated_at": "2026-08-31T18:59:59+00:00",
+ "commit": "d2ad8933ef3a8ace54f8ee6ec11593bf9c94ffa4",
  "pass": false,
  "tasks": [
   {
@@ -79,19 +79,19 @@
   },
   {
    "id": "DOM-002",
-   "status": "pending",
+   "status": "in_progress",
    "evidence_state": "missing",
    "receipt_ids": []
   },
   {
    "id": "DOM-003",
-   "status": "pending",
+   "status": "in_progress",
    "evidence_state": "missing",
    "receipt_ids": []
   },
   {
    "id": "DOM-004",
-   "status": "pending",
+   "status": "in_progress",
    "evidence_state": "missing",
    "receipt_ids": []
   },
@@ -115,7 +115,7 @@
   },
   {
    "id": "MON-000",
-   "status": "pending",
+   "status": "in_progress",
    "evidence_state": "missing",
    "receipt_ids": []
   },

@@ -1,0 +1,99 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "https://exposure-atlas.invalid/schemas/domain/citation-check-result-v1.schema.json",
+ "title": "CitationCheckResultV1",
+ "type": "object",
+ "required": [
+  "schema_version",
+  "projection_version",
+  "release_id",
+  "status",
+  "no_match_is_not_absence"
+ ],
+ "properties": {
+  "schema_version": {
+   "const": "atlas-citation-check/v1"
+  },
+  "projection_version": {
+   "const": "V1"
+  },
+  "release_id": {
+   "type": "string",
+   "pattern": "^rel_[a-z0-9]{8,}$"
+  },
+  "status": {
+   "enum": [
+    "matched",
+    "ambiguous_match",
+    "candidate_pending",
+    "confirmed_out_of_scope",
+    "not_found_in_atlas"
+   ]
+  },
+  "record_id": {
+   "type": [
+    "string",
+    "null"
+   ]
+  },
+  "source_availability": {
+   "enum": [
+    "available",
+    "source_unavailable",
+    null
+   ]
+  },
+  "boundary_decision_id": {
+   "type": [
+    "string",
+    "null"
+   ]
+  },
+  "boundary_version": {
+   "type": [
+    "string",
+    "null"
+   ]
+  },
+  "decision_as_of": {
+   "anyOf": [
+    {
+     "type": "string",
+     "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?(Z|[+-]\\d{2}:\\d{2})$"
+    },
+    {
+     "type": "null"
+    }
+   ]
+  },
+  "normalized_citation_key": {
+   "type": [
+    "string",
+    "null"
+   ]
+  },
+  "no_match_is_not_absence": {
+   "const": true
+  }
+ },
+ "allOf": [
+  {
+   "if": {
+    "properties": {
+     "status": {
+      "const": "confirmed_out_of_scope"
+     }
+    }
+   },
+   "then": {
+    "required": [
+     "boundary_decision_id",
+     "boundary_version",
+     "decision_as_of",
+     "normalized_citation_key"
+    ]
+   }
+  }
+ ],
+ "unevaluatedProperties": false
+}

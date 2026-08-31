@@ -1,0 +1,41 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "https://exposure-atlas.invalid/schemas/domain/proceeding.schema.json",
+ "title": "Proceeding",
+ "type": "object",
+ "required": [
+  "schema_version",
+  "proceeding_id",
+  "record_id",
+  "forum",
+  "jurisdiction"
+ ],
+ "properties": {
+  "schema_version": {
+   "const": "atlas-proceeding/v1"
+  },
+  "proceeding_id": {
+   "type": "string",
+   "pattern": "^prc_[a-z0-9]{8,}$"
+  },
+  "record_id": {
+   "type": "string",
+   "pattern": "^rec_[a-z0-9]{8,}$"
+  },
+  "forum": {
+   "type": "string",
+   "minLength": 1
+  },
+  "jurisdiction": {
+   "type": "string",
+   "minLength": 1
+  },
+  "docket": {
+   "type": [
+    "string",
+    "null"
+   ]
+  }
+ },
+ "unevaluatedProperties": false
+}

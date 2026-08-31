@@ -1,0 +1,69 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "https://exposure-atlas.invalid/schemas/domain/migration-ledger-entry.schema.json",
+ "title": "MigrationLedgerEntry",
+ "type": "object",
+ "required": [
+  "schema_version",
+  "legacy_id",
+  "payload_sha256",
+  "mapping_version",
+  "disposition",
+  "verification_migration_state"
+ ],
+ "properties": {
+  "schema_version": {
+   "const": "atlas-migration-ledger/v1"
+  },
+  "legacy_id": {
+   "type": "string",
+   "minLength": 1
+  },
+  "payload_sha256": {
+   "type": "string",
+   "pattern": "^[0-9a-f]{64}$"
+  },
+  "mapping_version": {
+   "type": "string",
+   "minLength": 1
+  },
+  "target_record_ids": {
+   "type": "array",
+   "items": {
+    "type": "string"
+   }
+  },
+  "disposition": {
+   "enum": [
+    "mapped",
+    "split",
+    "merged",
+    "excluded",
+    "awaiting_primary",
+    "quarantined",
+    "error"
+   ]
+  },
+  "verification_migration_state": {
+   "const": "legacy_unverified"
+  },
+  "owner": {
+   "type": "string"
+  },
+  "next_action": {
+   "type": "string"
+  },
+  "retry_review_date": {
+   "anyOf": [
+    {
+     "type": "string",
+     "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    {
+     "type": "null"
+    }
+   ]
+  }
+ },
+ "unevaluatedProperties": false
+}

@@ -1,0 +1,104 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "https://exposure-atlas.invalid/schemas/domain/classification-assignment.schema.json",
+ "title": "ClassificationAssignment",
+ "type": "object",
+ "required": [
+  "schema_version",
+  "assignment_id",
+  "target_ref",
+  "facts_revision_id",
+  "taxonomy_version",
+  "labels",
+  "review_state"
+ ],
+ "properties": {
+  "schema_version": {
+   "const": "atlas-classification-assignment/v1"
+  },
+  "assignment_id": {
+   "type": "string",
+   "pattern": "^asg_[a-z0-9]{8,}$"
+  },
+  "target_ref": {
+   "type": "object",
+   "unevaluatedProperties": false,
+   "required": [
+    "entity_type",
+    "entity_id"
+   ],
+   "properties": {
+    "entity_type": {
+     "enum": [
+      "matter",
+      "proceeding",
+      "procedural_event",
+      "assertion"
+     ]
+    },
+    "entity_id": {
+     "type": "string",
+     "minLength": 1
+    }
+   }
+  },
+  "facts_revision_id": {
+   "type": "string",
+   "pattern": "^fct_[a-z0-9]{8,}$"
+  },
+  "taxonomy_version": {
+   "type": "string",
+   "minLength": 1
+  },
+  "labels": {
+   "type": "array",
+   "minItems": 1,
+   "items": {
+    "type": "string",
+    "minLength": 1
+   }
+  },
+  "other_detail": {
+   "type": "string"
+  },
+  "model_votes": {
+   "type": "array",
+   "items": {
+    "type": "object"
+   }
+  },
+  "human_decision": {
+   "type": [
+    "object",
+    "null"
+   ]
+  },
+  "review_state": {
+   "enum": [
+    "unreviewed",
+    "human_approved",
+    "abstained",
+    "unresolved"
+   ]
+  }
+ },
+ "allOf": [
+  {
+   "if": {
+    "properties": {
+     "labels": {
+      "contains": {
+       "const": "other"
+      }
+     }
+    }
+   },
+   "then": {
+    "required": [
+     "other_detail"
+    ]
+   }
+  }
+ ],
+ "unevaluatedProperties": false
+}

@@ -1,0 +1,78 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "https://exposure-atlas.invalid/schemas/domain/correction-event.schema.json",
+ "title": "CorrectionEvent",
+ "type": "object",
+ "required": [
+  "schema_version",
+  "correction_id",
+  "kind",
+  "affected_record_ids",
+  "severity",
+  "reported_at",
+  "reporter",
+  "immediate_suppression_required"
+ ],
+ "properties": {
+  "schema_version": {
+   "const": "atlas-correction-event/v1"
+  },
+  "correction_id": {
+   "type": "string",
+   "pattern": "^cor_[a-z0-9]{8,}$"
+  },
+  "kind": {
+   "enum": [
+    "source_update",
+    "atlas_correction",
+    "rights_suppression",
+    "retraction",
+    "supersession"
+   ]
+  },
+  "affected_record_ids": {
+   "type": "array",
+   "items": {
+    "type": "string",
+    "pattern": "^rec_[a-z0-9]{8,}$"
+   }
+  },
+  "affected_assertion_ids": {
+   "type": "array",
+   "items": {
+    "type": "string"
+   }
+  },
+  "affected_release_ids": {
+   "type": "array",
+   "items": {
+    "type": "string"
+   }
+  },
+  "severity": {
+   "enum": [
+    "critical",
+    "major",
+    "minor"
+   ]
+  },
+  "reported_at": {
+   "type": "string",
+   "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?(Z|[+-]\\d{2}:\\d{2})$"
+  },
+  "reporter": {
+   "type": "string",
+   "minLength": 1
+  },
+  "immediate_suppression_required": {
+   "type": "boolean"
+  },
+  "superseded_by": {
+   "type": [
+    "string",
+    "null"
+   ]
+  }
+ },
+ "unevaluatedProperties": false
+}

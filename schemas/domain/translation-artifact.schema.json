@@ -1,0 +1,59 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "https://exposure-atlas.invalid/schemas/domain/translation-artifact.schema.json",
+ "title": "TranslationArtifact (never replaces the original anchor)",
+ "type": "object",
+ "required": [
+  "schema_version",
+  "translation_id",
+  "text_artifact_id",
+  "source_language",
+  "target_language",
+  "method",
+  "provider_permission_id",
+  "reviewer_status"
+ ],
+ "properties": {
+  "schema_version": {
+   "const": "atlas-translation-artifact/v1"
+  },
+  "translation_id": {
+   "type": "string",
+   "pattern": "^trn_[a-z0-9]{8,}$"
+  },
+  "text_artifact_id": {
+   "type": "string",
+   "pattern": "^txt_[a-z0-9]{8,}$"
+  },
+  "source_language": {
+   "type": "string",
+   "minLength": 1
+  },
+  "target_language": {
+   "type": "string",
+   "minLength": 1
+  },
+  "method": {
+   "enum": [
+    "human",
+    "machine"
+   ]
+  },
+  "provider_permission_id": {
+   "type": [
+    "string",
+    "null"
+   ]
+  },
+  "reviewer_status": {
+   "enum": [
+    "not_reviewed",
+    "human_reviewed"
+   ]
+  },
+  "derived_note": {
+   "const": "translation is a derived artifact; the original-language anchor remains authoritative"
+  }
+ },
+ "unevaluatedProperties": false
+}

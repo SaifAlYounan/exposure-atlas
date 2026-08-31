@@ -1,0 +1,128 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "https://exposure-atlas.invalid/schemas/domain/citation-bundle-v1.schema.json",
+ "title": "CitationBundleV1",
+ "type": "object",
+ "required": [
+  "schema_version",
+  "projection_version",
+  "issuing_body",
+  "source_title",
+  "docket",
+  "filing_or_decision_date",
+  "pinpoint",
+  "official_url",
+  "custodian_status",
+  "source_version_sha256",
+  "language",
+  "atlas_release_id",
+  "atlas_record_revision_id",
+  "verification_date",
+  "warnings"
+ ],
+ "properties": {
+  "schema_version": {
+   "const": "atlas-citation-bundle/v1"
+  },
+  "projection_version": {
+   "const": "V1"
+  },
+  "issuing_body": {
+   "type": "string",
+   "minLength": 1
+  },
+  "source_title": {
+   "type": "string",
+   "minLength": 1
+  },
+  "docket": {
+   "type": [
+    "string",
+    "null"
+   ]
+  },
+  "docket_entry": {
+   "type": [
+    "string",
+    "null"
+   ]
+  },
+  "filing_or_decision_date": {
+   "anyOf": [
+    {
+     "type": "string",
+     "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    {
+     "type": "null"
+    }
+   ]
+  },
+  "neutral_citation": {
+   "type": [
+    "string",
+    "null"
+   ]
+  },
+  "pinpoint": {
+   "type": [
+    "string",
+    "null"
+   ]
+  },
+  "official_url": {
+   "type": [
+    "string",
+    "null"
+   ]
+  },
+  "custodian_status": {
+   "enum": [
+    "issuer_direct",
+    "official_docket",
+    "preserved_copy",
+    "mirror_corroborated"
+   ]
+  },
+  "source_version_sha256": {
+   "type": "string",
+   "pattern": "^[0-9a-f]{64}$"
+  },
+  "language": {
+   "type": "string",
+   "minLength": 1
+  },
+  "translation_provenance": {
+   "type": [
+    "string",
+    "null"
+   ]
+  },
+  "atlas_release_id": {
+   "type": "string",
+   "pattern": "^rel_[a-z0-9]{8,}$"
+  },
+  "atlas_record_revision_id": {
+   "type": "string",
+   "pattern": "^rrv_[a-z0-9]{8,}$"
+  },
+  "verification_date": {
+   "type": "string",
+   "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+  },
+  "warnings": {
+   "type": "array",
+   "items": {
+    "enum": [
+     "superseded",
+     "withdrawn",
+     "corrected",
+     "stale",
+     "ocr_supported",
+     "preserved_copy_only"
+    ]
+   }
+  }
+ },
+ "unevaluatedProperties": false
+}

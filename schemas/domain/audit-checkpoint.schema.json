@@ -1,0 +1,60 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "https://exposure-atlas.invalid/schemas/domain/audit-checkpoint.schema.json",
+ "title": "AuditCheckpoint (stored outside builder-writable accounts)",
+ "type": "object",
+ "required": [
+  "schema_version",
+  "checkpoint_id",
+  "through_seq",
+  "chain_head",
+  "created_at",
+  "signing"
+ ],
+ "properties": {
+  "schema_version": {
+   "const": "atlas-audit-checkpoint/v1"
+  },
+  "checkpoint_id": {
+   "type": "string",
+   "pattern": "^ckp_[a-z0-9]{8,}$"
+  },
+  "through_seq": {
+   "type": "integer",
+   "minimum": 0
+  },
+  "chain_head": {
+   "type": "string",
+   "pattern": "^[0-9a-f]{64}$"
+  },
+  "created_at": {
+   "type": "string",
+   "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?(Z|[+-]\\d{2}:\\d{2})$"
+  },
+  "signing": {
+   "type": "object",
+   "unevaluatedProperties": false,
+   "required": [
+    "scheme",
+    "key_id",
+    "payload_sha256"
+   ],
+   "properties": {
+    "scheme": {
+     "enum": [
+      "test_key_sha256"
+     ]
+    },
+    "key_id": {
+     "type": "string",
+     "minLength": 1
+    },
+    "payload_sha256": {
+     "type": "string",
+     "pattern": "^[0-9a-f]{64}$"
+    }
+   }
+  }
+ },
+ "unevaluatedProperties": false
+}

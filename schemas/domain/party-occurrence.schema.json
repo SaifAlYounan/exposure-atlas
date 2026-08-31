@@ -1,0 +1,64 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "https://exposure-atlas.invalid/schemas/domain/party-occurrence.schema.json",
+ "title": "PartyOccurrence (source name preserved verbatim)",
+ "type": "object",
+ "required": [
+  "schema_version",
+  "party_id",
+  "proceeding_id",
+  "source_name",
+  "procedural_role",
+  "entity_type"
+ ],
+ "properties": {
+  "schema_version": {
+   "const": "atlas-party-occurrence/v1"
+  },
+  "party_id": {
+   "type": "string",
+   "pattern": "^pty_[a-z0-9]{8,}$"
+  },
+  "proceeding_id": {
+   "type": "string",
+   "pattern": "^prc_[a-z0-9]{8,}$"
+  },
+  "source_name": {
+   "type": "string",
+   "minLength": 1
+  },
+  "normalized_entity_id": {
+   "type": [
+    "string",
+    "null"
+   ]
+  },
+  "normalization_version": {
+   "type": [
+    "string",
+    "null"
+   ]
+  },
+  "procedural_role": {
+   "enum": [
+    "plaintiff",
+    "defendant",
+    "respondent",
+    "appellant",
+    "appellee",
+    "intervenor",
+    "regulator",
+    "other"
+   ]
+  },
+  "entity_type": {
+   "enum": [
+    "organisation",
+    "natural_person",
+    "government",
+    "unknown"
+   ]
+  }
+ },
+ "unevaluatedProperties": false
+}

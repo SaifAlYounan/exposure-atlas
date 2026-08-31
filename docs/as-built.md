@@ -63,3 +63,14 @@ read-only access to official SDK docs is A0-permitted).
   the supersede pointer.
 - MON-000: freshness aggregation rule v1.0.0; live overlay vs release
   snapshot represented as separate schemas.
+
+## G1 session 3 (2026-08-31)
+- Schema catalogue complete: 62 domain schemas under schemas/domain/,
+  every one with a validating positive fixture and a generic
+  unknown-property negative (tests/test_schema_catalogue.py).
+- DOM-005/006 revision + projection builders; SRC-001 adapter SDK with
+  conformance kit; REL-001A snapshot builder; DOC-003 language gate.
+- 138 tests. Remaining G1: HAR-000-03..HAR-005, BOOT-060/070 harness
+  qualification (capability report with honest substitutions for the
+  managed environment per D-017), SRC-003 archive interface, kernel→DB
+  integration, SEC-001-01 full coverage.

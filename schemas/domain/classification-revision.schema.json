@@ -1,0 +1,58 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "https://exposure-atlas.invalid/schemas/domain/classification-revision.schema.json",
+ "title": "ClassificationRevision (pins the exact facts revision)",
+ "type": "object",
+ "required": [
+  "schema_version",
+  "classification_revision_id",
+  "record_id",
+  "facts_revision_id",
+  "boundary_version",
+  "taxonomy_version",
+  "rubric_version",
+  "assignment_ids",
+  "created_at"
+ ],
+ "properties": {
+  "schema_version": {
+   "const": "atlas-classification-revision/v1"
+  },
+  "classification_revision_id": {
+   "type": "string",
+   "pattern": "^cls_[a-z0-9]{8,}$"
+  },
+  "record_id": {
+   "type": "string",
+   "pattern": "^rec_[a-z0-9]{8,}$"
+  },
+  "facts_revision_id": {
+   "type": "string",
+   "pattern": "^fct_[a-z0-9]{8,}$"
+  },
+  "boundary_version": {
+   "type": "string",
+   "minLength": 1
+  },
+  "taxonomy_version": {
+   "type": "string",
+   "minLength": 1
+  },
+  "rubric_version": {
+   "type": "string",
+   "minLength": 1
+  },
+  "assignment_ids": {
+   "type": "array",
+   "items": {
+    "type": "string",
+    "pattern": "^asg_[a-z0-9]{8,}$"
+   }
+  },
+  "created_at": {
+   "type": "string",
+   "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?(Z|[+-]\\d{2}:\\d{2})$"
+  }
+ },
+ "unevaluatedProperties": false
+}

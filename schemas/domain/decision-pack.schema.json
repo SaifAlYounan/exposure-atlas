@@ -1,0 +1,67 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "https://exposure-atlas.invalid/schemas/domain/decision-pack.schema.json",
+ "title": "DecisionPack (immutable weekly manifest)",
+ "type": "object",
+ "required": [
+  "schema_version",
+  "pack_id",
+  "week",
+  "created_at",
+  "item_ids",
+  "estimated_review_minutes",
+  "caps"
+ ],
+ "properties": {
+  "schema_version": {
+   "const": "atlas-decision-pack/v1"
+  },
+  "pack_id": {
+   "type": "string",
+   "pattern": "^pck_[a-z0-9]{8,}$"
+  },
+  "week": {
+   "type": "string",
+   "minLength": 1
+  },
+  "created_at": {
+   "type": "string",
+   "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?(Z|[+-]\\d{2}:\\d{2})$"
+  },
+  "item_ids": {
+   "type": "array",
+   "items": {
+    "type": "string"
+   }
+  },
+  "estimated_review_minutes": {
+   "type": "integer",
+   "minimum": 0
+  },
+  "caps": {
+   "type": "object",
+   "unevaluatedProperties": false,
+   "required": [
+    "review_minutes",
+    "decision_cards",
+    "record_reviews",
+    "complex_decisions"
+   ],
+   "properties": {
+    "review_minutes": {
+     "const": 240
+    },
+    "decision_cards": {
+     "const": 25
+    },
+    "record_reviews": {
+     "const": 12
+    },
+    "complex_decisions": {
+     "const": 3
+    }
+   }
+  }
+ },
+ "unevaluatedProperties": false
+}

@@ -1,0 +1,59 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "https://exposure-atlas.invalid/schemas/domain/authorization-grant.schema.json",
+ "title": "AuthorizationGrant",
+ "type": "object",
+ "required": [
+  "schema_version",
+  "grant_id",
+  "level",
+  "decision_id",
+  "scope",
+  "granted_at",
+  "expiry"
+ ],
+ "properties": {
+  "schema_version": {
+   "const": "atlas-authorization-grant/v1"
+  },
+  "grant_id": {
+   "type": "string",
+   "pattern": "^agr_[a-z0-9]{8,}$"
+  },
+  "level": {
+   "enum": [
+    "A0",
+    "A1",
+    "A2",
+    "A3",
+    "A4",
+    "A5",
+    "A6"
+   ]
+  },
+  "decision_id": {
+   "type": "string",
+   "pattern": "^D-[0-9]{3,}$"
+  },
+  "scope": {
+   "type": "string",
+   "minLength": 1
+  },
+  "granted_at": {
+   "type": "string",
+   "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?(Z|[+-]\\d{2}:\\d{2})$"
+  },
+  "expiry": {
+   "anyOf": [
+    {
+     "type": "string",
+     "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?(Z|[+-]\\d{2}:\\d{2})$"
+    },
+    {
+     "type": "null"
+    }
+   ]
+  }
+ },
+ "unevaluatedProperties": false
+}

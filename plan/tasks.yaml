@@ -1163,7 +1163,9 @@ tasks:
   - plan/evidence.jsonl
   rollback: discard_task_worktree
   status: in_progress
-  notes: 'G1-S1: 19 kernel schemas + registry validation; remaining 5.4 catalogue in later sessions'
+  notes: 'G1-S3: full 5.4 catalogue: 62 strict schemas, positive fixture per schema, universal unknown-property
+    rejection, conditional requirements (other_detail, confirmed_out_of_scope needs stored decision) |
+    G1-S1: 19 kernel schemas + registry validation; remaining 5.4 catalogue in later sessions'
 - schema_version: atlas-task/v2.2
   id: DOM-002
   epic: DOM-002
@@ -1301,7 +1303,9 @@ tasks:
   evidence_paths:
   - plan/evidence.jsonl
   rollback: discard_task_worktree
-  status: pending
+  status: in_progress
+  notes: 'G1-S3: facts/record revision manifests immutable-by-construction; lifecycle derived from append-only
+    events; publication requires release inclusion; classification-only change reuses facts revision'
 - schema_version: atlas-task/v2.2
   id: DOM-006
   epic: DOM-006
@@ -1335,7 +1339,10 @@ tasks:
   evidence_paths:
   - plan/evidence.jsonl
   rollback: discard_task_worktree
-  status: pending
+  status: in_progress
+  notes: 'G1-S3: RecordDetailV1 (facts/classification never flatten; unreviewed dropped), CitationBundleV1,
+    citation_check (absence never out-of-scope; pending never leaks to unauthorized audience), StatsV1
+    denominators'
 - schema_version: atlas-task/v2.2
   id: POL-001
   epic: POL-001
@@ -1480,7 +1487,9 @@ tasks:
   evidence_paths:
   - plan/evidence.jsonl
   rollback: discard_task_worktree
-  status: pending
+  status: in_progress
+  notes: 'G1-S3: adapter protocol + registry schema validation + conformance kit (pagination, idempotent
+    rediscovery, no accepted-state writes, unregistered host refused)'
 - schema_version: atlas-task/v2.2
   id: SRC-002
   epic: SRC-002
@@ -1656,7 +1665,9 @@ tasks:
   evidence_paths:
   - plan/evidence.jsonl
   rollback: discard_task_worktree
-  status: pending
+  status: in_progress
+  notes: 'G1-S3: pilot language exclusion: unsupported language routes to awaiting_capability; no translation
+    path exists to publish unlabelled'
 - schema_version: atlas-task/v2.2
   id: VER-001
   epic: VER-001
@@ -2883,7 +2894,8 @@ tasks:
   evidence_paths:
   - plan/evidence.jsonl
   rollback: discard_task_worktree
-  status: pending
+  status: in_progress
+  notes: 'G1-S3: ReleaseInputSnapshot pure builder; release manifest binds snapshot+policy versions'
 - schema_version: atlas-task/v2.2
   id: REL-001
   epic: REL-001

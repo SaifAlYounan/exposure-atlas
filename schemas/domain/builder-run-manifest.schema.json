@@ -1,0 +1,115 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "https://exposure-atlas.invalid/schemas/domain/builder-run-manifest.schema.json",
+ "title": "BuilderRunManifest",
+ "type": "object",
+ "required": [
+  "schema_version",
+  "run_id",
+  "provider",
+  "sdk_version",
+  "model_id",
+  "task_id",
+  "role",
+  "authorization_level",
+  "base_commit",
+  "result_commit",
+  "started_at",
+  "ended_at",
+  "termination_reason",
+  "completeness_state"
+ ],
+ "properties": {
+  "schema_version": {
+   "const": "atlas-builder-run/v1"
+  },
+  "run_id": {
+   "type": "string",
+   "minLength": 1
+  },
+  "provider": {
+   "const": "claude"
+  },
+  "sdk_version": {
+   "type": "string",
+   "minLength": 1
+  },
+  "model_id": {
+   "type": "string",
+   "minLength": 1
+  },
+  "task_id": {
+   "type": "string",
+   "minLength": 1
+  },
+  "role": {
+   "type": "string",
+   "minLength": 1
+  },
+  "authorization_level": {
+   "enum": [
+    "A0",
+    "A1",
+    "A2",
+    "A3",
+    "A4",
+    "A5",
+    "A6"
+   ]
+  },
+  "base_commit": {
+   "type": "string",
+   "minLength": 1
+  },
+  "result_commit": {
+   "type": "string",
+   "minLength": 1
+  },
+  "input_hash": {
+   "anyOf": [
+    {
+     "type": "string",
+     "pattern": "^[0-9a-f]{64}$"
+    },
+    {
+     "type": "null"
+    }
+   ]
+  },
+  "output_hash": {
+   "anyOf": [
+    {
+     "type": "string",
+     "pattern": "^[0-9a-f]{64}$"
+    },
+    {
+     "type": "null"
+    }
+   ]
+  },
+  "tokens_note": {
+   "type": "string"
+  },
+  "started_at": {
+   "type": "string",
+   "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?(Z|[+-]\\d{2}:\\d{2})$"
+  },
+  "ended_at": {
+   "type": "string",
+   "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?(Z|[+-]\\d{2}:\\d{2})$"
+  },
+  "termination_reason": {
+   "type": "string",
+   "minLength": 1
+  },
+  "completeness_state": {
+   "enum": [
+    "complete",
+    "interrupted",
+    "failed",
+    "budget_stopped"
+   ]
+  }
+ },
+ "unevaluatedProperties": false
+}
