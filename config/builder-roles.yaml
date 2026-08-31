@@ -1,0 +1,23 @@
+# Declarative builder role/tool policy (HAR-002, versioned; a change is
+# a requalification event). SPEC 0.5 role table at solo scale. The
+# non-bypassable outer boundary is the host control plane, not this file.
+policy_version: 1.0.0
+roles:
+  planner:
+    tools: [read, search, repo_metadata]
+    disallowed_tools: [write, shell, network, git_push]
+  implementer:
+    tools: [read, search, write_task_worktree, test_runner, git_commit_branch]
+    disallowed_tools: [production_credentials, git_push_main, network]
+  tester:
+    tools: [read, test_runner, write_test_reports]
+    disallowed_tools: [write_production_code, modify_expected_outcomes]
+  adversarial_security_reviewer:
+    tools: [read, scanners, write_findings_report]
+    disallowed_tools: [write, shell_mutating]
+  verifier_auditor:
+    tools: [read, build_test_commands, write_evidence_artifacts]
+    disallowed_tools: [write_production_code]
+  coordinator:
+    tools: [task_orchestration, integration_branch, read]
+    disallowed_tools: [waive_failed_check, operator_decision]

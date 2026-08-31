@@ -884,7 +884,9 @@ tasks:
   evidence_paths:
   - plan/evidence.jsonl
   rollback: discard_task_worktree
-  status: pending
+  status: in_progress
+  notes: 'G1-S4: completion gate wraps atlas_plan task-verify: provider success/failure/interruption/invalid-output
+    cannot mark done'
 - schema_version: atlas-task/v2.2
   id: HAR-001
   epic: HAR-001
@@ -953,7 +955,9 @@ tasks:
   evidence_paths:
   - plan/evidence.jsonl
   rollback: discard_task_worktree
-  status: pending
+  status: in_progress
+  notes: 'G1-S4: declarative config/builder-roles.yaml compiled with content hash; deny-by-default; omitted
+    tool unavailable; coordinator cannot waive checks'
 - schema_version: atlas-task/v2.2
   id: HAR-003
   epic: HAR-003
@@ -1022,8 +1026,9 @@ tasks:
   evidence_paths:
   - plan/evidence.jsonl
   rollback: discard_task_worktree
-  status: pending
-  notes: 'A-001.2: HAR-004 dependency struck; selected-profile only'
+  status: in_progress
+  notes: 'A-001.2: HAR-004 dependency struck; selected-profile only | G1-S4: budget ledger reserve/reconcile,
+    exhaustion -> BudgetExhausted (blocked_budget), null ceilings fail closed; receipts/ledger schema-validated'
 - schema_version: atlas-task/v2.2
   id: BOOT-060
   epic: BOOT-060
@@ -1057,7 +1062,10 @@ tasks:
   evidence_paths:
   - plan/evidence.jsonl
   rollback: discard_task_worktree
-  status: pending
+  status: in_progress
+  notes: "G1-S4: harness capability report generated (builder/conformance/): 8 fixtures proven by executable\
+    \ tests; confinement fixtures NOT claimed \u2014 deferred to A1 sandbox per D-017 with substitution\
+    \ rows; operator acceptance is a G1-pack question"
 - schema_version: atlas-task/v2.2
   id: BOOT-070
   epic: BOOT-070
@@ -1091,8 +1099,10 @@ tasks:
   evidence_paths:
   - plan/evidence.jsonl
   rollback: discard_task_worktree
-  status: pending
-  notes: 'A-001.2 rewrite: HAR-004/HAR-006-03 deps replaced by HAR-005'
+  status: in_progress
+  notes: 'A-001.2 rewrite: HAR-004/HAR-006-03 deps replaced by HAR-005 | G1-S4: selected-profile conformance
+    vs the fixtures expressible in the managed environment; sandbox-dependent fixtures deferred per D-017
+    (see BOOT-060 note)'
 - schema_version: atlas-task/v2.2
   id: PLT-004
   epic: PLT-004
@@ -1559,7 +1569,9 @@ tasks:
   evidence_paths:
   - plan/evidence.jsonl
   rollback: discard_task_worktree
-  status: pending
+  status: in_progress
+  notes: 'G1-S4: archive gate: external submission disabled by default (D-005); every attempt records
+    policy version+decision+result; missing/blocked axes fail closed'
 - schema_version: atlas-task/v2.2
   id: DOC-001
   epic: DOC-001
@@ -1849,8 +1861,9 @@ tasks:
   - plan/evidence.jsonl
   rollback: discard_task_worktree
   status: in_progress
-  notes: 'A-001.2 rewrite: HAR-006-04 dep -> HAR-005 + REL-000 determinism | G1-S1: SSRF/private-IP, oversize,
-    MIME-mismatch, canary-leak, tamper fixtures passing'
+  notes: 'A-001.2 rewrite: HAR-006-04 dep -> HAR-005 + REL-000 determinism | G1-S4: replay-refusal (SEC-08),
+    hostile-string inertness (SEC-06), model-output extra-key rejection (SEC-07) | G1-S1: SSRF/private-IP,
+    oversize, MIME-mismatch, canary-leak, tamper fixtures passing'
 - schema_version: atlas-task/v2.2
   id: EVAL-000
   epic: EVAL-000

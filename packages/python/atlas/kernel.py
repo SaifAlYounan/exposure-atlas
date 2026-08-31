@@ -174,6 +174,10 @@ class Kernel:
         report = self.reports.get(proposal_id)
         if report is None:
             raise RuntimeError("verification must run before a decision")
+        if any(a["proposal_id"] == proposal_id for a in self.assertions.values()):
+            raise RuntimeError(
+                "replayed acceptance: proposal already has an accepted "
+                "assertion (SEC-08); supersede instead")
         if report["overall"] != "pass" and decision == "accept":
             raise RuntimeError("cannot accept a proposal whose mechanical checks fail")
         dec = {"schema_version": "atlas-assertion-acceptance/v1",

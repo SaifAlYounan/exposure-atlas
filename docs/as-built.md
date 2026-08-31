@@ -74,3 +74,15 @@ read-only access to official SDK docs is A0-permitted).
   qualification (capability report with honest substitutions for the
   managed environment per D-017), SRC-003 archive interface, kernel→DB
   integration, SEC-001-01 full coverage.
+
+## G1 session 4 (2026-08-31)
+- builder/core: compiled role policy (config/builder-roles.yaml, hashed,
+  deny-by-default), budget ledger (reserve/reconcile/exhaustion), and
+  the provider-neutral completion gate wrapping atlas_plan verification.
+- builder/conformance/claude-capability-report.json: 8 capabilities
+  proven by executable tests; 4 confinement capabilities explicitly NOT
+  claimed — deferred to the operator sandbox as an A1 precondition
+  (D-017), with substitution rows. Exact SDK pin happens at sandbox
+  qualification.
+- SRC-003 archive gate (disabled by default, fail-closed, attempt
+  records); kernel acceptance-replay guard (SEC-08).

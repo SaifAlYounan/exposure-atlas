@@ -332,6 +332,27 @@ G1_S1 = {
     "API-000": "read path serves signed artifact bytes; suppression first; no_match_is_not_absence",
     "SEC-001-01": "SSRF/private-IP, oversize, MIME-mismatch, canary-leak, tamper fixtures passing",
 }
+G1_S4 = {
+    "SRC-003": "archive gate: external submission disabled by default (D-005); every attempt "
+               "records policy version+decision+result; missing/blocked axes fail closed",
+    "HAR-000-03": "completion gate wraps atlas_plan task-verify: provider success/failure/"
+                  "interruption/invalid-output cannot mark done",
+    "HAR-002": "declarative config/builder-roles.yaml compiled with content hash; deny-by-default; "
+               "omitted tool unavailable; coordinator cannot waive checks",
+    "HAR-005": "budget ledger reserve/reconcile, exhaustion -> BudgetExhausted (blocked_budget), "
+               "null ceilings fail closed; receipts/ledger schema-validated",
+    "BOOT-060": "harness capability report generated (builder/conformance/): 8 fixtures proven "
+                "by executable tests; confinement fixtures NOT claimed — deferred to A1 sandbox "
+                "per D-017 with substitution rows; operator acceptance is a G1-pack question",
+    "BOOT-070": "selected-profile conformance vs the fixtures expressible in the managed "
+                "environment; sandbox-dependent fixtures deferred per D-017 (see BOOT-060 note)",
+}
+for _tid, _note in G1_S4.items():
+    T[_tid]["status"] = "in_progress"
+    T[_tid]["notes"] = (T[_tid]["notes"] + " | " if T[_tid]["notes"] else "") + "G1-S4: " + _note
+T["SEC-001-01"]["notes"] += (" | G1-S4: replay-refusal (SEC-08), hostile-string inertness "
+                             "(SEC-06), model-output extra-key rejection (SEC-07)")
+
 G1_S3 = {
     "DOM-001": "full 5.4 catalogue: 62 strict schemas, positive fixture per schema, universal "
                "unknown-property rejection, conditional requirements (other_detail, "

@@ -1,8 +1,8 @@
 {
  "schema_version": "atlas-gate-manifest/v1",
  "gate": "G0",
- "generated_at": "2026-08-31T18:59:59+00:00",
- "commit": "d2ad8933ef3a8ace54f8ee6ec11593bf9c94ffa4",
+ "generated_at": "2026-08-31T19:12:02+00:00",
+ "commit": "c01ddb19d8b2af1cbc49cbe1892cff5b15a74c12",
  "pass": true,
  "tasks": [
   {
