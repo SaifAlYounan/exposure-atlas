@@ -1,11 +1,56 @@
 schema_version: atlas-pack-answers/v1
 pack: 2026-W37-G1
 answered_by: Alexios
-answered_at: null
+answered_at: "2026-08-31"
 answers:
-  - { item: G1-Q1, decision_id: null, answer: null }
-  - { item: G1-Q2, decision_id: null, answer: null }
-  - { item: G1-Q3, decision_id: null, answer: null }
-  - { item: G1-Q4, decision_id: null, answer: null }
-  - { item: G1-Q5, decision_id: null, answer: null }
-  - { item: G1-Q6, decision_id: null, answer: null }
+  - item: G1-Q1
+    decision_id: D-018
+    answer: >-
+      Accept the BOOT-060/070 capability report (8 proven fixtures, 4
+      confinement fixtures deferred with substitution rows) as interim
+      G1 harness evidence. Full confinement qualification remains a
+      hard A1 precondition, per D-017.
+  - item: G1-Q2
+    decision_id: D-019
+    answer: >-
+      The operator will not provision a separate VPS/VM sandbox. The
+      standing constraint (D-017) is: everything runs on GitHub and
+      Claude Code. The builder is instructed to design and propose, in
+      the next decision pack, a confinement qualification for
+      HAR-001/HAR-003 that runs entirely on GitHub-hosted
+      infrastructure (ephemeral Actions runners with hardened egress,
+      and/or the managed session), satisfying the handoff-section-2
+      intent: no personal credentials, deny-by-default egress during
+      live fetching, ephemeral hosts, injected scoped secrets. If the
+      builder judges that HAR-001 cannot be honestly satisfied on
+      GitHub-hosted infrastructure, it must say so explicitly in that
+      pack rather than dilute the requirement; A1 stays blocked until
+      the qualification passes wherever it runs.
+  - item: G1-Q3
+    decision_id: D-020
+    answer: >-
+      Accept the PLT-002 deviation (filesystem evidence store,
+      ephemeral PostgreSQL, compose digests pinned at first
+      confinement-stack pull) with expiry at confinement-stack
+      provisioning per D-019.
+  - item: G1-Q4
+    decision_id: D-021
+    answer: >-
+      Grant A1 contingent: effective only once G1-Q1/Q2 confinement
+      qualification closes per D-019. Scope exactly as proposed:
+      read-only probes of the CourtListener API and ftc.gov
+      listing/document pages only; at most 50 documents per source;
+      conservative rate caps; recorded receipts; 30-day expiry from
+      effectiveness; no runtime model calls on fetched documents (A2
+      remains ungranted).
+  - item: G1-Q5
+    decision_id: D-022
+    answer: >-
+      Acknowledged: kernel-to-PostgreSQL pipeline integration is the
+      first G2 implementation step; the G1 slice stays file-backed with
+      DB-layer guarantees separately proven.
+  - item: G1-Q6
+    decision_id: D-023
+    answer: >-
+      Nothing to re-derive or explain; the five green clean-checkout CI
+      runs and build-status are accepted as presented.
