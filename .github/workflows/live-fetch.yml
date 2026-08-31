@@ -36,6 +36,7 @@ jobs:
             pypi.org:443
             files.pythonhosted.org:443
             astral.sh:443
+            release-assets.githubusercontent.com:443
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v5
         with: { version: "0.5.24" }

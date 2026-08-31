@@ -295,3 +295,14 @@ commits per task and updates build-status.
   hashes and metadata; raw bytes stay in the (ephemeral) evidence store.
 - **Expiry:** the D-021 30-day A1 window begins at first live probe.
 - **Status:** recorded
+
+## Coordinator note under D-028 — enabling PR merged
+
+PR #1 (rename live-fetch.yml.template -> live-fetch.yml + tools/run_probe.py)
+merged to main as merge commit `83956939e18a5523363d9bee2b7a45553d36014b`,
+performed via the operator's GitHub identity (get_me = SaifAlYounan,
+id 265073165) per the operator's explicit instruction. No admin
+force-bypass flag was passed to the merge. The live probe still executes
+only after the operator approves the protected `live-fetch` environment
+deployment (D-027 enforcement point); dispatch queues a run that waits
+for that approval.
