@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://exposure-atlas.invalid/schemas/plan/atlas-task.schema.json",
+  "title": "Atlas plan task",
+  "type": "object",
+  "unevaluatedProperties": false,
+  "required": [
+    "schema_version", "id", "epic", "title", "depends_on",
+    "authorization_min", "parallelizable", "executor_role", "auditor_role",
+    "decision_owner", "exclusive_resources", "conflicts_with", "worktree",
+    "gate", "estimated_builder_sessions", "required_inputs",
+    "requires_operator_decision", "operator_decision_ids",
+    "builder_profiles", "network_profile", "credential_profile",
+    "artifacts", "permitted_writes", "automated_commands",
+    "acceptance_checks", "evidence_paths", "rollback", "status"
+  ],
+  "properties": {
+    "schema_version": { "const": "atlas-task/v2.2" },
+    "id": { "$ref": "#/$defs/task_id" },
+    "epic": { "type": "string", "pattern": "^[A-Z]+-[0-9]{3}$" },
+    "title": { "type": "string", "minLength": 3, "maxLength": 200 },
+    "depends_on": { "type": "array", "items": { "$ref": "#/$defs/task_id" }, "uniqueItems": true },
+    "authorization_min": { "enum": ["A0", "A1", "A2", "A3", "A4", "A5", "A6"] },
+    "parallelizable": { "type": "boolean" },
+    "executor_role": { "$ref": "#/$defs/role" },
+    "auditor_role": { "$ref": "#/$defs/role" },
+    "decision_owner": { "oneOf": [{ "$ref": "#/$defs/role" }, { "type": "null" }] },
+    "exclusive_resources": { "type": "array", "items": { "type": "string" } },
+    "conflicts_with": { "type": "array", "items": { "$ref": "#/$defs/task_id" } },
+    "worktree": { "type": "string", "pattern": "^task/[A-Za-z0-9._-]+$" },
+    "gate": { "enum": ["G0", "G1", "G2", "G3", "G4", "G5", "G6", "handoff", "backlog"] },
+    "estimated_builder_sessions": { "type": "integer", "minimum": 0, "maximum": 50 },
+    "required_inputs": { "type": "array", "items": { "type": "string" } },
+    "requires_operator_decision": { "type": "boolean" },
+    "operator_decision_ids": { "type": "array", "items": { "type": "string", "pattern": "^(D-[0-9]{3,}|G0-Q[0-9]+)$" } },
+    "builder_profiles": { "type": "array", "items": { "const": "claude" }, "minItems": 1 },
+    "network_profile": { "enum": ["none", "sdk_docs_only", "package_registries", "registered_sources", "approved_model_provider"] },
+    "credential_profile": { "enum": ["none", "git_branch_limited", "ci_readonly", "adapter_scoped", "model_provider_scoped"] },
+    "artifacts": { "type": "array", "items": { "type": "string" } },
+    "permitted_writes": { "type": "array", "items": { "type": "string" } },
+    "automated_commands": { "type": "array", "items": { "type": "string" } },
+    "acceptance_checks": { "type": "array", "items": { "type": "string" } },
+    "evidence_paths": { "type": "array", "items": { "type": "string" } },
+    "rollback": { "enum": ["discard_task_worktree", "revert_commit", "restore_baseline", "none_required"] },
+    "status": { "enum": ["pending", "ready", "in_progress", "blocked_human", "blocked_authorization", "blocked_external", "blocked_time", "blocked_budget", "failed", "done", "superseded"] },
+    "blocked_reason": { "type": "string" },
+    "notes": { "type": "string" }
+  },
+  "$defs": {
+    "task_id": { "type": "string", "pattern": "^[A-Z]+-[0-9]{3}[A-Z]?(-[0-9]{2})?$" },
+    "role": { "enum": ["coordinator", "planner", "implementer", "tester", "adversarial_security_reviewer", "verifier_auditor", "operator", "release_bot", "external_reviewer", "time_dependent"] }
+  }
+}

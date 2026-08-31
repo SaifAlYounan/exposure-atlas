@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://exposure-atlas.invalid/schemas/plan/gate-evidence-manifest.schema.json",
+  "title": "Gate evidence manifest",
+  "type": "object",
+  "unevaluatedProperties": false,
+  "required": ["schema_version", "gate", "generated_at", "commit", "pass", "tasks", "missing_evidence", "missing_operator_decisions"],
+  "properties": {
+    "schema_version": { "const": "atlas-gate-manifest/v1" },
+    "gate": { "enum": ["G0", "G1", "G2", "G3", "G4", "G5", "G6"] },
+    "generated_at": { "type": "string" },
+    "commit": { "type": "string", "pattern": "^[0-9a-f]{7,40}$" },
+    "pass": { "type": "boolean" },
+    "tasks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "unevaluatedProperties": false,
+        "required": ["id", "status", "evidence_state"],
+        "properties": {
+          "id": { "type": "string" },
+          "status": { "type": "string" },
+          "evidence_state": { "enum": ["verified", "self_asserted_only", "missing", "stale_commit", "not_required"] },
+          "receipt_ids": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "missing_evidence": { "type": "array", "items": { "type": "string" } },
+    "missing_operator_decisions": { "type": "array", "items": { "type": "string" } },
+    "notes": { "type": "string" }
+  }
+}
