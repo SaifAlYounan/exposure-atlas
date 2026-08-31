@@ -34,7 +34,7 @@ DISCOVERY = {
     "courtlistener_recap": {
         "hosts": ["www.courtlistener.com", "storage.courtlistener.com"],
         "listing": "https://www.courtlistener.com/api/rest/v4/search/"
-                   "?q=%22artificial+intelligence%22&type=o&order_by=score+desc",
+                   "?q=artificial+intelligence&type=o&page_size=20",
         "kind": "courtlistener_api",
     },
     "ftc_enforcement": {
@@ -52,11 +52,11 @@ def _resolve_peer_ip(url: str) -> str:
     return socket.gethostbyname(host)
 
 
-def _fetch(url: str, allowed_hosts: list[str]) -> tuple[bytes, dict]:
+def _fetch(url: str, allowed_hosts: list[str], timeout: int = 30) -> tuple[bytes, dict]:
     validate_url(url, allowed_hosts)
     validate_peer_ip(_resolve_peer_ip(url))  # DNS-rebinding defence
     req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
-    with urllib.request.urlopen(req, timeout=30) as resp:  # noqa: S310
+    with urllib.request.urlopen(req, timeout=timeout) as resp:  # noqa: S310
         final = resp.geturl()
         validate_url(final, allowed_hosts)  # re-check after redirects
         data = bounded_bytes(resp.read())
@@ -65,7 +65,18 @@ def _fetch(url: str, allowed_hosts: list[str]) -> tuple[bytes, dict]:
 
 
 def _discover(cfg: dict, max_docs: int) -> list[dict]:
-    data, meta = _fetch(cfg["listing"], cfg["hosts"])
+    import time
+    last = None
+    for attempt in range(3):  # search backends can be slow; bounded retry
+        try:
+            data, meta = _fetch(cfg["listing"], cfg["hosts"], timeout=60)
+            break
+        except (TimeoutError, OSError) as e:
+            last = e
+            if attempt < 2:
+                time.sleep(3 * (attempt + 1))
+    else:
+        raise last
     leads = []
     if cfg["kind"] == "courtlistener_api":
         doc = json.loads(data.decode("utf-8"))
