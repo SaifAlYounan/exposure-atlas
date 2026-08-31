@@ -111,4 +111,24 @@ def test_run_probe_entrypoint_refuses_without_token(monkeypatch):
     with _pt.raises(ProbeNotActivated):
         mod.main()
     # DISCOVERY config only covers the two approved pilot sources
-    assert set(mod.DISCOVERY) == {"courtlistener_recap", "ftc_enforcement"}
+    assert set(mod.SOURCES) == {"courtlistener_recap", "ftc_enforcement"}
+
+
+def test_run_probe_listing_url_and_cl_cluster_id(monkeypatch):
+    import importlib.util
+    import pathlib as _pl
+    spec = importlib.util.spec_from_file_location(
+        "run_probe2", _pl.Path(__file__).resolve().parent.parent / "tools" / "run_probe.py")
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    # query-library-driven listing URLs carry the query
+    ftc = mod._listing_url("ftc_enforcement", "artificial intelligence")
+    assert ftc.startswith("https://www.ftc.gov/") and "artificial+intelligence" in ftc
+    cl = mod._listing_url("courtlistener_recap", "artificial intelligence")
+    assert "/api/rest/v4/search/" in cl and "type=o" in cl
+    # CL lead_id derives the cluster id from the opinion URL (fixes cl-None)
+    assert mod._cl_cluster_id(
+        "https://www.courtlistener.com/opinion/1933074/artificial-intelligence-corp-v-casey/") == "1933074"
+    assert mod._cl_cluster_id("https://www.courtlistener.com/x/") is None
+    # sources restricted to the two approved pilots
+    assert set(mod.SOURCES) == {"ftc_enforcement", "courtlistener_recap"}

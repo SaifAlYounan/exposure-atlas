@@ -2,134 +2,222 @@
 """SRC-004-80 runnable live-probe entrypoint (activated by D-028).
 
 Runs ONLY inside the operator-approved `live-fetch` GitHub Environment,
-which injects ATLAS_LIVE_FETCH_ACTIVATION after the operator approves the
-specific run. Enforces the D-021 caps, validates the connected peer IP
-(defence in depth behind harden-runner egress-block), runs each fetched
-document through canonicalization, and emits a SAFE summary (hashes and
-metadata only — never raw source bytes, per R-17 / SPEC 2.3). Writes
-nothing to the repository.
-
-Usage: run_probe.py --source <courtlistener_recap|ftc_enforcement>
-                    [--max-docs N] [--out summary.json]
+which injects ATLAS_LIVE_FETCH_ACTIVATION. Discovery is driven by the
+DISC-002 versioned query library; every lead is logged into the DISC-001
+candidate ledger (idempotent). Acquisition is per-source:
+  - ftc_enforcement: fetch the case page (HTML) and canonicalize.
+  - courtlistener_recap: MIRROR custodian — resolve the opinion cluster
+    via the CL v4 API and capture the opinion text field (plain_text /
+    html*), never the 202-empty HTML view (SRC-FIND-01). Copy provenance
+    stays 'unverified' until corroborated by the issuing court (SP-05).
+Enforces D-021 caps; validates the connected peer IP; emits a SAFE
+summary (hashes + metadata + candidate ids + discovery-run record —
+never raw source bytes, R-17/SPEC 2.3). Writes nothing to the repository.
 """
 import argparse
 import json
+import os
 import pathlib
+import re
 import socket
 import sys
 import urllib.request
-from urllib.parse import urlsplit
+from urllib.parse import quote_plus, urlsplit
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent.parent
                        / "packages" / "python"))
 
-from atlas.documents import html_to_canonical, pdf_to_canonical  # noqa: E402
+from atlas.canonical import sha256_hex  # noqa: E402
+from atlas.discovery import (CandidateLedger, QueryLibrary,  # noqa: E402
+                             make_discovery_run, utcnow)
+from atlas.documents import (canonicalize_text, html_to_canonical,  # noqa: E402
+                             pdf_to_canonical)
 from atlas.fetchguard import (FetchPolicyError, bounded_bytes,  # noqa: E402
                               sniff_kind, validate_peer_ip, validate_url)
-from atlas.probe import (MAX_DOCS_PER_SOURCE, ProbeNotActivated)  # noqa: E402
-from atlas.canonical import sha256_hex  # noqa: E402
+from atlas.probe import MAX_DOCS_PER_SOURCE, ProbeNotActivated  # noqa: E402
 
-# Smoke-query library placeholder (production query versioning is DISC-002).
-DISCOVERY = {
-    "courtlistener_recap": {
-        "hosts": ["www.courtlistener.com", "storage.courtlistener.com"],
-        "listing": "https://www.courtlistener.com/api/rest/v4/search/"
-                   "?q=artificial+intelligence&type=o&page_size=20",
-        "kind": "courtlistener_api",
-    },
+ROOT = pathlib.Path(__file__).resolve().parent.parent
+QLIB = ROOT / "config" / "queries" / "v1.yaml"
+USER_AGENT = ("ExposureAtlas-pilot-probe/0.2 "
+              "(+A1 read-only evaluation; contact operator)")
+
+SOURCES = {
     "ftc_enforcement": {
         "hosts": ["www.ftc.gov"],
-        "listing": "https://www.ftc.gov/legal-library/browse/cases-proceedings"
-                   "?search=artificial+intelligence&sort_by=field_date",
         "kind": "ftc_html",
     },
+    "courtlistener_recap": {
+        "hosts": ["www.courtlistener.com", "storage.courtlistener.com"],
+        "kind": "courtlistener_api",
+        "authority_role": "mirror_custodian",
+    },
 }
-USER_AGENT = "ExposureAtlas-pilot-probe/0.1 (+A1 read-only evaluation; contact operator)"
+# CL opinion content fields, in preference order (text captured, not stored)
+CL_CONTENT_FIELDS = ["plain_text", "html_with_citations", "html",
+                     "html_lawbox", "html_columbia", "xml_harvard"]
 
 
 def _resolve_peer_ip(url: str) -> str:
-    host = urlsplit(url).hostname
-    return socket.gethostbyname(host)
+    return socket.gethostbyname(urlsplit(url).hostname)
 
 
-def _fetch(url: str, allowed_hosts: list[str], timeout: int = 30) -> tuple[bytes, dict]:
-    validate_url(url, allowed_hosts)
+def _fetch(url: str, hosts: list[str], timeout: int = 30) -> tuple[bytes, dict]:
+    validate_url(url, hosts)
     validate_peer_ip(_resolve_peer_ip(url))  # DNS-rebinding defence
     req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
     with urllib.request.urlopen(req, timeout=timeout) as resp:  # noqa: S310
         final = resp.geturl()
-        validate_url(final, allowed_hosts)  # re-check after redirects
-        data = bounded_bytes(resp.read())
-        return data, {"status": resp.status, "final_url": final,
-                      "content_type": resp.headers.get("Content-Type", "")}
+        validate_url(final, hosts)
+        return bounded_bytes(resp.read()), {"status": resp.status,
+                                            "final_url": final}
 
 
-def _discover(cfg: dict, max_docs: int) -> list[dict]:
+def _fetch_retry(url: str, hosts: list[str], timeout: int, attempts: int = 3):
     import time
     last = None
-    for attempt in range(3):  # search backends can be slow; bounded retry
+    for i in range(attempts):
         try:
-            data, meta = _fetch(cfg["listing"], cfg["hosts"], timeout=60)
-            break
+            return _fetch(url, hosts, timeout=timeout)
         except (TimeoutError, OSError) as e:
             last = e
-            if attempt < 2:
-                time.sleep(3 * (attempt + 1))
-    else:
-        raise last
+            if i < attempts - 1:
+                time.sleep(3 * (i + 1))
+    raise last
+
+
+def _listing_url(source_id: str, query: str) -> str:
+    q = quote_plus(query)
+    if source_id == "ftc_enforcement":
+        return (f"https://www.ftc.gov/legal-library/browse/cases-proceedings"
+                f"?search={q}&sort_by=field_date")
+    if source_id == "courtlistener_recap":
+        return (f"https://www.courtlistener.com/api/rest/v4/search/"
+                f"?q={q}&type=o&page_size=20")
+    raise ValueError(source_id)
+
+
+def _cl_cluster_id(opinion_url: str) -> str | None:
+    m = re.search(r"/opinion/(\d+)/", opinion_url)
+    return m.group(1) if m else None
+
+
+def _discover(source_id: str, query: str, hosts: list[str], max_docs: int):
+    data, _ = _fetch_retry(_listing_url(source_id, query), hosts, timeout=60)
     leads = []
-    if cfg["kind"] == "courtlistener_api":
+    if source_id == "courtlistener_recap":
         doc = json.loads(data.decode("utf-8"))
         for r in doc.get("results", [])[:max_docs]:
             u = r.get("absolute_url") or ""
-            if u:
-                leads.append({"lead_id": f"cl-{r.get('id')}",
-                              "url": f"https://www.courtlistener.com{u}"})
-    else:  # ftc_html — extract case links defensively
-        import re
+            if not u:
+                continue
+            url = f"https://www.courtlistener.com{u}"
+            cid = _cl_cluster_id(url)
+            leads.append({"lead_id": f"cl-{cid or 'nokey'}", "url": url,
+                          "cluster_id": cid})
+    else:  # ftc_html
         html = data.decode("utf-8", "replace")
-        for m in re.findall(r'href="(/legal-library/browse/cases-proceedings/[^"]+)"',
-                            html)[:max_docs]:
+        for m in re.findall(
+                r'href="(/legal-library/browse/cases-proceedings/[^"]+)"',
+                html)[:max_docs]:
             leads.append({"lead_id": f"ftc-{abs(hash(m)) % 10**8}",
-                          "url": f"https://www.ftc.gov{m}"})
+                          "url": f"https://www.ftc.gov{m}", "cluster_id": None})
     return leads[:max_docs]
 
 
+def _acquire(source_id: str, lead: dict, hosts: list[str]) -> dict:
+    """Return metadata-only acquisition record (no raw text)."""
+    rec = {"lead_id": lead["lead_id"], "url": lead["url"]}
+    if source_id == "courtlistener_recap":
+        # MIRROR path: resolve opinion text via the CL API, not the HTML view.
+        cid = lead.get("cluster_id")
+        if not cid:
+            rec["error"] = "no cluster id parsed from opinion url"
+            return rec
+        api = (f"https://www.courtlistener.com/api/rest/v4/opinions/"
+               f"?cluster={cid}&page_size=1")
+        data, meta = _fetch(api, hosts, timeout=60)
+        rec["http_status"] = meta["status"]
+        doc = json.loads(data.decode("utf-8"))
+        results = doc.get("results", [])
+        if not results:
+            rec["error"] = "no opinion in cluster"
+            rec["result_keys"] = sorted(doc.keys())  # safe: key names only
+            return rec
+        op = results[0]
+        field = next((f for f in CL_CONTENT_FIELDS if op.get(f)), None)
+        if field is None:
+            rec["error"] = "no populated content field"
+            rec["available_keys"] = sorted(op.keys())  # safe: key names only
+            return rec
+        text = op[field]
+        rec["content_field"] = field
+        rec["copy_provenance_state"] = "unverified"  # mirror; SP-05
+        canon = (html_to_canonical(text.encode("utf-8")) if field.startswith("html")
+                 else canonicalize_text(text))
+        rec["canonical_sha256"] = sha256_hex(canon)
+        rec["canonical_len"] = len(canon)
+        return rec
+    # ftc_html: fetch the case page directly
+    data, meta = _fetch(lead["url"], hosts, timeout=30)
+    rec["sha256"] = sha256_hex(data)
+    rec["bytes"] = len(data)
+    rec["http_status"] = meta["status"]
+    kind = sniff_kind(data)
+    rec["kind"] = kind
+    if kind == "html":
+        canon = html_to_canonical(data)
+    elif kind == "pdf":
+        canon, _pm = pdf_to_canonical(data)
+    else:
+        rec["note"] = "unknown kind; quarantined, not canonicalized"
+        return rec
+    rec["canonical_sha256"] = sha256_hex(canon)
+    rec["canonical_len"] = len(canon)
+    return rec
+
+
 def probe(source_id: str, max_docs: int) -> dict:
-    if source_id not in DISCOVERY:
+    if source_id not in SOURCES:
         raise SystemExit(f"unknown source {source_id!r}")
     max_docs = min(max_docs, MAX_DOCS_PER_SOURCE)
-    cfg = DISCOVERY[source_id]
+    cfg = SOURCES[source_id]
+    qlib = QueryLibrary(QLIB)
+    at = utcnow()
+    query = qlib.active(source_id, at[:10])
+    ledger = CandidateLedger()
     result = {"source_id": source_id, "max_docs": max_docs,
+              "query_id": query["query_id"], "query_version": query["version"],
               "leads_discovered": 0, "documents": [], "errors": []}
     try:
-        leads = _discover(cfg, max_docs)
+        leads = _discover(source_id, query["query"], cfg["hosts"], max_docs)
     except Exception as e:  # source-scope failure degrades only this source
         result["errors"].append(f"discovery_failed: {type(e).__name__}: {e}")
+        result["discovery_run"] = make_discovery_run(
+            run_id=os.environ.get("GITHUB_RUN_ID", "local"), source_id=source_id,
+            query=query, leads_seen=0, new_candidates=0,
+            updated_observations=0, at=at, failures=result["errors"])
         return result
     result["leads_discovered"] = len(leads)
+    new, updated = 0, 0
     for lead in leads:
-        rec = {"lead_id": lead["lead_id"], "url": lead["url"]}
+        cand, is_new = ledger.intake(
+            source_id=source_id, lead_url=lead["url"],
+            query_version=query["version"],
+            run_id=os.environ.get("GITHUB_RUN_ID", "local"),
+            boundary_version="1.0.0", at=at)
+        new += int(is_new)
+        updated += int(not is_new)
+        rec = {"candidate_id": cand["candidate_id"]}
         try:
-            data, meta = _fetch(lead["url"], cfg["hosts"])
-            rec["sha256"] = sha256_hex(data)
-            rec["bytes"] = len(data)
-            rec["http_status"] = meta["status"]
-            kind = sniff_kind(data)
-            rec["kind"] = kind
-            if kind == "html":
-                canon = html_to_canonical(data)
-                rec["canonical_sha256"] = sha256_hex(canon)
-                rec["canonical_len"] = len(canon)
-            elif kind == "pdf":
-                canon, _pm = pdf_to_canonical(data)
-                rec["canonical_sha256"] = sha256_hex(canon)
-                rec["canonical_len"] = len(canon)
-            else:
-                rec["note"] = "unknown kind; quarantined, not canonicalized"
+            rec.update(_acquire(source_id, lead, cfg["hosts"]))
         except (FetchPolicyError, Exception) as e:  # noqa: BLE001
-            rec["error"] = f"{type(e).__name__}: {e}"
+            rec.update(lead_id=lead["lead_id"], url=lead["url"],
+                       error=f"{type(e).__name__}: {e}")
         result["documents"].append(rec)
+    result["discovery_run"] = make_discovery_run(
+        run_id=os.environ.get("GITHUB_RUN_ID", "local"), source_id=source_id,
+        query=query, leads_seen=len(leads), new_candidates=new,
+        updated_observations=updated, at=at)
     return result
 
 
@@ -139,17 +227,15 @@ def main():
     ap.add_argument("--max-docs", type=int, default=10)
     ap.add_argument("--out", default="probe-summary.json")
     a = ap.parse_args()
-    # Refuse unless the protected environment injected the activation token.
-    import os
     if not os.environ.get("ATLAS_LIVE_FETCH_ACTIVATION"):
         raise ProbeNotActivated(
             "run_probe.py refuses to run without the live-fetch environment "
             "activation token (D-027).")
     summary = probe(a.source, a.max_docs)
-    # SAFE artifact: hashes + metadata only, never raw bytes (R-17/SPEC 2.3)
     pathlib.Path(a.out).write_text(json.dumps(summary, indent=1) + "\n")
-    ok = summary["leads_discovered"] > 0 and not summary["errors"]
+    canon = sum(1 for d in summary["documents"] if d.get("canonical_sha256"))
     print(json.dumps(summary, indent=1))
+    ok = summary["leads_discovered"] > 0 and canon > 0 and not summary["errors"]
     sys.exit(0 if ok else 1)
 
 
