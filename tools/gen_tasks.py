@@ -332,6 +332,20 @@ G1_S1 = {
     "API-000": "read path serves signed artifact bytes; suppression first; no_match_is_not_absence",
     "SEC-001-01": "SSRF/private-IP, oversize, MIME-mismatch, canary-leak, tamper fixtures passing",
 }
+G1_S2 = {
+    "DOM-002": "PostgreSQL schema+repos: FK integrity, byte-hash dedupe, immutability triggers "
+               "(update/delete refused; only supersede pointer mutable); ephemeral-cluster tests",
+    "DOM-003": "atomic domain+audit+job single-transaction commit, crash test, DB hash-chained "
+               "audit with tamper detection, durable job queue (leases/heartbeats/idempotency/"
+               "retry/dead-letter/expired-lease takeover)",
+    "DOM-004": "pure transition tables for candidate/revision/verification/job/monitoring; "
+               "illegal transitions fail deterministically",
+    "MON-000": "monitor-target/check/searched-scope/freshness-overlay schemas; temporal "
+               "invariant (failed check never advances success); worst-state aggregation rule v1",
+}
+for _tid, _note in G1_S2.items():
+    T[_tid]["status"] = "in_progress"
+    T[_tid]["notes"] = (T[_tid]["notes"] + " | " if T[_tid]["notes"] else "") + "G1-S2: " + _note
 for _tid, _note in G1_S1.items():
     T[_tid]["status"] = "in_progress"
     T[_tid]["notes"] = (T[_tid]["notes"] + " | " if T[_tid]["notes"] else "") + "G1-S1: " + _note

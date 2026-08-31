@@ -1196,7 +1196,9 @@ tasks:
   evidence_paths:
   - plan/evidence.jsonl
   rollback: discard_task_worktree
-  status: pending
+  status: in_progress
+  notes: 'G1-S2: PostgreSQL schema+repos: FK integrity, byte-hash dedupe, immutability triggers (update/delete
+    refused; only supersede pointer mutable); ephemeral-cluster tests'
 - schema_version: atlas-task/v2.2
   id: DOM-003
   epic: DOM-003
@@ -1228,7 +1230,10 @@ tasks:
   evidence_paths:
   - plan/evidence.jsonl
   rollback: discard_task_worktree
-  status: pending
+  status: in_progress
+  notes: 'G1-S2: atomic domain+audit+job single-transaction commit, crash test, DB hash-chained audit
+    with tamper detection, durable job queue (leases/heartbeats/idempotency/retry/dead-letter/expired-lease
+    takeover)'
 - schema_version: atlas-task/v2.2
   id: DOM-004
   epic: DOM-004
@@ -1261,7 +1266,9 @@ tasks:
   evidence_paths:
   - plan/evidence.jsonl
   rollback: discard_task_worktree
-  status: pending
+  status: in_progress
+  notes: 'G1-S2: pure transition tables for candidate/revision/verification/job/monitoring; illegal transitions
+    fail deterministically'
 - schema_version: atlas-task/v2.2
   id: DOM-005
   epic: DOM-005
@@ -1399,7 +1406,9 @@ tasks:
   evidence_paths:
   - plan/evidence.jsonl
   rollback: discard_task_worktree
-  status: pending
+  status: in_progress
+  notes: 'G1-S2: monitor-target/check/searched-scope/freshness-overlay schemas; temporal invariant (failed
+    check never advances success); worst-state aggregation rule v1'
 - schema_version: atlas-task/v2.2
   id: COR-000
   epic: COR-000

@@ -1,13 +1,13 @@
 {
  "schema_version": "atlas-gate-manifest/v1",
  "gate": "G1",
- "generated_at": "2026-08-31T18:30:02+00:00",
- "commit": "598d7ec4897b073664d4496c203ca6815e1dc839",
+ "generated_at": "2026-08-31T18:45:41+00:00",
+ "commit": "a722e4d90a15100f04fce05b5dd3e7625cbc033f",
  "pass": false,
  "tasks": [
   {
    "id": "PLT-001",
-   "status": "pending",
+   "status": "in_progress",
    "evidence_state": "missing",
    "receipt_ids": []
   },
@@ -67,13 +67,13 @@
   },
   {
    "id": "PLT-004",
-   "status": "pending",
+   "status": "in_progress",
    "evidence_state": "missing",
    "receipt_ids": []
   },
   {
    "id": "DOM-001",
-   "status": "pending",
+   "status": "in_progress",
    "evidence_state": "missing",
    "receipt_ids": []
   },
@@ -109,7 +109,7 @@
   },
   {
    "id": "POL-001",
-   "status": "pending",
+   "status": "in_progress",
    "evidence_state": "missing",
    "receipt_ids": []
   },
@@ -121,7 +121,7 @@
   },
   {
    "id": "COR-000",
-   "status": "pending",
+   "status": "in_progress",
    "evidence_state": "missing",
    "receipt_ids": []
   },
@@ -133,7 +133,7 @@
   },
   {
    "id": "SRC-002",
-   "status": "pending",
+   "status": "in_progress",
    "evidence_state": "missing",
    "receipt_ids": []
   },
@@ -145,13 +145,13 @@
   },
   {
    "id": "DOC-001",
-   "status": "pending",
+   "status": "in_progress",
    "evidence_state": "missing",
    "receipt_ids": []
   },
   {
    "id": "DOC-002",
-   "status": "pending",
+   "status": "in_progress",
    "evidence_state": "missing",
    "receipt_ids": []
   },
@@ -163,19 +163,19 @@
   },
   {
    "id": "VER-001",
-   "status": "pending",
+   "status": "in_progress",
    "evidence_state": "missing",
    "receipt_ids": []
   },
   {
    "id": "VER-002",
-   "status": "pending",
+   "status": "in_progress",
    "evidence_state": "missing",
    "receipt_ids": []
   },
   {
    "id": "REL-000",
-   "status": "pending",
+   "status": "in_progress",
    "evidence_state": "self_asserted_only",
    "receipt_ids": [
     "rcpt_g1-selfassert-test"
@@ -183,13 +183,13 @@
   },
   {
    "id": "API-000",
-   "status": "pending",
+   "status": "in_progress",
    "evidence_state": "missing",
    "receipt_ids": []
   },
   {
    "id": "SEC-001-01",
-   "status": "pending",
+   "status": "in_progress",
    "evidence_state": "missing",
    "receipt_ids": []
   }

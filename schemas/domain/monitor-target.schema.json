@@ -1,0 +1,90 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "https://exposure-atlas.invalid/schemas/domain/monitor-target.schema.json",
+ "title": "MonitorTarget",
+ "type": "object",
+ "required": [
+  "schema_version",
+  "target_id",
+  "source_id",
+  "kind",
+  "last_attempted_check_at",
+  "last_successful_check_at",
+  "next_check_due_at",
+  "retry_due_at",
+  "consecutive_failures",
+  "degraded_after_failures"
+ ],
+ "properties": {
+  "schema_version": {
+   "const": "atlas-monitor-target/v1"
+  },
+  "target_id": {
+   "type": "string",
+   "pattern": "^mtg_[a-z0-9]{8,}$"
+  },
+  "source_id": {
+   "type": "string"
+  },
+  "kind": {
+   "enum": [
+    "docket",
+    "document_url",
+    "listing_page",
+    "feed"
+   ]
+  },
+  "depends_assertion_ids": {
+   "type": "array",
+   "items": {
+    "type": "string"
+   }
+  },
+  "last_attempted_check_at": {
+   "anyOf": [
+    {
+     "type": "string",
+     "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?(Z|[+-]\\d{2}:\\d{2})$"
+    },
+    {
+     "type": "null"
+    }
+   ]
+  },
+  "last_successful_check_at": {
+   "anyOf": [
+    {
+     "type": "string",
+     "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?(Z|[+-]\\d{2}:\\d{2})$"
+    },
+    {
+     "type": "null"
+    }
+   ]
+  },
+  "next_check_due_at": {
+   "type": "string",
+   "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?(Z|[+-]\\d{2}:\\d{2})$"
+  },
+  "retry_due_at": {
+   "anyOf": [
+    {
+     "type": "string",
+     "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?(Z|[+-]\\d{2}:\\d{2})$"
+    },
+    {
+     "type": "null"
+    }
+   ]
+  },
+  "consecutive_failures": {
+   "type": "integer",
+   "minimum": 0
+  },
+  "degraded_after_failures": {
+   "type": "integer",
+   "minimum": 1
+  }
+ },
+ "unevaluatedProperties": false
+}

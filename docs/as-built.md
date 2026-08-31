@@ -51,3 +51,15 @@ read-only access to official SDK docs is A0-permitted).
 - Versions: canonicalizer 1.0.0, verifier 1.0.0, publication policy
   1.0.0. Test-key signing only (scheme test_key_sha256), real signing
   is SEC-002 (G3+).
+
+## G1 session 2 (2026-08-31)
+- Persistence: PostgreSQL 16 (system package; tests run an ephemeral
+  initdb cluster on a unix socket, as `postgres` user when root). Deps
+  added, pinned: sqlalchemy 2.0.35, psycopg[binary] 3.2.3. Alembic
+  migrations begin at the first schema change (expand/contract per
+  DOM-002); current DDL is the versioned baseline in atlas/db.py.
+- Immutability: DB triggers refuse UPDATE/DELETE on acquisition
+  receipts, acceptance decisions, audit events; assertions allow only
+  the supersede pointer.
+- MON-000: freshness aggregation rule v1.0.0; live overlay vs release
+  snapshot represented as separate schemas.
