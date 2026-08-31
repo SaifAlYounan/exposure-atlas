@@ -1,0 +1,28 @@
+# Nine-category taxonomy v1 — PROPOSAL pending operator decision G0-Q5.
+# Classifications are Atlas interpretation, physically separate from facts.
+schema_version: atlas-taxonomy/v1
+taxonomy_version: 1.0.0-proposed
+status: proposed
+multi_label: true
+other_requires_detail: true
+categories:
+  - id: discrimination_bias
+    label: Discrimination and bias
+  - id: fabricated_output
+    label: Hallucinated or fabricated output (incl. fabricated citations)
+  - id: ip_copyright
+    label: Intellectual property and copyright
+  - id: privacy_data_protection
+    label: Privacy and data protection
+  - id: deceptive_practices
+    label: Deceptive or unfair practices (incl. AI-washing)
+  - id: safety_physical_harm
+    label: Safety and physical harm
+  - id: transparency_disclosure
+    label: Transparency and disclosure failures
+  - id: automated_decision_fairness
+    label: Automated-decision procedural fairness
+  - id: security_misuse
+    label: Security failures and misuse of AI systems
+  - id: other
+    label: Other (requires other_detail)

@@ -1,0 +1,48 @@
+# Source and proposition policy matrix v1 — DRAFT pending G0-Q3.
+# Encodes SPEC.md section 2.2. No source-level label alone confers
+# authority for every field.
+schema_version: atlas-source-policy/v1
+policy_version: 1.0.0-draft
+status: proposed
+approval: null
+
+document_roles:
+  complaint_or_pleading:
+    may_establish: [allegation, party_position]
+    may_not_establish: [finding, holding, order]
+  judgment_or_order:
+    may_establish: [finding, holding, order, procedural_event]
+  official_docket_entry:
+    may_establish: [procedural_event]
+    note: attached party filings remain party speech
+  regulator_decision:
+    may_establish: [finding, order, procedural_event]
+  official_press_release:
+    may_establish: [announcement]
+    may_not_establish: [finding, holding, order]
+  settlement_instrument:
+    may_establish: [party_position, admission, order]
+    note: subject to rights restrictions and stated non-admissions
+  mirror_copy:
+    may_establish: []   # custody/retrieval route only
+    note: issuing authority remains the authority; copy provenance must
+      be corroborated before any support edge is publication-eligible
+  tracker_or_news:
+    may_establish: []   # discovery lead / comparison reference only
+
+captured_copy_provenance_states:
+  [issuer_direct, official_docket, signature_verified, digest_crossmatched,
+   human_corroborated, unverified, conflicted]
+mirror_pass_rule: >
+  A mirror copy passes only with approved official metadata, matching
+  bytes, a valid signature, or an audited human decision.
+
+passage_roles:
+  [issuer_text, operative_part, quoted_party, quoted_authority, annex,
+   reporter_summary, translation]
+
+failure_defaults:
+  unknown_role: deny
+  unknown_provenance: deny
+  press_only_record: awaiting_primary
+  secondary_only_record: fails_public_assertion_gate

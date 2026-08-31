@@ -1,0 +1,19 @@
+# Source registry entry — DRAFT (pilot recommendation, pending G0-Q2/Q3;
+# no adapter exists and no live access is authorized under A0).
+schema_version: atlas-source-registry/v1
+source_id: courtlistener_recap
+status: proposed
+authority_role: mirror_custodian     # issuing courts remain the authority
+issuer: US federal courts (per document)
+custodian: Free Law Project (CourtListener / RECAP)
+jurisdiction: US-federal
+host_allowlist: [www.courtlistener.com, storage.courtlistener.com]
+document_roles: [complaint_or_pleading, judgment_or_order, official_docket_entry]
+formats: [pdf, html, json_api]
+rights_default: internal_only        # G0-Q3; API/data terms to be snapshotted
+copy_provenance_default: unverified  # mirror; corroboration required
+monitoring_capability: api_polling
+cadence_default: per_monitoring_policy
+rate_constraints: respect published API limits; A1 decision pins exact caps
+archive_policy: external_archive_disabled
+notes: desk assumption only; no live probe performed (A1 required)

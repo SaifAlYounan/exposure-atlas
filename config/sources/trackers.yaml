@@ -1,0 +1,11 @@
+# Comparison trackers — DRAFT (pending G0-Q2). Never sources of fact.
+schema_version: atlas-source-registry/v1
+trackers:
+  - source_id: gwu_ai_litigation_db
+    role: comparison_tracker
+    rights_default: crosswalk_internal_only   # tracker-use rights review before any published count
+    notes: desk assumption; identity/terms verified at COV-001
+  - source_id: law_firm_ai_tracker
+    role: comparison_tracker
+    rights_default: crosswalk_internal_only
+    notes: exact tracker chosen at COV-001 after rights review

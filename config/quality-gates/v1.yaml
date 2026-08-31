@@ -1,0 +1,30 @@
+# Quality gates v1 — DRAFT pending G0-Q6.
+schema_version: atlas-quality-gates/v1
+policy_version: 1.0.0-draft
+status: proposed
+deterministic_invariants: 100_percent   # all SPEC 2.x invariants are hard gates
+severity:
+  critical:
+    - unsupported source-derived fact
+    - allegation presented as finding
+    - wrong matter or source
+    - material outcome/amount/status error
+    - unauthorized release
+    - restricted-source exposure
+    - audit loss
+  major:
+    - materially wrong classification
+    - stale record represented as current
+    - incorrect related-record merge
+    - missing material qualification
+  minor:
+    - non-material wording/formatting/display issue
+model_accuracy_thresholds: null   # UNSET by design; approved only after
+                                  # EVAL corpus exposes sample sizes and
+                                  # uncertainty. Unset can never allow.
+auto_publication: disabled
+statistical_policy:
+  unit: assertion clustered by matter/document
+  confidence_method: to_be_approved_with_thresholds
+  minimum_sample: to_be_approved_with_thresholds
+  underpowered_slices: [unsupported, review_only]

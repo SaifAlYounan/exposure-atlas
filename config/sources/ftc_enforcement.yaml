@@ -1,0 +1,19 @@
+# Source registry entry — DRAFT (pilot recommendation, pending G0-Q2/Q3).
+schema_version: atlas-source-registry/v1
+source_id: ftc_enforcement
+status: proposed
+authority_role: issuer_direct
+issuer: US Federal Trade Commission
+custodian: US Federal Trade Commission
+jurisdiction: US-federal-regulator
+host_allowlist: [www.ftc.gov]
+document_roles: [regulator_decision, official_press_release, settlement_instrument, complaint_or_pleading]
+formats: [html, pdf]
+rights_default: internal_only        # strong case for cleared_public on
+                                     # issuer documents (US gov works); G0-Q3
+copy_provenance_default: issuer_direct
+monitoring_capability: html_listing_polling
+cadence_default: per_monitoring_policy
+rate_constraints: conservative polite crawl; A1 decision pins exact caps
+archive_policy: external_archive_disabled
+notes: press release establishes announcement only (SP-03); desk assumption only
