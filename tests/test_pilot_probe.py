@@ -132,3 +132,37 @@ def test_run_probe_listing_url_and_cl_cluster_id(monkeypatch):
     assert mod._cl_cluster_id("https://www.courtlistener.com/x/") is None
     # sources restricted to the two approved pilots
     assert set(mod.SOURCES) == {"ftc_enforcement", "courtlistener_recap"}
+
+
+def test_query_library_active_across_boundary_window():
+    from atlas.discovery import QueryLibrary
+    import pathlib as _pl
+    lib = QueryLibrary(_pl.Path(__file__).resolve().parent.parent
+                       / "config" / "queries" / "v1.yaml")
+    # active for any date within the declared boundary window (2015->open),
+    # including the smoke run dates
+    for as_of in ("2026-08-31", "2026-09-01", "2027-01-01"):
+        assert lib.active("courtlistener_recap", as_of)["query_id"] \
+            == "q_courtlistener_ai_opinions"
+        assert lib.active("ftc_enforcement", as_of)["query_id"] == "q_ftc_ai_matters"
+
+
+def test_run_probe_main_always_writes_summary(tmp_path, monkeypatch):
+    import importlib.util
+    import pathlib as _pl
+    spec = importlib.util.spec_from_file_location(
+        "run_probe3", _pl.Path(__file__).resolve().parent.parent / "tools" / "run_probe.py")
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    monkeypatch.setenv("ATLAS_LIVE_FETCH_ACTIVATION", "t")
+    monkeypatch.setattr(mod, "probe",
+                        lambda *a, **k: (_ for _ in ()).throw(RuntimeError("boom")))
+    out = tmp_path / "s.json"
+    monkeypatch.setattr("sys.argv",
+                        ["run_probe.py", "--source", "ftc_enforcement", "--out", str(out)])
+    import pytest as _pt
+    with _pt.raises(SystemExit):
+        mod.main()
+    import json as _json
+    doc = _json.loads(out.read_text())
+    assert doc["errors"] and "fatal" in doc["errors"][0]  # summary always emitted

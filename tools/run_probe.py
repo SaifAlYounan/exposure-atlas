@@ -231,7 +231,12 @@ def main():
         raise ProbeNotActivated(
             "run_probe.py refuses to run without the live-fetch environment "
             "activation token (D-027).")
-    summary = probe(a.source, a.max_docs)
+    try:
+        summary = probe(a.source, a.max_docs)
+    except Exception as e:  # noqa: BLE001 - always emit a diagnosable summary
+        summary = {"source_id": a.source, "leads_discovered": 0,
+                   "documents": [],
+                   "errors": [f"fatal: {type(e).__name__}: {e}"]}
     pathlib.Path(a.out).write_text(json.dumps(summary, indent=1) + "\n")
     canon = sum(1 for d in summary["documents"] if d.get("canonical_sha256"))
     print(json.dumps(summary, indent=1))
