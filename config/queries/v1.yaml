@@ -12,7 +12,7 @@ queries:
     category: null
     language: en
     query: "artificial intelligence"
-    effective_from: "2026-09-01"
+    effective_from: "2015-01-01"
     effective_to: null
     expected_min_results: 5
     supersedes: null
@@ -23,7 +23,7 @@ queries:
     category: null
     language: en
     query: "artificial intelligence"
-    effective_from: "2026-09-01"
+    effective_from: "2015-01-01"
     effective_to: null
     expected_min_results: 5
     supersedes: null
