@@ -11,19 +11,24 @@ candidate ledger (idempotent). Acquisition is per-source:
     html*), never the 202-empty HTML view (SRC-FIND-01). The v4 DATA
     endpoints require an authenticated token (SRC-FIND-03); it is sent as
     `Authorization: Token …` ONLY to CL hosts, from the operator-provisioned
-    CL_API_TOKEN secret (D-030), and never emitted. Copy provenance stays
-    'unverified' until corroborated by the issuing court (SP-05).
+    CL_API_TOKEN secret (D-030), and never emitted. Acquisition calls are
+    paced apart and honor the server's Retry-After on HTTP 429 (SRC-FIND-04).
+    Copy provenance stays 'unverified' until corroborated by the issuing
+    court (SP-05).
 Enforces D-021 caps; validates the connected peer IP; emits a SAFE
 summary (hashes + metadata + candidate ids + discovery-run record —
 never raw source bytes, R-17/SPEC 2.3). Writes nothing to the repository.
 """
 import argparse
+import datetime as _dt
 import json
 import os
 import pathlib
 import re
 import socket
 import sys
+import time
+import urllib.error
 import urllib.request
 from urllib.parse import quote_plus, urlsplit
 
@@ -72,6 +77,56 @@ def _cl_auth_header(url: str) -> dict:
         return {}
     tok = os.environ.get("CL_API_TOKEN", "").strip()
     return {"Authorization": f"Token {tok}"} if tok else {}
+
+
+# CL API rate-limit handling (SRC-FIND-04): space acquisition calls apart and
+# honor the server's Retry-After on HTTP 429, within D-021 caps and the source
+# registry's respect-published-API-limits constraint. Overridable via env for
+# local/CI tuning; _SLEEP is a seam so tests need not actually wait.
+CL_ACQUIRE_DELAY_S = float(os.environ.get("CL_ACQUIRE_DELAY_S", "2.0"))
+CL_429_ATTEMPTS = 4
+CL_MAX_BACKOFF_S = 30.0
+_SLEEP = time.sleep
+
+
+def _retry_after_seconds(err: urllib.error.HTTPError) -> float | None:
+    """Parse a Retry-After header (delta-seconds or HTTP-date) to seconds."""
+    hdrs = getattr(err, "headers", None)
+    ra = hdrs.get("Retry-After") if hdrs else None
+    if not ra:
+        return None
+    ra = ra.strip()
+    if ra.isdigit():
+        return float(ra)
+    try:
+        from email.utils import parsedate_to_datetime
+        dt = parsedate_to_datetime(ra)
+        if dt is None:
+            return None
+        now = _dt.datetime.now(dt.tzinfo or _dt.timezone.utc)
+        return max(0.0, (dt - now).total_seconds())
+    except (TypeError, ValueError):
+        return None
+
+
+def _fetch_polite(url: str, hosts: list[str], timeout: int = 30,
+                  extra_headers: dict | None = None,
+                  attempts: int = CL_429_ATTEMPTS):
+    """Fetch, retrying HTTP 429 with a bounded, Retry-After-honoring backoff."""
+    last = None
+    for i in range(attempts):
+        try:
+            return _fetch(url, hosts, timeout=timeout,
+                          extra_headers=extra_headers)
+        except urllib.error.HTTPError as e:
+            if e.code != 429 or i == attempts - 1:
+                raise
+            last = e
+            wait = _retry_after_seconds(e)
+            if wait is None:
+                wait = 2.0 * (2 ** i)  # exponential fallback
+            _SLEEP(min(wait, CL_MAX_BACKOFF_S))
+    raise last  # pragma: no cover
 
 
 def _resolve_peer_ip(url: str) -> str:
@@ -162,7 +217,7 @@ def _acquire(source_id: str, lead: dict, hosts: list[str]) -> dict:
                f"?cluster={cid}&page_size=1")
         auth = _cl_auth_header(api)
         rec["authenticated"] = bool(auth)  # metadata only; never the token
-        data, meta = _fetch(api, hosts, timeout=60, extra_headers=auth)
+        data, meta = _fetch_polite(api, hosts, timeout=60, extra_headers=auth)
         rec["http_status"] = meta["status"]
         doc = json.loads(data.decode("utf-8"))
         results = doc.get("results", [])
@@ -226,7 +281,11 @@ def probe(source_id: str, max_docs: int) -> dict:
         return result
     result["leads_discovered"] = len(leads)
     new, updated = 0, 0
-    for lead in leads:
+    for idx, lead in enumerate(leads):
+        # SRC-FIND-04: pace CL acquisition calls apart to stay under the CL
+        # API burst limit (429). First call is immediate; subsequent ones wait.
+        if idx and source_id == "courtlistener_recap" and CL_ACQUIRE_DELAY_S:
+            _SLEEP(CL_ACQUIRE_DELAY_S)
         cand, is_new = ledger.intake(
             source_id=source_id, lead_url=lead["url"],
             query_version=query["version"],
