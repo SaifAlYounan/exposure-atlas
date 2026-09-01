@@ -306,3 +306,29 @@ force-bypass flag was passed to the merge. The live probe still executes
 only after the operator approves the protected `live-fetch` environment
 deployment (D-027 enforcement point); dispatch queues a run that waits
 for that approval.
+
+## D-029 — Overnight delegation to operator's assistant (bounded)
+
+- **Decision ID:** D-029
+- **Recorded:** 2026-09-01
+- **Decider:** Alexios (operator), via the assistant session channel
+- **Decision text:** "Start a watch that just approves everything ...
+  Full greenlight and authority." Recorded with the assistant's stated
+  carve-outs, which the operator was informed of before this took
+  effect.
+- **Delegated to the assistant while the operator is away:**
+  (a) merging builder PRs the assistant has fully reviewed, provided
+  they do not change egress hosts, rate caps, source/rights config
+  semantics, or grant new capability; (b) approving live-fetch
+  environment deployments strictly within the D-021 probe scope
+  (registered pilot sources, <=50 docs/source, read-only); (c) messaging
+  the builder session to keep work moving; (d) keeping a written log of
+  every action for operator review.
+- **Explicitly NOT delegated (queues for the operator):** new
+  authorization levels (A2+), decision-pack answers, boundary or source
+  expansions, credential provisioning, repository-visibility or
+  protection changes, and anything the assistant's own permission gate
+  refuses.
+- **Expiry:** the operator's next return to the session; at most 24h
+  from recording.
+- **Status:** recorded
