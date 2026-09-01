@@ -147,6 +147,27 @@ def test_query_library_active_across_boundary_window():
         assert lib.active("ftc_enforcement", as_of)["query_id"] == "q_ftc_ai_matters"
 
 
+def test_cl_auth_header_scoped_to_cl_hosts_only(monkeypatch):
+    """D-030/SRC-FIND-03: the CL API token is attached ONLY to CourtListener
+    hosts and ONLY when the secret is present; nothing else ever sees it."""
+    import importlib.util
+    import pathlib as _pl
+    spec = importlib.util.spec_from_file_location(
+        "run_probe4", _pl.Path(__file__).resolve().parent.parent / "tools" / "run_probe.py")
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    cl_api = "https://www.courtlistener.com/api/rest/v4/opinions/?cluster=1"
+    ftc = "https://www.ftc.gov/legal-library/browse/cases-proceedings/x"
+    # no token set -> no header anywhere (anonymous -> 401 by design)
+    monkeypatch.delenv("CL_API_TOKEN", raising=False)
+    assert mod._cl_auth_header(cl_api) == {}
+    assert mod._cl_auth_header(ftc) == {}
+    # token set -> header on CL host only, never on FTC (no cross-host leak)
+    monkeypatch.setenv("CL_API_TOKEN", "SECRET-abc123")
+    assert mod._cl_auth_header(cl_api) == {"Authorization": "Token SECRET-abc123"}
+    assert mod._cl_auth_header(ftc) == {}
+
+
 def test_run_probe_main_always_writes_summary(tmp_path, monkeypatch):
     import importlib.util
     import pathlib as _pl

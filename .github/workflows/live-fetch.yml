@@ -46,6 +46,11 @@ jobs:
       - name: live probe (D-021 scope; activation token from environment)
         env:
           ATLAS_LIVE_FETCH_ACTIVATION: ${{ github.run_id }}-${{ github.actor }}
+          # Operator-provisioned CL API token (D-030), scoped to this
+          # protected environment. The probe sends it ONLY to CourtListener
+          # hosts and NEVER writes it to the summary/logs. Absent -> CL data
+          # endpoints 401 (SRC-FIND-03); FTC needs no token.
+          CL_API_TOKEN: ${{ secrets.CL_API_TOKEN }}
         run: |
           .venv/bin/python tools/run_probe.py \
             --source "${{ inputs.source_id }}" \
