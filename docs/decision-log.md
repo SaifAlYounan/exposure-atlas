@@ -332,3 +332,51 @@ for that approval.
 - **Expiry:** the operator's next return to the session; at most 24h
   from recording.
 - **Status:** recorded
+
+## D-030 — CourtListener API credential wiring (CL acquisition fix)
+
+- **Decision ID:** D-030 (renumbered from a first draft as D-029, which
+  collided with the delegation decision the operator landed in commit
+  `8231be3`; this entry follows it.)
+- **Recorded:** 2026-09-01
+- **Decider:** Alexios (operator). Decision relayed to the builder via the
+  Atlas transcript bridge session on 2026-09-01: "option 1 + 3.
+  CL_API_TOKEN is now set as an encrypted secret on the protected
+  live-fetch environment … a real CourtListener token." **This entry is
+  landed by the operator's own merge of the PR that carries it; the merge
+  is the ratification.** (A relayed peer message does not by itself grant
+  escalation; the builder took only in-scope actions — proposing a code
+  change via PR — and did not set the secret or alter any
+  permission/config.)
+- **Delegation boundary (D-029):** the operator's overnight-delegation
+  decision D-029 lists **credential provisioning** among the items NOT
+  delegated to the assistant. This PR is therefore reserved for the
+  **operator** to merge — the delegated assistant must not merge it, and
+  it does not fall under the assistant's "no new capability" merge
+  authority. The credential was itself provisioned by the operator
+  personally (not the assistant), consistent with that boundary.
+- **Problem (SRC-FIND-03):** CourtListener v4 DATA endpoints
+  (`/api/rest/v4/opinions/…`) return HTTP 401 to anonymous clients; the v4
+  SEARCH endpoint serves anonymously. Live run 33471746597 acquired 0/10
+  opinions for this reason. Full CL opinion-text acquisition therefore
+  needs an authenticated CL API token.
+- **What the operator provisioned:** a `CL_API_TOKEN` encrypted secret on
+  the protected `live-fetch` GitHub Environment (per the relay, updated
+  2026-09-01T15:07:58Z). The builder cannot read the secret's value and
+  did not create it.
+- **What the builder implements (this PR):** the probe sends
+  `Authorization: Token <CL_API_TOKEN>` **only** to CourtListener hosts
+  (`www.courtlistener.com`), and the token is **never** written to the
+  probe summary, artifacts, or logs — only a boolean `authenticated` flag
+  is recorded for diagnosis. The workflow passes the environment secret to
+  the probe step as `CL_API_TOKEN`. No new egress host is opened
+  (`www.courtlistener.com` was already allowlisted).
+- **Scope unchanged:** still A1 read-only acquisition within D-021 caps
+  (≤50 docs/source); NO runtime model calls (A2 ungranted); external
+  archive submission stays disabled (D-005); R-17 no-raw-bytes reaffirmed.
+  CL remains a MIRROR custodian — copy provenance stays 'unverified' until
+  corroborated by the issuing court (SP-05).
+- **Gate unchanged:** live runs still pause for the operator's `live-fetch`
+  environment approval on each dispatch (D-027 enforcement); this PR does
+  not bypass it.
+- **Status:** proposed — ratified on operator merge of the enabling PR.

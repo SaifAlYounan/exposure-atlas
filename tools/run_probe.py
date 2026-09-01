@@ -8,8 +8,11 @@ candidate ledger (idempotent). Acquisition is per-source:
   - ftc_enforcement: fetch the case page (HTML) and canonicalize.
   - courtlistener_recap: MIRROR custodian — resolve the opinion cluster
     via the CL v4 API and capture the opinion text field (plain_text /
-    html*), never the 202-empty HTML view (SRC-FIND-01). Copy provenance
-    stays 'unverified' until corroborated by the issuing court (SP-05).
+    html*), never the 202-empty HTML view (SRC-FIND-01). The v4 DATA
+    endpoints require an authenticated token (SRC-FIND-03); it is sent as
+    `Authorization: Token …` ONLY to CL hosts, from the operator-provisioned
+    CL_API_TOKEN secret (D-030), and never emitted. Copy provenance stays
+    'unverified' until corroborated by the issuing court (SP-05).
 Enforces D-021 caps; validates the connected peer IP; emits a SAFE
 summary (hashes + metadata + candidate ids + discovery-run record —
 never raw source bytes, R-17/SPEC 2.3). Writes nothing to the repository.
@@ -55,16 +58,34 @@ SOURCES = {
 # CL opinion content fields, in preference order (text captured, not stored)
 CL_CONTENT_FIELDS = ["plain_text", "html_with_citations", "html",
                      "html_lawbox", "html_columbia", "xml_harvard"]
+# CourtListener v4 DATA endpoints require an authenticated API token
+# (anonymous -> HTTP 401; see SRC-FIND-03). The token is injected ONLY on
+# the protected live-fetch environment (operator-provisioned CL_API_TOKEN
+# secret). It is sent as `Authorization: Token <token>` and ONLY to these
+# hosts, and is NEVER written to the summary or any log (D-030).
+CL_AUTH_HOSTS = {"www.courtlistener.com"}
+
+
+def _cl_auth_header(url: str) -> dict:
+    """CL API token header, only for CL hosts and only if the token is set."""
+    if urlsplit(url).hostname not in CL_AUTH_HOSTS:
+        return {}
+    tok = os.environ.get("CL_API_TOKEN", "").strip()
+    return {"Authorization": f"Token {tok}"} if tok else {}
 
 
 def _resolve_peer_ip(url: str) -> str:
     return socket.gethostbyname(urlsplit(url).hostname)
 
 
-def _fetch(url: str, hosts: list[str], timeout: int = 30) -> tuple[bytes, dict]:
+def _fetch(url: str, hosts: list[str], timeout: int = 30,
+           extra_headers: dict | None = None) -> tuple[bytes, dict]:
     validate_url(url, hosts)
     validate_peer_ip(_resolve_peer_ip(url))  # DNS-rebinding defence
-    req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
+    headers = {"User-Agent": USER_AGENT}
+    if extra_headers:
+        headers.update(extra_headers)
+    req = urllib.request.Request(url, headers=headers)
     with urllib.request.urlopen(req, timeout=timeout) as resp:  # noqa: S310
         final = resp.geturl()
         validate_url(final, hosts)
@@ -72,12 +93,14 @@ def _fetch(url: str, hosts: list[str], timeout: int = 30) -> tuple[bytes, dict]:
                                             "final_url": final}
 
 
-def _fetch_retry(url: str, hosts: list[str], timeout: int, attempts: int = 3):
+def _fetch_retry(url: str, hosts: list[str], timeout: int, attempts: int = 3,
+                 extra_headers: dict | None = None):
     import time
     last = None
     for i in range(attempts):
         try:
-            return _fetch(url, hosts, timeout=timeout)
+            return _fetch(url, hosts, timeout=timeout,
+                          extra_headers=extra_headers)
         except (TimeoutError, OSError) as e:
             last = e
             if i < attempts - 1:
@@ -102,7 +125,9 @@ def _cl_cluster_id(opinion_url: str) -> str | None:
 
 
 def _discover(source_id: str, query: str, hosts: list[str], max_docs: int):
-    data, _ = _fetch_retry(_listing_url(source_id, query), hosts, timeout=60)
+    listing = _listing_url(source_id, query)
+    data, _ = _fetch_retry(listing, hosts, timeout=60,
+                           extra_headers=_cl_auth_header(listing))
     leads = []
     if source_id == "courtlistener_recap":
         doc = json.loads(data.decode("utf-8"))
@@ -135,7 +160,9 @@ def _acquire(source_id: str, lead: dict, hosts: list[str]) -> dict:
             return rec
         api = (f"https://www.courtlistener.com/api/rest/v4/opinions/"
                f"?cluster={cid}&page_size=1")
-        data, meta = _fetch(api, hosts, timeout=60)
+        auth = _cl_auth_header(api)
+        rec["authenticated"] = bool(auth)  # metadata only; never the token
+        data, meta = _fetch(api, hosts, timeout=60, extra_headers=auth)
         rec["http_status"] = meta["status"]
         doc = json.loads(data.decode("utf-8"))
         results = doc.get("results", [])
