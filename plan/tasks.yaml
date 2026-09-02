@@ -2782,7 +2782,16 @@ tasks:
   evidence_paths:
   - plan/evidence.jsonl
   rollback: discard_task_worktree
-  status: pending
+  status: in_progress
+  notes: 'G2: weekly decision pack + transport (packages/python/atlas/decision_pack.py
+    + docs/review/decision-pack.md) on the existing decision-pack / decision-pack-item
+    schemas. Immutable pack ordered P0/P1 first then age/value; capped (240 min / 25
+    cards / 3 complex / 12 record reviews) with excess queued + throttle_discovery;
+    single-use expiring view links (replay/expiry fail); rights-safe transport
+    payload (channel_safe summaries only), never a bearer credential
+    (can_approve_from_channel always False); draft envelopes bound to exact
+    input_hashes so a changed source/proposal/policy invalidates them; unanswered
+    cards expire to their restrictive default. No model calls, no live fetch.'
 - schema_version: atlas-task/v2.2
   id: REV-005
   epic: REV-005
