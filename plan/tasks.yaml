@@ -2173,7 +2173,15 @@ tasks:
   evidence_paths:
   - plan/evidence.jsonl
   rollback: discard_task_worktree
-  status: pending
+  status: in_progress
+  notes: 'G2: boundary rubric/checklist (config/triage/boundary-rubric-v1.yaml +
+    boundary-rubric schema + packages/python/atlas/triage.py + docs/triage/
+    boundary-rubric.md). Approved boundary v1.0.0 encoded as met/not_met/uncertain/
+    not_applicable criteria; evaluate() reconstructs outcome deterministically from
+    results+boundary_version; missing criterion never silently includes; close
+    exclusions -> review; inaccessible-primary / no-instrument -> awaiting_primary;
+    build_proposal emits a schema-valid manual BoundaryProposal. TRIAGE-002 (model
+    runners) is A2, not implemented. No model calls, no live fetch.'
 - schema_version: atlas-task/v2.2
   id: AI-001
   epic: AI-001

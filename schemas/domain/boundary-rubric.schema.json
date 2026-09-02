@@ -1,0 +1,59 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "https://exposure-atlas.invalid/schemas/domain/boundary-rubric.schema.json",
+ "title": "BoundaryRubric (TRIAGE-001)",
+ "description": "The approved boundary encoded as a structured checklist. Each criterion returns met/not_met/uncertain/not_applicable; the outcome is reconstructed deterministically from the criterion results and the boundary version. Bound to exactly one boundary_version.",
+ "type": "object",
+ "required": [
+  "schema_version",
+  "rubric_version",
+  "boundary_version",
+  "criteria"
+ ],
+ "properties": {
+  "schema_version": {
+   "const": "atlas-boundary-rubric/v1"
+  },
+  "rubric_version": {
+   "type": "string",
+   "pattern": "^\\d+\\.\\d+\\.\\d+$"
+  },
+  "boundary_version": {
+   "type": "string",
+   "pattern": "^\\d+\\.\\d+\\.\\d+$"
+  },
+  "criteria": {
+   "type": "array",
+   "minItems": 1,
+   "items": {
+    "type": "object",
+    "required": [
+     "id",
+     "text",
+     "kind"
+    ],
+    "properties": {
+     "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]*$"
+     },
+     "text": {
+      "type": "string",
+      "minLength": 1
+     },
+     "kind": {
+      "enum": [
+       "core_inclusion",
+       "exclusion",
+       "instrument",
+       "accessibility",
+       "investigation_signal"
+      ]
+     }
+    },
+    "unevaluatedProperties": false
+   }
+  }
+ },
+ "unevaluatedProperties": false
+}

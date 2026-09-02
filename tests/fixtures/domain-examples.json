@@ -684,5 +684,32 @@
   "expected": {
    "disposition": "publish"
   }
+ },
+ "boundary-rubric.schema.json": {
+  "schema_version": "atlas-boundary-rubric/v1",
+  "rubric_version": "1.0.0",
+  "boundary_version": "1.0.0",
+  "criteria": [
+   {
+    "id": "substantive_forum",
+    "kind": "core_inclusion",
+    "text": "In-scope forum."
+   },
+   {
+    "id": "authoritative_instrument_exists",
+    "kind": "instrument",
+    "text": "Primary instrument exists."
+   },
+   {
+    "id": "primary_accessible",
+    "kind": "accessibility",
+    "text": "Instrument lawfully observable."
+   },
+   {
+    "id": "press_without_primary",
+    "kind": "exclusion",
+    "text": "Press only."
+   }
+  ]
  }
 }
