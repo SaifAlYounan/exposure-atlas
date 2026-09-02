@@ -1,0 +1,73 @@
+# TRIAGE-001 boundary rubric v1 — the approved substantive boundary
+# (config/boundaries/v1.yaml, boundary_version 1.0.0, approval D-003)
+# encoded as a structured checklist. Each criterion returns
+# met/not_met/uncertain/not_applicable with supporting anchors; the outcome
+# is reconstructed deterministically by packages/python/atlas/triage.py.
+schema_version: atlas-boundary-rubric/v1
+rubric_version: 1.0.0
+boundary_version: 1.0.0
+
+criteria:
+  # --- core inclusion: all must be met for an include ---
+  - id: substantive_forum
+    kind: core_inclusion
+    text: >
+      The proceeding is before a declared in-scope forum — a US federal
+      court, the FTC, or another court/tribunal/arbitral body/regulator
+      within the approved forum list.
+  - id: proceeding_type
+    kind: core_inclusion
+    text: >
+      The proceeding is one of the included types: civil litigation,
+      regulatory enforcement, or administrative proceeding.
+  - id: date_in_window
+    kind: core_inclusion
+    text: "The proceeding falls within the date window (on/after 2015-01-01)."
+  - id: organisational_nexus
+    kind: core_inclusion
+    text: >
+      A named organisation (not solely a private individual) whose
+      development, deployment, procurement or representation of an AI
+      system is material to the proceeding.
+  - id: ai_nexus
+    kind: core_inclusion
+    text: >
+      The AI system's behavior, output, marketing or governance is a
+      subject of the claim, defence, finding, order or announced action —
+      not merely an incidental tool used by counsel.
+
+  # --- gating: govern routing to include / awaiting_primary ---
+  - id: authoritative_instrument_exists
+    kind: instrument
+    text: >
+      An authoritative primary instrument exists (order, decision,
+      settlement instrument, approving order, or published award).
+  - id: primary_accessible
+    kind: accessibility
+    text: >
+      The authoritative primary instrument is lawfully observable — not
+      sealed, confidential, or paywalled-only.
+
+  # --- routing signal: announced formal investigation without an instrument ---
+  - id: announced_formal_investigation
+    kind: investigation_signal
+    text: >
+      A formal investigation has been publicly announced but no
+      authoritative primary instrument exists yet.
+
+  # --- exclusions: any one met forces exclude ---
+  - id: press_without_primary
+    kind: exclusion
+    text: "Press coverage without a primary instrument."
+  - id: commentary_only
+    kind: exclusion
+    text: "Academic or policy commentary only."
+  - id: legislation_without_enforcement
+    kind: exclusion
+    text: "Legislation or rulemaking without an enforcement action."
+  - id: ai_incidental_only
+    kind: exclusion
+    text: "AI is only incidentally mentioned in the proceeding."
+  - id: purely_private_dispute
+    kind: exclusion
+    text: "A purely private individual dispute without organisational nexus."
