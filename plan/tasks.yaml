@@ -2106,7 +2106,16 @@ tasks:
   evidence_paths:
   - plan/evidence.jsonl
   rollback: discard_task_worktree
-  status: pending
+  status: in_progress
+  notes: 'G2: exact identity resolution (packages/python/atlas/identity.py +
+    docs/id/identity-resolution.md) on the existing record-identity /
+    record-relationship schemas. Matter-level ids (authoritative_id > docket_id >
+    neutral_citation) establish identity; artifact_hash is document-level only.
+    Exact match idempotent; deterministic order-independent record_id; aliases
+    attach without changing it; conflicting ids raise IdentityConflict (typed
+    reversible RecordRelationship, never destructive merge); a shared source
+    document never unifies matters. No model calls, no live fetch. ID-002 (fuzzy)
+    separate.'
 - schema_version: atlas-task/v2.2
   id: ID-002
   epic: ID-002
