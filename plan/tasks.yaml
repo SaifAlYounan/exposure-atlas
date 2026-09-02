@@ -2147,7 +2147,15 @@ tasks:
   evidence_paths:
   - plan/evidence.jsonl
   rollback: discard_task_worktree
-  status: pending
+  status: in_progress
+  notes: 'G2: fuzzy match proposals (packages/python/atlas/fuzzy.py + docs/id/
+    fuzzy-match.md) on the existing identity-match-proposal schema. Normalized
+    name/forum/date/title -> advisory IdentityMatchProposal (match_kind=fuzzy) with
+    features + rule_version (fuzzy-rules/v1) + decimal-string score (floats
+    forbidden); PROPOSE_THRESHOLD gate. Never auto-merges: proposing is read-only,
+    an incorrect proposal cannot mutate identity; acceptance applies only as a
+    reversible RecordRelationship. No model calls, no live fetch; model-scored
+    variants are A2.'
 - schema_version: atlas-task/v2.2
   id: TRIAGE-001
   epic: TRIAGE-001
