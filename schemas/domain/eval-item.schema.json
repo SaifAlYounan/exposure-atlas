@@ -1,0 +1,171 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "https://exposure-atlas.invalid/schemas/domain/eval-item.schema.json",
+ "title": "EvaluationItem (EVAL-000)",
+ "description": "One evaluation item bound to a stage and a partition. Blinded calibration/held-out items require the operator's initial label commit before any model votes are revealed; a later same-operator reconsideration is retained separately and is not dual adjudication.",
+ "type": "object",
+ "required": [
+  "schema_version",
+  "item_id",
+  "stage",
+  "partition",
+  "governance_version",
+  "blinded",
+  "expected"
+ ],
+ "properties": {
+  "schema_version": {
+   "const": "atlas-eval-item/v1"
+  },
+  "item_id": {
+   "type": "string",
+   "pattern": "^evi_[0-9a-f]{12}$"
+  },
+  "stage": {
+   "enum": [
+    "discovery",
+    "boundary",
+    "extraction",
+    "identity",
+    "classification",
+    "monitoring",
+    "end_to_end"
+   ]
+  },
+  "partition": {
+   "enum": [
+    "examples",
+    "development",
+    "calibration",
+    "held_out"
+   ]
+  },
+  "governance_version": {
+   "type": "string",
+   "pattern": "^\\d+\\.\\d+\\.\\d+$"
+  },
+  "source_snapshot": {
+   "type": "string",
+   "minLength": 1
+  },
+  "matter_ref": {
+   "type": "string",
+   "minLength": 1
+  },
+  "blinded": {
+   "type": "boolean"
+  },
+  "label_commit": {
+   "type": "object",
+   "required": [
+    "committed_by",
+    "committed_at",
+    "initial_label"
+   ],
+   "properties": {
+    "committed_by": {
+     "const": "Alexios"
+    },
+    "committed_at": {
+     "type": "string",
+     "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?(Z|[+-]\\d{2}:\\d{2})$"
+    },
+    "initial_label": {
+     "type": "string",
+     "minLength": 1
+    }
+   },
+   "unevaluatedProperties": false
+  },
+  "votes_revealed_at": {
+   "anyOf": [
+    {
+     "type": "string",
+     "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?(Z|[+-]\\d{2}:\\d{2})$"
+    },
+    {
+     "type": "null"
+    }
+   ]
+  },
+  "reconsideration": {
+   "type": "object",
+   "required": [
+    "reconsidered_by",
+    "reconsidered_at",
+    "label",
+    "retained_separately"
+   ],
+   "properties": {
+    "reconsidered_by": {
+     "const": "Alexios"
+    },
+    "reconsidered_at": {
+     "type": "string",
+     "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?(Z|[+-]\\d{2}:\\d{2})$"
+    },
+    "label": {
+     "type": "string",
+     "minLength": 1
+    },
+    "retained_separately": {
+     "const": true
+    },
+    "note": {
+     "type": "string"
+    }
+   },
+   "unevaluatedProperties": false
+  },
+  "expected": {
+   "type": "object"
+  }
+ },
+ "allOf": [
+  {
+   "if": {
+    "properties": {
+     "blinded": {
+      "const": true
+     }
+    }
+   },
+   "then": {
+    "required": [
+     "label_commit",
+     "votes_revealed_at"
+    ]
+   }
+  },
+  {
+   "if": {
+    "properties": {
+     "stage": {
+      "const": "end_to_end"
+     }
+    }
+   },
+   "then": {
+    "properties": {
+     "expected": {
+      "type": "object",
+      "required": [
+       "disposition"
+      ],
+      "properties": {
+       "disposition": {
+        "enum": [
+         "publish",
+         "abstain",
+         "exclude",
+         "await_primary"
+        ]
+       }
+      }
+     }
+    }
+   }
+  }
+ ],
+ "unevaluatedProperties": false
+}

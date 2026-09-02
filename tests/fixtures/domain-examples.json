@@ -519,5 +519,170 @@
   "updated_observations": 0,
   "failures": [],
   "below_expected_band": false
+ },
+ "eval-governance.schema.json": {
+  "schema_version": "atlas-eval-governance/v1",
+  "governance_version": "1.0.0",
+  "frozen_at": "2026-09-02T05:00:00Z",
+  "stages": [
+   "discovery",
+   "boundary",
+   "extraction",
+   "identity",
+   "classification",
+   "monitoring",
+   "end_to_end"
+  ],
+  "partitions": [
+   "examples",
+   "development",
+   "calibration",
+   "held_out"
+  ],
+  "partition_assignment": {
+   "method": "sha256_bucket",
+   "salt": "atlas-eval-000-partition-v1",
+   "one_time": true,
+   "weights": {
+    "examples": 15,
+    "development": 45,
+    "calibration": 20,
+    "held_out": 20
+   }
+  },
+  "holdout_access": {
+   "holdout_partition": "held_out",
+   "runtime_can_read_labels": false,
+   "answer_key_location": "operator-controlled store, outside the runtime read path",
+   "access_controls": [
+    "runtime and release credentials denied read on held-out answer keys"
+   ]
+  },
+  "single_adjudicator": {
+   "operator_id": "Alexios",
+   "disclosed": true,
+   "model_counts_as_second_human": false,
+   "note": "Single human adjudicator; model agreement is not a second human."
+  },
+  "self_certification": {
+   "authors_may_self_certify": false,
+   "requires": [
+    "operator_frozen_labels",
+    "operator_gate_decision"
+   ]
+  },
+  "underpowered_disposition": "review_only",
+  "stage_metrics": [
+   {
+    "stage": "discovery",
+    "metrics": [
+     "recall_at_snapshot"
+    ],
+    "error_severity": [
+     {
+      "code": "missed_eligible_matter",
+      "severity": "critical"
+     }
+    ],
+    "min_items_supported": 30
+   },
+   {
+    "stage": "boundary",
+    "metrics": [
+     "criterion_accuracy"
+    ],
+    "error_severity": [
+     {
+      "code": "wrong_include",
+      "severity": "critical"
+     }
+    ],
+    "min_items_supported": 30
+   },
+   {
+    "stage": "extraction",
+    "metrics": [
+     "proposition_precision"
+    ],
+    "error_severity": [
+     {
+      "code": "fabricated_proposition",
+      "severity": "critical"
+     }
+    ],
+    "min_items_supported": 30
+   },
+   {
+    "stage": "identity",
+    "metrics": [
+     "exact_match_accuracy"
+    ],
+    "error_severity": [
+     {
+      "code": "false_identity_merge",
+      "severity": "critical"
+     }
+    ],
+    "min_items_supported": 30
+   },
+   {
+    "stage": "classification",
+    "metrics": [
+     "label_precision"
+    ],
+    "error_severity": [
+     {
+      "code": "wrong_label",
+      "severity": "major"
+     }
+    ],
+    "min_items_supported": 30
+   },
+   {
+    "stage": "monitoring",
+    "metrics": [
+     "change_detection_recall"
+    ],
+    "error_severity": [
+     {
+      "code": "missed_material_change",
+      "severity": "critical"
+     }
+    ],
+    "min_items_supported": 30
+   },
+   {
+    "stage": "end_to_end",
+    "metrics": [
+     "disposition_accuracy"
+    ],
+    "error_severity": [
+     {
+      "code": "wrong_publish",
+      "severity": "critical"
+     }
+    ],
+    "min_items_supported": 30
+   }
+  ]
+ },
+ "eval-item.schema.json": {
+  "schema_version": "atlas-eval-item/v1",
+  "item_id": "evi_0123456789ab",
+  "stage": "end_to_end",
+  "partition": "held_out",
+  "governance_version": "1.0.0",
+  "source_snapshot": "ftc-2026-09-01",
+  "matter_ref": "ftc/example-matter",
+  "blinded": true,
+  "label_commit": {
+   "committed_by": "Alexios",
+   "committed_at": "2026-09-02T05:10:00Z",
+   "initial_label": "publish"
+  },
+  "votes_revealed_at": "2026-09-02T06:00:00Z",
+  "expected": {
+   "disposition": "publish"
+  }
  }
 }

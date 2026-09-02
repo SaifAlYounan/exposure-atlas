@@ -1913,8 +1913,16 @@ tasks:
   evidence_paths:
   - plan/evidence.jsonl
   rollback: discard_task_worktree
-  status: pending
-  notes: 'A-001.2 rewrite: HAR-006-03 dep -> HAR-005'
+  status: in_progress
+  notes: 'A-001.2 rewrite: HAR-006-03 dep -> HAR-005. G2 root: frozen evaluation
+    governance (config/eval/governance.yaml + eval-governance/eval-item schemas +
+    packages/python/atlas/evalgov.py + docs/eval/eval-governance.md). One-time
+    deterministic partition assignment; runtime/release/builder denied held-out
+    labels; blinded label-commit-before-votes + separate reconsideration; 7 stage
+    item types; pre-registered metrics/severity; underpowered slices -> review_only;
+    authors cannot self-certify (operator frozen labels + gate decision required).
+    No model calls, no live fetch. Operator label commitment + G2 gate decision
+    remain outstanding.'
 - schema_version: atlas-task/v2.2
   id: SRC-004
   epic: SRC-004
