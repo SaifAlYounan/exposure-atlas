@@ -1,0 +1,122 @@
+schema_version: atlas-eval-governance/v1
+governance_version: 1.0.0
+frozen_at: "2026-09-02T05:00:00Z"
+
+# The seven evaluation stages (SPEC EVAL-000). One item type per stage is
+# defined by eval-item.schema.json.
+stages:
+  - discovery
+  - boundary
+  - extraction
+  - identity
+  - classification
+  - monitoring
+  - end_to_end
+
+# Physical/access separation: examples (freely shown), development (used to
+# build prompts/rubrics), calibration (blinded, operator-committed labels),
+# held_out (blinded answer keys; never readable by runtime credentials).
+partitions:
+  - examples
+  - development
+  - calibration
+  - held_out
+
+# One-time, deterministic partition assignment. An item's partition is a
+# stable function of its key + salt, so re-running assignment can never move
+# an item between partitions (no leakage of held-out into development).
+partition_assignment:
+  method: sha256_bucket
+  salt: "atlas-eval-000-partition-v1"
+  one_time: true
+  weights:
+    examples: 15
+    development: 45
+    calibration: 20
+    held_out: 20
+
+# Held-out access control: runtime credentials cannot read held-out labels or
+# answer keys. The answer keys live outside any path a runtime worker or the
+# release bot can read.
+holdout_access:
+  holdout_partition: held_out
+  runtime_can_read_labels: false
+  answer_key_location: "operator-controlled store, outside the runtime read path (not in repo, not in job payloads)"
+  access_controls:
+    - "runtime and release credentials are denied read on the held-out answer keys"
+    - "held-out labels are committed by the operator and revealed only after model votes"
+    - "the builder never receives held-out answer keys"
+
+# Single-adjudicator limitation (disclosed): one human (Alexios). No model or
+# separate model family counts as a second human.
+single_adjudicator:
+  operator_id: Alexios
+  disclosed: true
+  model_counts_as_second_human: false
+  note: >-
+    Alexios is the sole human adjudicator for the pilot. Agreement among
+    models never substitutes for a second human and never satisfies a G2
+    operator decision (SPEC 8.7 / EVAL-000).
+
+# Prompt/rubric authors cannot self-certify G2; certification requires the
+# operator's frozen labels AND the operator's gate decision.
+self_certification:
+  authors_may_self_certify: false
+  requires:
+    - operator_frozen_labels
+    - operator_gate_decision
+
+# Underpowered slices are marked review_only (not silently pooled into an
+# aggregate reliability claim).
+underpowered_disposition: review_only
+
+# Pre-registered stage metrics and error severity, frozen before prompt/model
+# development. min_items_supported is the minimum adjudicated items a slice
+# needs before it may back a supported (non-review_only) claim.
+stage_metrics:
+  - stage: discovery
+    metrics: [recall_at_snapshot, precision, false_exclusion_rate]
+    error_severity:
+      - {code: missed_eligible_matter, severity: critical}
+      - {code: included_ineligible_matter, severity: major}
+    min_items_supported: 30
+  - stage: boundary
+    metrics: [criterion_accuracy, uncertain_rate, false_include_rate]
+    error_severity:
+      - {code: wrong_include, severity: critical}
+      - {code: wrong_exclude, severity: major}
+      - {code: unsupported_uncertain, severity: minor}
+    min_items_supported: 30
+  - stage: extraction
+    metrics: [proposition_precision, proposition_recall, anchor_validity, modality_accuracy]
+    error_severity:
+      - {code: fabricated_proposition, severity: critical}
+      - {code: wrong_anchor, severity: major}
+      - {code: modality_error, severity: major}
+      - {code: missed_proposition, severity: minor}
+    min_items_supported: 30
+  - stage: identity
+    metrics: [exact_match_accuracy, false_merge_rate, link_correctness]
+    error_severity:
+      - {code: false_identity_merge, severity: critical}
+      - {code: missed_relationship, severity: major}
+    min_items_supported: 30
+  - stage: classification
+    metrics: [label_precision, label_recall, abstention_correctness]
+    error_severity:
+      - {code: wrong_label, severity: major}
+      - {code: missing_abstention, severity: minor}
+    min_items_supported: 30
+  - stage: monitoring
+    metrics: [change_detection_recall, false_change_rate, detection_latency]
+    error_severity:
+      - {code: missed_material_change, severity: critical}
+      - {code: false_change_alert, severity: minor}
+    min_items_supported: 30
+  - stage: end_to_end
+    metrics: [disposition_accuracy, wrong_publish_rate, wrong_abstain_rate]
+    error_severity:
+      - {code: wrong_publish, severity: critical}
+      - {code: wrong_exclude, severity: major}
+      - {code: wrong_abstain, severity: minor}
+    min_items_supported: 30
