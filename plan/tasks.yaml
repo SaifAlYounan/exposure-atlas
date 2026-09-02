@@ -2694,7 +2694,15 @@ tasks:
   evidence_paths:
   - plan/evidence.jsonl
   rollback: discard_task_worktree
-  status: pending
+  status: in_progress
+  notes: 'G2: review-task builder / decision cards (packages/python/atlas/review_card.py
+    + schemas/domain/review-card.schema.json + docs/review/decision-cards.md). One
+    bounded question per card; source-derived assertions require anchor support and
+    derived edits require accepted parents + transform_version; OCR/superseded
+    warnings always surfaced (no suppress switch); classification edits require a
+    taxonomy_rationale not source anchors; channel_safe_summary never leaks restricted
+    content (authenticated view only); model votes reject chain-of-thought and cap
+    rationale length. No model calls, no live fetch.'
 - schema_version: atlas-task/v2.2
   id: REV-003
   epic: REV-003

@@ -711,5 +711,106 @@
     "text": "Press only."
    }
   ]
+ },
+ "review-card.schema.json": {
+  "schema_version": "atlas-review-card/v1",
+  "card_id": "rvc_0123456789ab",
+  "task_id": "rvt_0123456789ab",
+  "question": "Include this FTC matter in the Atlas?",
+  "requested_decision": "boundary_include",
+  "proposed_answer": "include",
+  "alternatives": [
+   "exclude",
+   "awaiting_primary"
+  ],
+  "issuer": {
+   "authority_role": "issuer_direct",
+   "name": "US FTC"
+  },
+  "source_version_id": "srcv_abc123",
+  "rights_state": "internal_only",
+  "security_state": "clean",
+  "restricted": false,
+  "canonical": {
+   "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+   "anchors": [
+    "anc_1",
+    "anc_2"
+   ]
+  },
+  "assertions": [
+   {
+    "assertion_ref": "asp_1",
+    "kind": "source_derived",
+    "modality": "finding",
+    "attribution": "FTC order",
+    "support": [
+     "anc_1"
+    ]
+   },
+   {
+    "assertion_ref": "asp_2",
+    "kind": "derived",
+    "modality": "normalized",
+    "attribution": "derived",
+    "derivation": {
+     "parent_assertion_ids": [
+      "asp_1"
+     ],
+     "transform_version": "t/v1"
+    }
+   }
+  ],
+  "classifications": [
+   {
+    "labels": [
+     "deceptive_ai_claims"
+    ],
+    "taxonomy_version": "1.0.0",
+    "is_edit": true,
+    "taxonomy_rationale": "matches deceptive-claims criteria"
+   }
+  ],
+  "model_votes": [
+   {
+    "assessor": "baseline",
+    "result": "include",
+    "rationale": "AI marketing claims are the subject of the order."
+   }
+  ],
+  "boundary_ref": {
+   "boundary_version": "1.0.0",
+   "proposal_ids": [
+    "bpr_1"
+   ]
+  },
+  "verifier_results": [
+   {
+    "check": "anchors_resolve",
+    "result": "pass"
+   }
+  ],
+  "duplicates": [
+   "cnd_dupe00000001"
+  ],
+  "diff_summary": "new record",
+  "options": [
+   {
+    "option": "include",
+    "consequences": {
+     "publication": "eligible on rights clearance",
+     "freshness": "fresh",
+     "downstream": "creates record"
+    }
+   }
+  ],
+  "warnings": [
+   {
+    "kind": "ocr",
+    "detail": "OCR-derived text; verify against source render."
+   }
+  ],
+  "restrictive_default": "human_review",
+  "expiry": "2026-09-09T09:00:00Z"
  }
 }
