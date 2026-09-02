@@ -2652,7 +2652,15 @@ tasks:
   evidence_paths:
   - plan/evidence.jsonl
   rollback: discard_task_worktree
-  status: pending
+  status: in_progress
+  notes: 'G2: review queue model + priorities (packages/python/atlas/review_queue.py
+    + docs/review/queue-model.md) on the existing review-task schema. 7 queues; P0
+    emergency / P1 same-day / P2-P3 weekly paths; every task has expiry + restrictive
+    default (hold/exclude/human_review/defer) and no accepting default is allowed;
+    expire_unanswered resolves to the restrictive default, never acceptance/publish;
+    by-queue metrics (arrivals/exits/age/handling/reason-codes); backpressure pauses
+    low-priority intake (new_candidates/migration) while preserving P0/P1. No model
+    calls, no live fetch.'
 - schema_version: atlas-task/v2.2
   id: REV-002
   epic: REV-002
