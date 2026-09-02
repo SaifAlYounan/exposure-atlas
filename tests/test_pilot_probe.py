@@ -168,6 +168,67 @@ def test_cl_auth_header_scoped_to_cl_hosts_only(monkeypatch):
     assert mod._cl_auth_header(ftc) == {}
 
 
+def _load_run_probe(name):
+    import importlib.util
+    import pathlib as _pl
+    spec = importlib.util.spec_from_file_location(
+        name, _pl.Path(__file__).resolve().parent.parent / "tools" / "run_probe.py")
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
+
+
+def _http_error(code, retry_after=None):
+    import email.message
+    import urllib.error
+    hdrs = email.message.Message()
+    if retry_after is not None:
+        hdrs["Retry-After"] = retry_after
+    return urllib.error.HTTPError("https://www.courtlistener.com/x", code,
+                                  "err", hdrs, None)
+
+
+def test_retry_after_seconds_parses_delta_and_missing():
+    """SRC-FIND-04: honor a numeric Retry-After; tolerate a missing one."""
+    mod = _load_run_probe("run_probe_ra")
+    assert mod._retry_after_seconds(_http_error(429, "7")) == 7.0
+    assert mod._retry_after_seconds(_http_error(429, None)) is None
+    assert mod._retry_after_seconds(_http_error(429, "garbage")) is None
+
+
+def test_fetch_polite_retries_429_then_succeeds(monkeypatch):
+    """SRC-FIND-04: _fetch_polite retries on 429 (honoring Retry-After via a
+    no-op sleep seam) and returns once the call succeeds; non-429 propagates."""
+    mod = _load_run_probe("run_probe_fp")
+    slept = []
+    monkeypatch.setattr(mod, "_SLEEP", lambda s: slept.append(s))
+    calls = {"n": 0}
+
+    def fake_fetch(url, hosts, timeout=30, extra_headers=None):
+        calls["n"] += 1
+        if calls["n"] < 3:
+            raise _http_error(429, "1")
+        return b'{"results": []}', {"status": 200, "final_url": url}
+
+    monkeypatch.setattr(mod, "_fetch", fake_fetch)
+    data, meta = mod._fetch_polite("https://www.courtlistener.com/api", ["www.courtlistener.com"])
+    assert meta["status"] == 200 and calls["n"] == 3
+    assert slept == [1.0, 1.0]  # honored Retry-After: 1s before each retry
+
+    # a non-429 HTTPError is not retried — it propagates immediately
+    calls["n"] = 0
+
+    def fetch_500(url, hosts, timeout=30, extra_headers=None):
+        calls["n"] += 1
+        raise _http_error(500)
+
+    monkeypatch.setattr(mod, "_fetch", fetch_500)
+    import pytest as _pt
+    with _pt.raises(Exception):
+        mod._fetch_polite("https://www.courtlistener.com/api", ["www.courtlistener.com"])
+    assert calls["n"] == 1  # no retry on 500
+
+
 def test_run_probe_main_always_writes_summary(tmp_path, monkeypatch):
     import importlib.util
     import pathlib as _pl

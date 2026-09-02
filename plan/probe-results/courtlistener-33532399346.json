@@ -1,0 +1,106 @@
+{
+ "source_id": "courtlistener_recap",
+ "max_docs": 10,
+ "query_id": "q_courtlistener_ai_opinions",
+ "query_version": "1.0.0",
+ "leads_discovered": 10,
+ "documents": [
+  {
+   "candidate_id": "cnd_e163040a6a38da34",
+   "lead_id": "cl-4757780",
+   "url": "https://www.courtlistener.com/opinion/4757780/electronic-privacy-information-center-v-national-security-commission-on/",
+   "authenticated": true,
+   "http_status": 200,
+   "content_field": "plain_text",
+   "copy_provenance_state": "unverified",
+   "canonical_sha256": "0da89011156dbb41f5ab7b615336c754f7deedad7e71c32a43cdc3a285303a98",
+   "canonical_len": 77105
+  },
+  {
+   "candidate_id": "cnd_2d826408573db598",
+   "lead_id": "cl-10601317",
+   "url": "https://www.courtlistener.com/opinion/10601317/in-re-creation-of-arkansas-supreme-court-administrative-order-no-25/",
+   "authenticated": true,
+   "http_status": 200,
+   "content_field": "plain_text",
+   "copy_provenance_state": "unverified",
+   "canonical_sha256": "2393198d5219b7c9987dc16ea81b585d0e584318a8d4bfd96650225709a1eb06",
+   "canonical_len": 3962
+  },
+  {
+   "candidate_id": "cnd_b6968340c34fa878",
+   "lead_id": "cl-4683687",
+   "url": "https://www.courtlistener.com/opinion/4683687/electronic-privacy-information-center-v-national-security-commission-on/",
+   "authenticated": true,
+   "http_status": 200,
+   "content_field": "plain_text",
+   "copy_provenance_state": "unverified",
+   "canonical_sha256": "258b66d47d4680e5f0f142f46d38720aef074bd02845dee167c869a039872635",
+   "canonical_len": 49017
+  },
+  {
+   "candidate_id": "cnd_f5080c7c21fd7222",
+   "lead_id": "cl-10753381",
+   "url": "https://www.courtlistener.com/opinion/10753381/in-re-adoption-of-arkansas-supreme-court-administrative-order-no-25/",
+   "authenticated": true,
+   "http_status": 200,
+   "content_field": "plain_text",
+   "copy_provenance_state": "unverified",
+   "canonical_sha256": "0d96fe88a3706146510c44c84b0ecadcdae800cce4a28c03bff5980403d70152",
+   "canonical_len": 3426
+  },
+  {
+   "candidate_id": "cnd_59c9eb711ec468fa",
+   "lead_id": "cl-1933074",
+   "url": "https://www.courtlistener.com/opinion/1933074/artificial-intelligence-corp-v-casey-in-re-casey/",
+   "error": "HTTPError: HTTP Error 429: Too Many Requests"
+  },
+  {
+   "candidate_id": "cnd_db0c01368e3dc173",
+   "lead_id": "cl-1925615",
+   "url": "https://www.courtlistener.com/opinion/1925615/artificial-intelligence-corp-v-casey-in-re-casey/",
+   "error": "HTTPError: HTTP Error 429: Too Many Requests"
+  },
+  {
+   "candidate_id": "cnd_08a6112265480255",
+   "lead_id": "cl-10795792",
+   "url": "https://www.courtlistener.com/opinion/10795792/in-re-addition-of-a-new-rule-to-the-rules-of-the-court-of-criminal-appeals/",
+   "error": "HTTPError: HTTP Error 429: Too Many Requests"
+  },
+  {
+   "candidate_id": "cnd_c07402b99e2861ec",
+   "lead_id": "cl-2000137",
+   "url": "https://www.courtlistener.com/opinion/2000137/audre-recognition-systems-inc-v-casey-in-re-audre-inc/",
+   "error": "HTTPError: HTTP Error 429: Too Many Requests"
+  },
+  {
+   "candidate_id": "cnd_422127a77ffdf097",
+   "lead_id": "cl-2661729",
+   "url": "https://www.courtlistener.com/opinion/2661729/marino-v-central-intelligence-agency/",
+   "error": "HTTPError: HTTP Error 429: Too Many Requests"
+  },
+  {
+   "candidate_id": "cnd_4dada6c8fc660439",
+   "lead_id": "cl-4528285",
+   "url": "https://www.courtlistener.com/opinion/4528285/national-security-counselors-v-central-intelligence-agency/",
+   "error": "HTTPError: HTTP Error 429: Too Many Requests"
+  }
+ ],
+ "errors": [],
+ "discovery_run": {
+  "schema_version": "atlas-discovery-run/v1",
+  "run_id": "33532399346",
+  "source_id": "courtlistener_recap",
+  "query_id": "q_courtlistener_ai_opinions",
+  "query_version": "1.0.0",
+  "window_from": null,
+  "window_to": null,
+  "started_at": "2026-09-01T16:34:11+00:00",
+  "coverage_state": "complete",
+  "leads_seen": 10,
+  "new_candidates": 10,
+  "updated_observations": 0,
+  "failures": [],
+  "below_expected_band": false
+ }
+}
