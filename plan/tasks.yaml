@@ -2736,7 +2736,19 @@ tasks:
   evidence_paths:
   - plan/evidence.jsonl
   rollback: discard_task_worktree
-  status: pending
+  status: in_progress
+  notes: 'G2: authenticated reviewer-action decision core (packages/python/atlas/
+    reviewer_actions.py + docs/review/reviewer-actions.md) on the existing
+    review-decision schema. Session auth/expiry/CSRF (WebAuthn binds at service
+    layer via injected Session); assistant never a reviewer; 4 logical roles with
+    separate decision types (earlier decision never satisfies a later rights/policy/
+    release decision); nonce replay rejected; idempotency-safe retries; optimistic
+    locking blocks stale/concurrent overwrite; edited fact needs valid
+    support/derivation before approve; cooling-period confirmation (later calendar
+    day + fresh diff) for material/boundary/rubric/source-policy/rights-policy
+    changes; no bulk approval for sensitive classes. Immutable ReviewDecision records
+    actor/role/input-version/time/reason + output version. No model calls, no live
+    fetch.'
 - schema_version: atlas-task/v2.2
   id: REV-004
   epic: REV-004
