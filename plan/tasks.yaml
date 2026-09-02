@@ -2824,7 +2824,17 @@ tasks:
   evidence_paths:
   - plan/evidence.jsonl
   rollback: discard_task_worktree
-  status: pending
+  status: in_progress
+  notes: 'G2: workload calibration (packages/python/atlas/calibration.py +
+    docs/review/calibration.md). Per-card-type median/p95 handling + edit/deferral
+    rates; available_review_minutes reserves 60-90 min; enforced_caps keeps the SPEC
+    0.2 initial caps (240/25/12/3) until 3 real packs + an operator-approved
+    revision; throttle_discovery implements the 0.2 rule-7 triggers; demand_response
+    pauses low-value discovery/migration before ever changing evidence gates;
+    operator_unavailable_mode freezes decisions/releases while monitoring stays
+    active and degraded states visible; single-operator delayed re-review labeled
+    intra_rater_reliability and never inter-reviewer agreement. Ops metrics only (no
+    persisted schema); no model calls, no live fetch.'
 - schema_version: atlas-task/v2.2
   id: MIG-001
   epic: MIG-001
