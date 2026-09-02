@@ -2907,7 +2907,19 @@ tasks:
   evidence_paths:
   - plan/evidence.jsonl
   rollback: discard_task_worktree
-  status: pending
+  status: in_progress
+  notes: 'G2: idempotent importer + migration ledger (packages/python/atlas/
+    migration.py + docs/migration/importer.md) on the existing
+    migration-ledger-entry schema. Stable record id from fixed namespace +
+    normalized (NFC/casefold/whitespace) legacy id; re-import identical
+    input/config -> no new id or diff; original payload + hash retrievable;
+    secondary-only stays awaiting_primary/quarantined; every entry
+    verification_migration_state=legacy_unverified and never citable
+    (citable_entries excludes them); merge selects a surviving id + reversible
+    consolidated_with relationship + redirects (never recomputes the id); split
+    ids deterministic from legacy id + split-decision + ordinal; unicode/case and
+    legacy-slug redirects resolve. No model calls, no live fetch. MIG-003 pilot is
+    A2.'
 - schema_version: atlas-task/v2.2
   id: MIG-003
   epic: MIG-003
