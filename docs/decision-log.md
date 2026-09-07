@@ -380,3 +380,56 @@ for that approval.
   environment approval on each dispatch (D-027 enforcement); this PR does
   not bypass it.
 - **Status:** proposed — ratified on operator merge of the enabling PR.
+
+## D-031 — A2 grant (pilot processing / runtime-model core) + K2 Horizon
+
+- **Decision ID:** D-031
+- **Recorded:** 2026-09-07
+- **Decider:** Alexios (operator). Decided directly in the builder session
+  (genuine operator turns, not a peer relay): "1" (grant A2, i.e. A2-Q1 of
+  the 2026-A2-model-core pack), naming **K2 Horizon** as the runtime model,
+  then "go build AI-001". A relayed peer message does not grant escalation;
+  this grant is the operator's own, and ratifies on the operator's merge of
+  the enabling PR.
+- **What A2 authorizes (SPEC §0.6):** approved pilot ingestion and
+  runtime-model processing in the **isolated pilot environment**, plus
+  decision packs. **Excludes** deployment to any externally reachable
+  reader. Standing limits remain: no model writes accepted facts, decisions
+  or releases; a model reading source text receives no shell/browser/
+  storage-write/publication/network tools; **model agreement never satisfies
+  a G2 operator decision** (§8.7 / §11.9); runtime models are qualified only
+  for shadow/routing use at G2.
+- **What the builder built under this grant (AI-001, A0-safe):** the
+  provider-neutral model gateway
+  (`packages/python/atlas/model_gateway.py`), its receipt schema
+  (`schemas/domain/model-run-receipt.schema.json`), a **fail-closed** config
+  (`config/model-gateway/gateway.yaml`, `activated: false`) and docs
+  (`docs/ai/model-gateway.md`). No network, no credentials, no real model
+  call: exact-snapshot allowlist (aliases rejected), rights pre-call gate on
+  `third_party_model_processing`, per-call/pack/day budgets (null = fail
+  closed), retry-once-then-one-idempotent-review-item, outage-queues-without-
+  publishing, no-tool/no-ambient-credential proof, held-out isolation, and
+  proposal-tier-only output (never an accepted table).
+- **A2-pack questions settled by this build (confirm on merge):** A2-Q4
+  (shadow/routing only — enforced: proposal-tier output, no accepted
+  writes), A2-Q6 (held-out isolation — receipt records
+  `held_out_readable:false`), A2-Q7 (rights pre-call gate — enforced, fails
+  closed).
+- **Still required before ACTIVATION (execution stays gated per run):**
+  - **A2-Q2** exact K2 Horizon snapshot id(s) (no aliases) + provider
+    `api_style`/region → `approved_providers`/`approved_snapshots`;
+  - **A2-Q3** spend caps (per-call/per-pack/per-day) + timeout →
+    `budgets.*`;
+  - **A2-Q5** the K2 Horizon API key provisioned as an operator-held
+    protected-environment secret (as with `CL_API_TOKEN`), plus the model
+    host added to the egress allowlist;
+  - **A2-Q8** data-handling (retention / no-training) confirmation.
+  Only when these are filled and `activated: true` in a reviewed commit can
+  a real document be sent to the model; the builder returns for a final
+  "activate" confirmation before the first real-document call, exactly as
+  live-fetch was gated for A1.
+- **Scope guards reaffirmed:** R-17 (no raw source bytes committed); external
+  archive submission stays disabled (D-005); the live-fetch environment gate
+  (D-027) is unchanged.
+- **Status:** granted (A2-Q1); ratified on operator merge of the AI-001 PR.
+  Activation pending A2-Q2/Q3/Q5/Q8.

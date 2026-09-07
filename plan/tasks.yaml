@@ -2234,8 +2234,21 @@ tasks:
   evidence_paths:
   - plan/evidence.jsonl
   rollback: discard_task_worktree
-  status: pending
-  notes: Runtime model calls require A2 scope; build/fixture work is A0
+  status: in_progress
+  notes: 'G2/A0: provider-neutral runtime-model gateway
+    (packages/python/atlas/model_gateway.py) + receipt schema
+    (schemas/domain/model-run-receipt.schema.json) + fail-closed config
+    (config/model-gateway/gateway.yaml, activated=false) +
+    docs/ai/model-gateway.md. Exact-snapshot allowlist (aliases rejected);
+    provider allowlist; rights pre-call gate on third_party_model_processing
+    (fail closed); per-call/pack/day budgets (null=fail closed);
+    retry-once-then-one-idempotent-review-item; model outage queues an
+    idempotent job without publishing; no-tool/no-ambient-credential proof
+    (ToolLeak on any leak); held-out isolation; proposal-tier output only
+    (never writes an accepted table). No network, credentials or real model
+    call: building the gateway is A0, real calls need A2 activation (D-031).
+    Activation still pending A2-Q2/Q3/Q5/Q8 (exact K2 Horizon snapshot,
+    spend caps, key-as-secret, data-handling).'
 - schema_version: atlas-task/v2.2
   id: AI-002
   epic: AI-002
