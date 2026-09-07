@@ -812,5 +812,43 @@
   ],
   "restrictive_default": "human_review",
   "expiry": "2026-09-09T09:00:00Z"
+ },
+ "model-run-receipt.schema.json": {
+  "schema_version": "atlas-model-run-receipt/v1",
+  "receipt_id": "mrr_abc123def456",
+  "run_id": "run-1",
+  "stage": "classification_proposal",
+  "output_tier": "proposal",
+  "provider": "k2-horizon",
+  "model_id": "k2-horizon-2026-09-01",
+  "input_hashes": {
+   "source_version": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  },
+  "prompt_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "params_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "prompt_version": "cls-prompt/v1",
+  "rubric_version": "taxonomy/v1",
+  "code_commit": "abcdef1",
+  "rights_decision_ids": [
+   "rgt_abcd1234"
+  ],
+  "no_tool_proof": {
+   "tools_offered": 0,
+   "tool_calls_observed": 0,
+   "ambient_credentials_exposed": false
+  },
+  "held_out_isolation": {
+   "held_out_readable": false
+  },
+  "token_cost": {
+   "input_tokens": 1200,
+   "output_tokens": 300,
+   "cost_usd": "0.0450",
+   "currency": "USD"
+  },
+  "attempts": 1,
+  "started_at": "2026-09-05T12:00:00Z",
+  "finished_at": "2026-09-05T12:00:03Z",
+  "output_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
  }
 }

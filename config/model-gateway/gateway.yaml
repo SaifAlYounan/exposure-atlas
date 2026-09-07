@@ -1,0 +1,55 @@
+# Provider-neutral runtime-model gateway configuration (AI-001).
+#
+# FAIL-CLOSED. While `activated` is false, or an approved-snapshot /
+# budget field is null/empty, the gateway refuses every real call and
+# raises rather than guessing. Building the gateway is A0; making a real
+# runtime-model call on a real document is A2 and is gated per run exactly
+# as live-fetch was for A1.
+#
+# The A2 decision (D-031) grants the pilot-processing scope. Activation
+# still requires the operator to fill the four inputs below and flip
+# `activated` to true in a reviewed commit:
+#   1. approved_providers[].id + exact snapshot id(s) in approved_snapshots
+#      (NO aliases — 'latest'/'newest'/'stable'/'current'/'default' and any
+#      *-latest form are rejected by the gateway, SPEC 0.1.16 / 5).
+#   2. budgets.* spend caps and timeout (null => fail closed).
+#   3. the provider API key provisioned as an operator-held protected-
+#      environment secret (as with CL_API_TOKEN) — never pasted in config.
+#   4. data-handling confirmation (retention / no-training) per provider.
+schema_version: atlas-gateway-config/v1
+
+# Master switch. A2 activation flips this to true in a reviewed commit.
+activated: false
+
+# Approved providers. Each needs region + retention posture so the pre-call
+# gate can check them. Empty => no provider approved => fail closed.
+# The operator's chosen runtime model is "K2 Horizon"; its provider row and
+# EXACT snapshot id are added here on activation (endpoint shape, e.g.
+# OpenAI-compatible, recorded in `api_style`).
+approved_providers: []
+#  - id: k2-horizon
+#    api_style: openai_compatible   # to be confirmed by operator
+#    region: null                   # operator to specify
+#    retention: null                # e.g. zero_retention / no_training
+#    key_secret_name: null          # protected-environment secret name only
+
+# Exact model snapshot identifiers permitted for runtime use. Aliases are
+# forbidden. Empty => fail closed. Example shape only (NOT a live value):
+#   approved_snapshots: ["k2-horizon-2026-09-01"]
+approved_snapshots: []
+
+# Budgets / timeouts / retry. Null spend caps or timeout => fail closed.
+budgets:
+  currency: USD
+  per_call_usd_cap: null
+  per_pack_usd_cap: null
+  per_day_usd_cap: null
+  timeout_s: null
+  # Invalid retriable output retries at most once, then a review item is
+  # created (SPEC AI-001 acceptance). This ceiling is not operator-tunable
+  # upward without a spec change.
+  max_retries: 1
+
+# Hard input ceiling (bytes of the assembled request payload). Over-limit
+# payloads fail closed rather than being silently truncated.
+max_request_bytes: 1048576

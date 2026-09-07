@@ -15,8 +15,15 @@ grants:
     effective_precondition: "D-024 (design accepted) + D-025 (R1 controls set) + confinement self-test green — ALL MET"
     live_execution_gate: "D-027: operator 'activate' confirmation + protected live-fetch environment review required before any live fetch"
     expiry: "30 days from first live probe (D-021)"
+  - level: A2
+    decision_id: D-031
+    effective: false   # granted in principle; NOT yet the current_level
+    scope: "Pilot processing: approved pilot ingestion + runtime-model processing in the isolated pilot environment; decision packs. Excludes any externally reachable reader. Model output is proposal-only; model agreement never satisfies a G2 decision."
+    effective_precondition: "A2-Q2 (exact K2 Horizon snapshot id + provider) + A2-Q3 (spend caps + timeout) + A2-Q5 (API key as protected-environment secret + egress allowlist) + A2-Q8 (data-handling) all set, AND config/model-gateway/gateway.yaml activated:true in a reviewed commit — NONE MET YET"
+    live_execution_gate: "operator 'activate' confirmation required before the first real-document model call, exactly as D-027 gated live-fetch"
+    expiry: null
 forbidden_reminders:
-  - runtime_model_calls_on_real_documents   # A2, ungranted
+  - runtime_model_calls_on_real_documents   # A2 granted in principle (D-031) but NOT yet effective — gateway fail-closed (activated:false); still forbidden until activation preconditions are met
   - deployment
   - publication
   - external_archive_submission             # disabled (D-005)
